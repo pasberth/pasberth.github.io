@@ -1,5 +1,5 @@
 $(BUILDDIR)/img: $(BUILDDIR) $(glob *.png)
-    mkdir $(BUILDDIR)/img
+    mkdir -p $(BUILDDIR)/img
     cp $(glob *.png) $(BUILDDIR)/img
 
 build: $(BUILDDIR)/img

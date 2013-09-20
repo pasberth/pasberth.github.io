@@ -2,16 +2,16 @@ $(BUILDDIR):
     mkdir -p $(BUILDDIR)
 
 $(BUILDDIR)/css: $(BUILDDIR)
-    mkdir $(BUILDDIR)/css
+    mkdir -p $(BUILDDIR)/css
 
 $(BUILDDIR)/js: $(BUILDDIR)
-    mkdir $(BUILDDIR)/js
+    mkdir -p $(BUILDDIR)/js
 
 $(BUILDDIR)/lib: $(BUILDDIR)
-    mkdir $(BUILDDIR)/lib
+    mkdir -p $(BUILDDIR)/lib
 
 $(BUILDDIR)/coffee: $(BUILDDIR)
-    mkdir $(BUILDDIR)/coffee
+    mkdir -p $(BUILDDIR)/coffee
 
 clean: build
     rmdir $(BUILDDIR)/css
