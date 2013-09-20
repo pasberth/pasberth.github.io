@@ -53,7 +53,6 @@
 
 #main > section > img {
     width: 128px;
-    height: 128px;
-
+    height: auto;
     float: right;
 }
