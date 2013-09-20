@@ -3,12 +3,14 @@
 
     width: 40%;
     margin: 24px;
-    padding-top: auto;
+    padding-top: 32px;
     padding-right: auto;
     padding-left: auto;
     padding-bottom: 32px;
     float: left;
 
+    border-top-left-radius: 96px 32px;
+    border-top-right-radius: 96px 32px;
     border-bottom-left-radius: 96px 32px;
     border-bottom-right-radius: 96px 32px;
 }
