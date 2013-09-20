@@ -1,4 +1,4 @@
-BUILDDIR = build
+BUILDDIR = dist
 
 # IDRLIBDIR -- $ omake IDRLIBDIR=`idris --libdir`
 

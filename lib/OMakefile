@@ -1,6 +1,7 @@
-build:
-    mkdir -p $(BUILDDIR)/lib
+$(BUILDDIR)/lib/jquery-2.0.3.js: $(BUILDDIR)/lib jquery-2.0.3.js
     cp jquery-2.0.3.js $(BUILDDIR)/lib/jquery-2.0.3.js
 
-clean:
-    rm -f $(BUILDDIR)/lib/jquery-2.0.3.js
+build: $(BUILDDIR)/lib/jquery-2.0.3.js
+
+clean: build
+    rm $(BUILDDIR)/lib/jquery-2.0.3.js

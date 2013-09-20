@@ -1,14 +1,22 @@
-build:
+$(BUILDDIR):
     mkdir -p $(BUILDDIR)
-    mkdir -p $(BUILDDIR)/js
-    mkdir -p $(BUILDDIR)/css
-    mkdir -p $(BUILDDIR)/lib
-    mkdir -p $(BUILDDIR)/img
 
-clean:
-    rmdir $(BUILDDIR)/coffee
-    rmdir $(BUILDDIR)/js
+$(BUILDDIR)/css: $(BUILDDIR)
+    mkdir $(BUILDDIR)/css
+
+$(BUILDDIR)/js: $(BUILDDIR)
+    mkdir $(BUILDDIR)/js
+
+$(BUILDDIR)/lib: $(BUILDDIR)
+    mkdir $(BUILDDIR)/lib
+
+$(BUILDDIR)/coffee: $(BUILDDIR)
+    mkdir $(BUILDDIR)/coffee
+
+clean: build
     rmdir $(BUILDDIR)/css
+    rmdir $(BUILDDIR)/js
     rmdir $(BUILDDIR)/lib
+    rmdir $(BUILDDIR)/coffee
     rmdir $(BUILDDIR)/img
     rmdir $(BUILDDIR)

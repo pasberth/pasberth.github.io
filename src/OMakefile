@@ -1,22 +1,41 @@
-build:
-    mkdir -p $(BUILDDIR)
-    mkdir -p $(BUILDDIR)/css
-    mkdir -p $(BUILDDIR)/coffee
+$(BUILDDIR)/index.html: $(BUILDDIR) index.html.erb
     env X=30 Y=30 erb index.html.erb > $(BUILDDIR)/index.html
-    env X=30 Y=30 erb lifegame.css.erb > $(BUILDDIR)/css/lifegame.css
-    cp lifegame-ball.css $(BUILDDIR)/css/lifegame-ball.css
-    cp lifegame-ring.css $(BUILDDIR)/css/lifegame-ring.css
-    cp lifegame-major.css $(BUILDDIR)/css/lifegame-major.css
+
+$(BUILDDIR)/css/main.css: $(BUILDDIR)/css main.css
     cp main.css $(BUILDDIR)/css/main.css
+
+$(BUILDDIR)/css/lifegame.css: $(BUILDDIR)/css lifegame.css.erb
+    env X=30 Y=30 erb lifegame.css.erb > $(BUILDDIR)/css/lifegame.css
+
+$(BUILDDIR)/css/lifegame-ball.css: $(BUILDDIR)/css lifegame-ball.css
+    cp lifegame-ball.css $(BUILDDIR)/css
+
+$(BUILDDIR)/css/lifegame-ring.css: $(BUILDDIR)/css lifegame-ring.css
+    cp lifegame-ring.css $(BUILDDIR)/css
+
+$(BUILDDIR)/css/lifegame-major.css: $(BUILDDIR)/css lifegame-major.css
+    cp lifegame-major.css $(BUILDDIR)/css
+
+$(BUILDDIR)/coffee/index.coffee: $(BUILDDIR)/coffee index.coffee.erb
     env X=30 Y=30 erb index.coffee.erb > $(BUILDDIR)/coffee/index.coffee
+
+$(BUILDDIR)/js/index.js: $(BUILDDIR)/js $(BUILDDIR)/coffee/index.coffee
     coffee -o $(BUILDDIR)/js -c $(BUILDDIR)/coffee/index.coffee
 
-clean:
-    rm -f $(BUILDDIR)/index.html
-    rm -f $(BUILDDIR)/css/lifegame.css
-    rm -f $(BUILDDIR)/css/lifegame-ball.css
-    rm -f $(BUILDDIR)/css/lifegame-ring.css
-    rm -f $(BUILDDIR)/css/lifegame-major.css
-    rm -f $(BUILDDIR)/css/main.css
-    rm -f $(BUILDDIR)/js/index.js
-    rm -f $(BUILDDIR)/coffee/index.coffee
+build: $(BUILDDIR)/index.html \
+       $(BUILDDIR)/css/main.css \
+       $(BUILDDIR)/css/lifegame.css \
+       $(BUILDDIR)/css/lifegame-ball.css \
+       $(BUILDDIR)/css/lifegame-ring.css \
+       $(BUILDDIR)/css/lifegame-major.css \
+       $(BUILDDIR)/js/index.js
+
+clean: build
+    rm $(BUILDDIR)/index.html
+    rm $(BUILDDIR)/css/main.css
+    rm $(BUILDDIR)/css/lifegame.css
+    rm $(BUILDDIR)/css/lifegame-ball.css
+    rm $(BUILDDIR)/css/lifegame-ring.css
+    rm $(BUILDDIR)/css/lifegame-major.css
+    rm $(BUILDDIR)/js/index.js
+    rm $(BUILDDIR)/coffee/index.coffee

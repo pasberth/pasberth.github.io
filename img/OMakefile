@@ -1,6 +1,7 @@
-build:
-    mkdir -p $(BUILDDIR)/img
+$(BUILDDIR)/img: $(BUILDDIR) $(glob *.png)
+    mkdir $(BUILDDIR)/img
     cp $(glob *.png) $(BUILDDIR)/img
 
-clean:
-    rm -f $(glob $(BUILDDIR)/img/*.png)
+build: $(BUILDDIR)/img
+clean: build
+    rm $(glob $(BUILDDIR)/img/*.png)
