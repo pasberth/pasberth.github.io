@@ -1,6 +1,6 @@
 #lifegame {
-    width: 2400px;
-    height: 2400px;
+    width: <%= ENV["X"].to_i * 80 %>px;
+    height: <%= ENV["Y"].to_i * 80 %>px;
     margin: 0;
     padding: 0;
     position: fixed;
@@ -15,6 +15,37 @@
     position: absolute;
     left:     <%= i * 80 %>px;
     top:      <%= j * 80 %>px;
+}
+  <% end %>
+<% end %>
+
+.lifegame-control-live {
+    background-color: black;
+    width: 6px;
+    height: 6px;
+}
+
+.lifegame-control-dead {
+    background-color: white;
+    width: 6px;
+    height: 6px;
+}
+
+#lifegame-control {
+    width: <%= ENV["X"].to_i * 6 %>px;
+    height: <%= ENV["Y"].to_i * 6 %>px;
+    position: relative;
+    margin: 0;
+    padding: 0;
+}
+
+<% for i in ENV["X"].to_i.times %>
+  <% for j in ENV["Y"].to_i.times %>
+
+#lifegame-control-<%= i %>-<%= j %> {
+    position: absolute;
+    left:     <%= i * 6 %>px;
+    top:      <%= j * 6 %>px;
 }
   <% end %>
 <% end %>

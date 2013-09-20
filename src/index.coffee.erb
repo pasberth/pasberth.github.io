@@ -41,17 +41,49 @@ INITIAL_PATTERNS = [
     [15, 12]
     [16, 12] ] ]
 
+LifeGameControlHTML = ""
+LifeGameControlHTML += '<section class="content">'
+LifeGameControlHTML += '<header><h1 class="content-title">Life Game</h1></header>'
+LifeGameControlHTML += '<div id="lifegame-control">'
+LifeGameControlHTML += '<% for i in ENV["X"].to_i.times %><% for j in ENV["Y"].to_i.times %><div id="lifegame-control-<%= i %>-<%= j %>"></div><% end %><% end %>'
+LifeGameControlHTML += '</div>'
+LifeGameControlHTML += '</section>'
+
+
 jQuery ($) ->
+    $("#contents").after LifeGameControlHTML
 
+    for i in [ 0 .. <%= ENV["X"].to_i - 1 %> ]
+        for j in [ 0 .. <%= ENV["Y"].to_i - 1 %> ]
+            fn = ((lifeGameId, lifeGameControlId) -> () ->
+                      $(lifeGameId).attr("isLive", "true").removeClass("lifegame-live lifegame-dead").addClass("lifegame-born")
+                      $(lifeGameControlId).removeClass("lifegame-control-dead").addClass("lifegame-control-live")) "#lifegame-#{i}-#{j}", "#lifegame-control-#{i}-#{j}"
+            $("#lifegame-control-#{i}-#{j}").mouseover(fn)
+
+jQuery ($) ->
     css = CSS_PATTERNS[parseInt(Math.random() * CSS_PATTERNS.length)]
-
     $("head").append "<link rel='stylesheet' type='text/css' href='#{css}' />"
 
+jQuery ($) ->
     initialPattern = INITIAL_PATTERNS[parseInt(Math.random() * INITIAL_PATTERNS.length)]
+    for index in initialPattern
+        i = index[0]
+        j = index[1]
+        $("#lifegame-#{i}-#{j}").attr("isLive", "true").addClass("lifegame-live")
+        $("#lifegame-control-#{i}-#{j}").addClass "lifegame-control-live"
+
+jQuery ($) ->
     cellList = []
-    whenBorn = (cell) -> $(cell).attr("isLive", "true").removeClass("lifegame-dead").addClass("lifegame-born")
-    whenLive = (cell) -> $(cell).removeClass("lifegame-born").addClass("lifegame-live")
-    whenDead = (cell) -> $(cell).attr("isLive", "false").removeClass("lifegame-live lifegame-born").addClass("lifegame-dead")
+    whenBorn = (cell) ->
+        $(cell).attr("isLive", "true").removeClass("lifegame-dead").addClass("lifegame-born")
+        $(cell.replace "lifegame", "lifegame-control").removeClass("lifegame-control-dead").addClass("lifegame-control-live")
+    whenLive = (cell) ->
+        $(cell).removeClass("lifegame-born").addClass("lifegame-live")
+        $(cell.replace "lifegame", "lifegame-control").removeClass("lifegame-control-dead").addClass("lifegame-control-live")
+    whenDead = (cell) ->
+        $(cell).attr("isLive", "false").removeClass("lifegame-live lifegame-born").addClass("lifegame-dead")
+        console.log (cell.replace "lifegame", "lifegame-control")
+        $(cell.replace "lifegame", "lifegame-control").removeClass("lifegame-control-live").addClass("lifegame-control-dead")
 
     for i in [ 0 .. <%= ENV["X"].to_i - 1 %> ]
         for j in [ 0 .. <%= ENV["Y"].to_i - 1 %> ]
@@ -70,11 +102,6 @@ jQuery ($) ->
                 whenBorn,
                 whenLive,
                 whenDead))
-
-    for index in initialPattern
-        i = index[0]
-        j = index[1]
-        $("#lifegame-#{i}-#{j}").attr("isLive", "true").addClass("lifegame-live")
 
     lifeGame = new LifeGame.LifeGame(cellList)
     setInterval((() -> LifeGame.update(lifeGame)), 200.0)
