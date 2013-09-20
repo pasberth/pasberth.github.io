@@ -72,9 +72,9 @@ jQuery ($) ->
                 whenDead))
 
     for index in initialPattern
-      i = index[0]
-      j = index[1]
-      $("#lifegame-#{i}-#{j}").attr("isLive", "true").addClass("lifegame-live")
+        i = index[0]
+        j = index[1]
+        $("#lifegame-#{i}-#{j}").attr("isLive", "true").addClass("lifegame-live")
 
     lifeGame = new LifeGame.LifeGame(cellList)
     setInterval((() -> LifeGame.update(lifeGame)), 200.0)
