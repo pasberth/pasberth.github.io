@@ -1,0 +1,8 @@
+build:
+    mkdir -p $(BUILDDIR)/js
+    mkdir -p $(BUILDDIR)/css
+    # idris lifegame.idr --codegen javascript -i $(IDRLIBDIR)javascript -i $(IDRLIBDIR)jquery -o $(BUILDDIR)/js/lifegame.js
+    coffee -o $(BUILDDIR)/js -c lifegame.coffee > $(BUILDDIR)/js/lifegame.js
+
+clean:
+    rm -f $(BUILDDIR)/js/lifegame.js
