@@ -1,0 +1,16 @@
+build:
+    mkdir -p $(BUILDDIR)
+    mkdir -p $(BUILDDIR)/css
+    mkdir -p $(BUILDDIR)/coffee
+    env X=30 Y=30 erb index.html.erb > $(BUILDDIR)/index.html
+    env X=30 Y=30 erb lifegame.css.erb > $(BUILDDIR)/css/lifegame.css
+    cp main.css $(BUILDDIR)/css/main.css
+    env X=30 Y=30 erb index.coffee.erb > $(BUILDDIR)/coffee/index.coffee
+    coffee -o $(BUILDDIR)/js -c $(BUILDDIR)/coffee/index.coffee
+
+clean:
+    rm -f $(BUILDDIR)/index.html
+    rm -f $(BUILDDIR)/css/lifegame.css
+    rm -f $(BUILDDIR)/css/main.css
+    rm -f $(BUILDDIR)/js/index.js
+    rm -f $(BUILDDIR)/coffee/index.coffee
