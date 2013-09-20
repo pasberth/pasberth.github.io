@@ -69,7 +69,7 @@ jQuery ($) ->
     for index in initialPattern
         i = index[0]
         j = index[1]
-        $("#lifegame-#{i}-#{j}").attr("isLive", "true").addClass("lifegame-live")
+        $("#lifegame-#{i}-#{j}").attr("isLive", "true").removeClass("lifegame-dead").addClass("lifegame-live")
         $("#lifegame-control-#{i}-#{j}").addClass "lifegame-control-live"
 
 jQuery ($) ->
