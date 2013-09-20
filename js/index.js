@@ -35,7 +35,7 @@
               return $(lifeGameControlId).removeClass("lifegame-control-dead").addClass("lifegame-control-live");
             };
           })("#lifegame-" + i + "-" + j, "#lifegame-control-" + i + "-" + j);
-          _results1.push($("#lifegame-control-" + i + "-" + j).mouseover(fn));
+          _results1.push($("#lifegame-control-" + i + "-" + j).mousemove(fn));
         }
         return _results1;
       })());
@@ -57,7 +57,7 @@
       index = initialPattern[_i];
       i = index[0];
       j = index[1];
-      $("#lifegame-" + i + "-" + j).attr("isLive", "true").addClass("lifegame-live");
+      $("#lifegame-" + i + "-" + j).attr("isLive", "true").removeClass("lifegame-dead").addClass("lifegame-live");
       _results.push($("#lifegame-control-" + i + "-" + j).addClass("lifegame-control-live"));
     }
     return _results;

@@ -58,7 +58,7 @@ jQuery ($) ->
             fn = ((lifeGameId, lifeGameControlId) -> () ->
                       $(lifeGameId).attr("isLive", "true").removeClass("lifegame-live lifegame-dead").addClass("lifegame-born")
                       $(lifeGameControlId).removeClass("lifegame-control-dead").addClass("lifegame-control-live")) "#lifegame-#{i}-#{j}", "#lifegame-control-#{i}-#{j}"
-            $("#lifegame-control-#{i}-#{j}").mouseover(fn)
+            $("#lifegame-control-#{i}-#{j}").mousemove(fn)
 
 jQuery ($) ->
     css = CSS_PATTERNS[parseInt(Math.random() * CSS_PATTERNS.length)]
@@ -69,7 +69,7 @@ jQuery ($) ->
     for index in initialPattern
         i = index[0]
         j = index[1]
-        $("#lifegame-#{i}-#{j}").attr("isLive", "true").addClass("lifegame-live")
+        $("#lifegame-#{i}-#{j}").attr("isLive", "true").removeClass("lifegame-dead").addClass("lifegame-live")
         $("#lifegame-control-#{i}-#{j}").addClass "lifegame-control-live"
 
 jQuery ($) ->
