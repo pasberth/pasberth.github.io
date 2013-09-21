@@ -1,0 +1,51 @@
+.lifegame-born, .lifegame-live, .lifegame-dead {
+    width: 80px;
+    height: 80px;
+    margin: 0;
+    padding: 0;
+
+    border-top-left-radius: 0 0;
+    border-top-right-radius: 0 0;
+    border-bottom-left-radius: 0 0;
+    border-bottom-right-radius: 0 0;
+}
+
+.lifegame-born {
+    background-color: aliceblue;
+
+    border-style: solid;
+    border-color: skyblue;
+    border-width: 8px;
+}
+
+.lifegame-live {
+    background-color: azure;
+
+    border-style: solid;
+    border-color: skyblue;
+    border-width: 8px;
+}
+
+.lifegame-dead {
+    background-color: white;
+}
+
+.lifegame-control-live, .lifegame-control-dead {
+    width: 5px;
+    height: 5px;
+    margin: 0;
+    padding: 0;
+
+    border-top-left-radius: 0 0;
+    border-top-right-radius: 0 0;
+    border-bottom-left-radius: 0 0;
+    border-bottom-right-radius: 0 0;
+}
+
+.lifegame-control-live {
+    background-color: aliceblue;
+
+    border-style: solid;
+    border-color: skyblue;
+    border-width: 1px;
+}
