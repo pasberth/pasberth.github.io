@@ -16,9 +16,12 @@ $(BUILDDIR)/css/lifegame-ring.css: $(BUILDDIR)/css lifegame-ring.css
 $(BUILDDIR)/css/lifegame-classic.css: $(BUILDDIR)/css lifegame-classic.css
     cp lifegame-classic.css $(BUILDDIR)/css
 
-$(BUILDDIR)/usercss: lifegame-ball.css lifegame-ring.css lifegame-classic.css
+$(BUILDDIR)/css/lifegame-skyblue.css: $(BUILDDIR)/css lifegame-skyblue.css
+    cp lifegame-skyblue.css $(BUILDDIR)/css
+
+$(BUILDDIR)/usercss: lifegame-ball.css lifegame-ring.css lifegame-classic.css lifegame-skyblue.css
     mkdir -p $(BUILDDIR)/usercss
-    foreach (css, lifegame-ball.css lifegame-ring.css lifegame-classic.css)
+    foreach (css, lifegame-ball.css lifegame-ring.css lifegame-classic.css lifegame-skyblue.css)
         sed "s/;/ !important;/" $(css) > $(BUILDDIR)/usercss/$(css)
 
 $(BUILDDIR)/coffee/index.coffee: $(BUILDDIR)/coffee index.coffee.erb
@@ -33,6 +36,7 @@ build: $(BUILDDIR)/index.html \
        $(BUILDDIR)/css/lifegame-ball.css \
        $(BUILDDIR)/css/lifegame-ring.css \
        $(BUILDDIR)/css/lifegame-classic.css \
+       $(BUILDDIR)/css/lifegame-skyblue.css \
        $(BUILDDIR)/usercss \
        $(BUILDDIR)/js/index.js
 
@@ -43,6 +47,7 @@ clean: build
     rm $(BUILDDIR)/css/lifegame-ball.css
     rm $(BUILDDIR)/css/lifegame-ring.css
     rm $(BUILDDIR)/css/lifegame-classic.css
+    rm $(BUILDDIR)/css/lifegame-skyblue.css
     rm $(BUILDDIR)/usercss/lifegame-ball.css
     rm $(BUILDDIR)/usercss/lifegame-ring.css
     rm $(BUILDDIR)/usercss/lifegame-classic.css
