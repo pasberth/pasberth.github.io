@@ -10,6 +10,10 @@ LIFEGAME_INIT[] =
   index/lifegame-init/nebula
   index/lifegame-init/pulsar
   index/lifegame-init/pentadecathlon
+  index/lifegame-init/r-pentomino1
+  index/lifegame-init/r-pentomino2
+  index/lifegame-init/r-pentomino3
+  index/lifegame-init/r-pentomino4
 
 $(BUILDDIR)/index.html: $(BUILDDIR) main.html index.html.erb
     env X=30 Y=30 erb index.html.erb > $(BUILDDIR)/index.html
