@@ -2,7 +2,7 @@
 (function() {
   var CSS_PATTERNS, INITIAL_PATTERNS, LifeGameControlHTML;
 
-  CSS_PATTERNS = ["css/lifegame-ball.css", "css/lifegame-ring.css", "css/lifegame-major.css"];
+  CSS_PATTERNS = ["css/lifegame-ball.css", "css/lifegame-ring.css", "css/lifegame-classic.css"];
 
   INITIAL_PATTERNS = [[[10, 10], [11, 10], [11, 11], [12, 11], [11, 12]], [[11, 16], [13, 16], [13, 15], [15, 14], [15, 13], [15, 12], [17, 13], [17, 12], [17, 11], [18, 12]], [[10, 10], [11, 10], [12, 10], [14, 10], [10, 11], [13, 12], [14, 12], [11, 13], [12, 13], [14, 13], [10, 14], [12, 14], [14, 14]], [[11, 10], [13, 11], [10, 12], [11, 12], [14, 12], [15, 12], [16, 12]]];
 

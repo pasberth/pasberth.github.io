@@ -1,7 +1,7 @@
 CSS_PATTERNS = [
   "css/lifegame-ball.css"
   "css/lifegame-ring.css"
-  "css/lifegame-major.css"
+  "css/lifegame-classic.css"
 ]
 
 INITIAL_PATTERNS = [

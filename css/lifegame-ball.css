@@ -36,3 +36,19 @@
     border-bottom-left-radius: 32px 32px;
     border-bottom-right-radius: 32px 32px;
 }
+
+.lifegame-control-live {
+    background-color: black;
+    width: 6px;
+    height: 6px;
+    border-top-left-radius: 3px 3px;
+    border-top-right-radius: 3px 3px;
+    border-bottom-left-radius: 3px 3px;
+    border-bottom-right-radius: 3px 3px;
+}
+
+.lifegame-control-dead {
+    background-color: white;
+    width: 6px;
+    height: 6px;
+}

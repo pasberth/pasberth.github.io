@@ -6370,18 +6370,6 @@
   
 
 
-.lifegame-control-live {
-    background-color: black;
-    width: 6px;
-    height: 6px;
-}
-
-.lifegame-control-dead {
-    background-color: white;
-    width: 6px;
-    height: 6px;
-}
-
 #lifegame-control {
     width: 180px;
     height: 180px;
