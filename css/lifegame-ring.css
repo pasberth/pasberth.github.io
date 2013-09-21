@@ -1,13 +1,8 @@
-.lifegame-born {
-    background-color: white;
+.lifegame-born, .lifegame-live, .lifegame-dead {
     width: 48px;
     height: 48px;
     margin: 0;
     padding: 0;
-
-    border-color: gray;
-    border-style: solid;
-    border-width: 8px;
 
     border-top-left-radius: 32px 32px;
     border-top-right-radius: 32px 32px;
@@ -15,52 +10,40 @@
     border-bottom-right-radius: 32px 32px;
 }
 
-.lifegame-live {
+.lifegame-born, .lifegame-live {
     background-color: white;
-    width: 48px;
-    height: 48px;
-    margin: 0;
-    padding: 0;
-
     border-color: gray;
     border-style: solid;
     border-width: 8px;
-
-    border-top-left-radius: 32px 32px;
-    border-top-right-radius: 32px 32px;
-    border-bottom-left-radius: 32px 32px;
-    border-bottom-right-radius: 32px 32px;
 }
 
 .lifegame-dead {
+    border-style: none;
     background-color: white;
-    width: 64px;
-    height: 64px;
+}
+
+
+.lifegame-control-live, .lifegame-control-dead {
+    width: 4px;
+    height: 4px;
     margin: 0;
     padding: 0;
 
-    border-top-left-radius: 32px 32px;
-    border-top-right-radius: 32px 32px;
-    border-bottom-left-radius: 32px 32px;
-    border-bottom-right-radius: 32px 32px;
-}
-
-.lifegame-control-live {
-    background-color: white;
-    width: 4px;
-    height: 4px;
-
-    border-color: black;
-    border-style: solid;
-    border-width: 1px;
-
+    border-style: none;
     border-top-left-radius: 3px 3px;
     border-top-right-radius: 3px 3px;
     border-bottom-left-radius: 3px 3px;
     border-bottom-right-radius: 3px 3px;
 }
 
+.lifegame-control-live {
+    background-color: white;
+
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+}
+
 .lifegame-control-dead {
-    width: 6px;
-    height: 6px;
+    background-color: white;
 }

@@ -1,0 +1,51 @@
+@namespace url(http://www.w3.org/1999/xhtml);
+@-moz-document domain("pasberth.github.io") {
+.lifegame-born, .lifegame-live, .lifegame-dead {
+    width: 16px !important;
+    height: 16px !important;
+    margin: 32px !important;
+    padding: 0 !important;
+
+    border-style: none !important;
+    border-top-left-radius: 0 0 !important;
+    border-top-right-radius: 0 0 !important;
+    border-bottom-left-radius: 0 0 !important;
+    border-bottom-right-radius: 0 0 !important;
+}
+
+.lifegame-born {
+    background-color: lime !important;
+}
+
+.lifegame-live {
+    background-color: lightgreen !important;
+}
+
+.lifegame-dead {
+    background-color: white !important;
+}
+
+.lifegame-control-live, .lifegame-control-dead {
+    width: 6px !important;
+    height: 6px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border-style: solid !important;
+    border-color: black !important;
+    border-width: 1px !important;
+    border-top-left-radius: 0 0 !important;
+    border-top-right-radius: 0 0 !important;
+    border-bottom-left-radius: 0 0 !important;
+    border-bottom-right-radius: 0 0 !important;
+}
+
+.lifegame-control-live {
+    background-color: lime !important;
+}
+
+.lifegame-control-dead {
+    background-color: black !important;
+}
+
+}
