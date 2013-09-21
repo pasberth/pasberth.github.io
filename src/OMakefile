@@ -20,10 +20,10 @@ $(BUILDDIR)/css: $(LIFEGAME_CSS)
     foreach (css, $(LIFEGAME_CSS))
         cp $(css) $(BUILDDIR)/css
 
-$(BUILDDIR)/usercss: $(LIFEGAME_CSS)
+$(BUILDDIR)/usercss: $(LIFEGAME_CSS) usercss.erb
     mkdir -p $(BUILDDIR)/usercss
     foreach (css, $(LIFEGAME_CSS))
-        sed "s/;/ !important;/" $(css) > $(BUILDDIR)/usercss/$(css)
+        env CSS=$(css) erb usercss.erb > $(BUILDDIR)/usercss/$(css)
 
 $(BUILDDIR)/coffee/index.coffee: $(BUILDDIR)/coffee index.coffee.erb
     env X=30 Y=30 LIFEGAME_CSS=$(concat :, $(LIFEGAME_CSS)) erb index.coffee.erb > $(BUILDDIR)/coffee/index.coffee
