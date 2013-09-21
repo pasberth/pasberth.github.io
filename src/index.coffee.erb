@@ -1,9 +1,4 @@
-CSS_PATTERNS = [
-  "css/lifegame-ball.css"
-  "css/lifegame-ring.css"
-  "css/lifegame-classic.css"
-  "css/lifegame-skyblue.css"
-]
+CSS_PATTERNS = [ <%= ENV["LIFEGAME_CSS"].split(':').map(&:inspect).join "," %> ]
 
 INITIAL_PATTERNS = [
   [ [10, 10]
@@ -63,7 +58,7 @@ jQuery ($) ->
 
 jQuery ($) ->
     css = CSS_PATTERNS[parseInt(Math.random() * CSS_PATTERNS.length)]
-    $("head").append "<link rel='stylesheet' type='text/css' href='#{css}' />"
+    $("head").append "<link rel='stylesheet' type='text/css' href='css/#{css}' />"
 
 jQuery ($) ->
     initialPattern = INITIAL_PATTERNS[parseInt(Math.random() * INITIAL_PATTERNS.length)]

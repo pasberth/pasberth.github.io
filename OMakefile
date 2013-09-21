@@ -1,9 +1,6 @@
 $(BUILDDIR):
     mkdir -p $(BUILDDIR)
 
-$(BUILDDIR)/css: $(BUILDDIR)
-    mkdir -p $(BUILDDIR)/css
-
 $(BUILDDIR)/js: $(BUILDDIR)
     mkdir -p $(BUILDDIR)/js
 
