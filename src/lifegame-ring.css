@@ -18,16 +18,18 @@
 }
 
 .lifegame-dead {
+    border-style: none;
     background-color: white;
 }
 
 
 .lifegame-control-live, .lifegame-control-dead {
-    background-color: white;
-
     width: 4px;
     height: 4px;
+    margin: 0;
+    padding: 0;
 
+    border-style: none;
     border-top-left-radius: 3px 3px;
     border-top-right-radius: 3px 3px;
     border-bottom-left-radius: 3px 3px;
@@ -35,9 +37,13 @@
 }
 
 .lifegame-control-live {
+    background-color: white;
+
     border-color: black;
     border-style: solid;
     border-width: 1px;
 }
 
-.lifegame-control-dead {}
+.lifegame-control-dead {
+    background-color: white;
+}

@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
 
+    border-style: none;
     border-top-left-radius: 0 0;
     border-top-right-radius: 0 0;
     border-bottom-left-radius: 0 0;
@@ -21,6 +22,14 @@
 .lifegame-control-live, .lifegame-control-dead {
     width: 6px;
     height: 6px;
+    margin: 0;
+    padding: 0;
+
+    border-style: none;
+    border-top-left-radius: 0 0;
+    border-top-right-radius: 0 0;
+    border-bottom-left-radius: 0 0;
+    border-bottom-right-radius: 0 0;
 }
 
 .lifegame-control-live {
