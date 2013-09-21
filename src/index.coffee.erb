@@ -41,7 +41,7 @@ LifeGameControlHTML = ""
 LifeGameControlHTML += '<section class="content">'
 LifeGameControlHTML += '<header><h1 class="content-title">Life Game</h1></header>'
 LifeGameControlHTML += '<div id="lifegame-control">'
-LifeGameControlHTML += '<% for i in ENV["X"].to_i.times %><% for j in ENV["Y"].to_i.times %><div id="lifegame-control-<%= i %>-<%= j %>"></div><% end %><% end %>'
+LifeGameControlHTML += '<% for i in ENV["X"].to_i.times %><% for j in ENV["Y"].to_i.times %><div id="lifegame-control-<%= i %>-<%= j %>" class="lifegame-control-dead"></div><% end %><% end %>'
 LifeGameControlHTML += '</div>'
 LifeGameControlHTML += '</section>'
 
