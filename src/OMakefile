@@ -3,6 +3,7 @@ LIFEGAME_CSS[] =
   lifegame-ring.css
   lifegame-classic.css
   lifegame-skyblue.css
+  lifegame-tile.css
   lifegame-hacker.css
   lifegame-alice-margatroid.css
 
