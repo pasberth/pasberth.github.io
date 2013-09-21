@@ -1,6 +1,6 @@
 .lifegame-born, .lifegame-live, .lifegame-dead {
-    width: 64px;
-    height: 64px;
+    width: 80px;
+    height: 80px;
     margin: 0;
     padding: 0;
 
@@ -10,20 +10,18 @@
     border-bottom-right-radius: 0 0;
 }
 
-.lifegame-born {
-    background-color: aliceblue;
-
+.lifegame-born, .lifegame-live {
     border-style: solid;
     border-color: skyblue;
     border-width: 8px;
 }
 
+.lifegame-born {
+    background-color: aliceblue;
+}
+
 .lifegame-live {
     background-color: azure;
-
-    border-style: solid;
-    border-color: skyblue;
-    border-width: 8px;
 }
 
 .lifegame-dead {
