@@ -2,7 +2,7 @@
 (function() {
   var CSS_PATTERNS, INITIAL_PATTERNS, LifeGameControlHTML;
 
-  CSS_PATTERNS = ["lifegame-ball.css", "lifegame-ring.css", "lifegame-classic.css", "lifegame-skyblue.css", "lifegame-hacker.css"];
+  CSS_PATTERNS = ["lifegame-ball.css", "lifegame-ring.css", "lifegame-classic.css", "lifegame-skyblue.css", "lifegame-hacker.css", "lifegame-alice-margatroid.css"];
 
   INITIAL_PATTERNS = [[[10, 10], [11, 10], [11, 11], [12, 11], [11, 12]], [[11, 16], [13, 16], [13, 15], [15, 14], [15, 13], [15, 12], [17, 13], [17, 12], [17, 11], [18, 12]], [[10, 10], [11, 10], [12, 10], [14, 10], [10, 11], [13, 12], [14, 12], [11, 13], [12, 13], [14, 13], [10, 14], [12, 14], [14, 14]], [[11, 10], [13, 11], [10, 12], [11, 12], [14, 12], [15, 12], [16, 12]]];
 
@@ -46,7 +46,8 @@
   jQuery(function($) {
     var css;
     css = CSS_PATTERNS[parseInt(Math.random() * CSS_PATTERNS.length)];
-    return $("head").append("<link rel='stylesheet' type='text/css' href='css/" + css + "' />");
+    $("head").append("<link rel='stylesheet' type='text/css' href='css/" + css + "' />");
+    return $("#contents > ul").append("<li><a href=\"usercss/" + css + "\">" + document.domain + "/usercss/" + css + "</a></li>");
   });
 
   jQuery(function($) {
@@ -76,7 +77,6 @@
     };
     whenDead = function(cell) {
       $(cell).attr("isLive", "false").removeClass("lifegame-live lifegame-born").addClass("lifegame-dead");
-      console.log(cell.replace("lifegame", "lifegame-control"));
       return $(cell.replace("lifegame", "lifegame-control")).removeClass("lifegame-control-live").addClass("lifegame-control-dead");
     };
     for (i = _i = 0; _i <= 29; i = ++_i) {

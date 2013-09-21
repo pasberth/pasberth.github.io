@@ -1,4 +1,4 @@
-CSS_PATTERNS = [ "lifegame-ball.css","lifegame-ring.css","lifegame-classic.css","lifegame-skyblue.css","lifegame-hacker.css" ]
+CSS_PATTERNS = [ "lifegame-ball.css","lifegame-ring.css","lifegame-classic.css","lifegame-skyblue.css","lifegame-hacker.css","lifegame-alice-margatroid.css" ]
 
 INITIAL_PATTERNS = [
   [ [10, 10]
@@ -57,8 +57,10 @@ jQuery ($) ->
             $("#lifegame-control-#{i}-#{j}").mousemove(fn)
 
 jQuery ($) ->
+
     css = CSS_PATTERNS[parseInt(Math.random() * CSS_PATTERNS.length)]
     $("head").append "<link rel='stylesheet' type='text/css' href='css/#{css}' />"
+    $("#contents > ul").append "<li><a href=\"usercss/#{css}\">#{document.domain}/usercss/#{css}</a></li>"
 
 jQuery ($) ->
     initialPattern = INITIAL_PATTERNS[parseInt(Math.random() * INITIAL_PATTERNS.length)]
@@ -78,7 +80,6 @@ jQuery ($) ->
         $(cell.replace "lifegame", "lifegame-control").removeClass("lifegame-control-dead").addClass("lifegame-control-live")
     whenDead = (cell) ->
         $(cell).attr("isLive", "false").removeClass("lifegame-live lifegame-born").addClass("lifegame-dead")
-        console.log (cell.replace "lifegame", "lifegame-control")
         $(cell.replace "lifegame", "lifegame-control").removeClass("lifegame-control-live").addClass("lifegame-control-dead")
 
     for i in [ 0 .. 29 ]

@@ -32,18 +32,24 @@
     padding: 0 !important;
 
     border-style: none !important;
+}
+
+.lifegame-control-live {
+    background-color: black !important;
+
     border-top-left-radius: 3px 3px !important;
     border-top-right-radius: 3px 3px !important;
     border-bottom-left-radius: 3px 3px !important;
     border-bottom-right-radius: 3px 3px !important;
 }
 
-.lifegame-control-live {
-    background-color: black !important;
-}
-
 .lifegame-control-dead {
     background-color: white !important;
+
+    border-top-left-radius: 0 0 !important;
+    border-top-right-radius: 0 0 !important;
+    border-bottom-left-radius: 0 0 !important;
+    border-bottom-right-radius: 0 0 !important;
 }
 
 }
