@@ -46,6 +46,11 @@
 .lifegame-control-dead {
     background-color: white !important;
 
+    width: 6px !important;
+    height: 6px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+
     border-style: none !important;
 
     border-top-left-radius: 0 0 !important;
