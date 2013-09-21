@@ -1,4 +1,4 @@
-CSS_PATTERNS = [ "lifegame-ball.css","lifegame-ring.css","lifegame-classic.css","lifegame-skyblue.css","lifegame-hacker.css","lifegame-alice-margatroid.css" ]
+CSS_PATTERNS = [ "lifegame-ball.css","lifegame-ring.css","lifegame-classic.css","lifegame-skyblue.css","lifegame-tile.css","lifegame-hacker.css","lifegame-alice-margatroid.css" ]
 
 INITIAL_PATTERNS = [
 
@@ -127,6 +127,58 @@ INITIAL_PATTERNS = [
         [11, 3]
         [5, 4]
         [10, 4]
+
+    ]
+
+  
+
+    [
+
+    
+        [22, 12]
+        [21, 13]
+        [22, 13]
+        [23, 13]
+        [21, 14]
+
+    ]
+
+  
+
+    [
+
+    
+        [10, 20]
+        [11, 20]
+        [11, 21]
+        [12, 21]
+        [11, 22]
+
+    ]
+
+  
+
+    [
+
+    
+        [13, 15]
+        [11, 16]
+        [12, 16]
+        [13, 16]
+        [12, 17]
+
+    ]
+
+  
+
+    [
+
+    
+        [11, 9]
+        [10, 10]
+        [11, 10]
+        [11, 11]
+        [12, 11]
 
     ]
 

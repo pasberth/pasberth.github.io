@@ -1,21 +1,16 @@
 @namespace url(http://www.w3.org/1999/xhtml);
 @-moz-document domain("pasberth.github.io") {
 .lifegame-born, .lifegame-live, .lifegame-dead {
-    width: 80px !important;
-    height: 80px !important;
-    margin: 0 !important;
+    width: 64px !important;
+    height: 64px !important;
+    margin: 8px !important;
     padding: 0 !important;
 
+    border-style: none !important;
     border-top-left-radius: 0 0 !important;
     border-top-right-radius: 0 0 !important;
     border-bottom-left-radius: 0 0 !important;
     border-bottom-right-radius: 0 0 !important;
-}
-
-.lifegame-born, .lifegame-live {
-    border-style: solid !important;
-    border-color: skyblue !important;
-    border-width: 8px !important;
 }
 
 .lifegame-born {
@@ -23,7 +18,7 @@
 }
 
 .lifegame-live {
-    background-color: azure !important;
+    background-color: aliceblue !important;
 }
 
 .lifegame-dead {
@@ -36,6 +31,10 @@
     margin: 0 !important;
     padding: 0 !important;
 
+    border-style: solid !important;
+    border-color: aliceblue !important;
+    border-width: 1px !important;
+
     border-top-left-radius: 0 0 !important;
     border-top-right-radius: 0 0 !important;
     border-bottom-left-radius: 0 0 !important;
@@ -43,11 +42,10 @@
 }
 
 .lifegame-control-live {
-    background-color: aliceblue !important;
-
-    border-style: solid !important;
-    border-color: skyblue !important;
-    border-width: 1px !important;
+    background-color: darkblue !important;
 }
 
+.lifegame-control-dead {
+    background-color: azure !important;
+}
 }
