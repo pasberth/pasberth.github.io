@@ -30,16 +30,22 @@
     padding: 0;
 
     border-style: none;
+}
+
+.lifegame-control-live {
+    background-color: black;
+
     border-top-left-radius: 3px 3px;
     border-top-right-radius: 3px 3px;
     border-bottom-left-radius: 3px 3px;
     border-bottom-right-radius: 3px 3px;
 }
 
-.lifegame-control-live {
-    background-color: black;
-}
-
 .lifegame-control-dead {
     background-color: white;
+
+    border-top-left-radius: 0 0;
+    border-top-right-radius: 0 0;
+    border-bottom-left-radius: 0 0;
+    border-bottom-right-radius: 0 0;
 }

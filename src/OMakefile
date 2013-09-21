@@ -4,6 +4,7 @@ LIFEGAME_CSS[] =
   lifegame-classic.css
   lifegame-skyblue.css
   lifegame-hacker.css
+  lifegame-alice-margatroid.css
 
 $(BUILDDIR)/index.html: $(BUILDDIR) main.html index.html.erb
     env X=30 Y=30 erb index.html.erb > $(BUILDDIR)/index.html
