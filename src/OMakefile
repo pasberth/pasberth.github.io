@@ -13,8 +13,8 @@ $(BUILDDIR)/css/lifegame-ball.css: $(BUILDDIR)/css lifegame-ball.css
 $(BUILDDIR)/css/lifegame-ring.css: $(BUILDDIR)/css lifegame-ring.css
     cp lifegame-ring.css $(BUILDDIR)/css
 
-$(BUILDDIR)/css/lifegame-major.css: $(BUILDDIR)/css lifegame-major.css
-    cp lifegame-major.css $(BUILDDIR)/css
+$(BUILDDIR)/css/lifegame-classic.css: $(BUILDDIR)/css lifegame-classic.css
+    cp lifegame-classic.css $(BUILDDIR)/css
 
 $(BUILDDIR)/coffee/index.coffee: $(BUILDDIR)/coffee index.coffee.erb
     env X=30 Y=30 erb index.coffee.erb > $(BUILDDIR)/coffee/index.coffee
@@ -27,7 +27,7 @@ build: $(BUILDDIR)/index.html \
        $(BUILDDIR)/css/lifegame.css \
        $(BUILDDIR)/css/lifegame-ball.css \
        $(BUILDDIR)/css/lifegame-ring.css \
-       $(BUILDDIR)/css/lifegame-major.css \
+       $(BUILDDIR)/css/lifegame-classic.css \
        $(BUILDDIR)/js/index.js
 
 clean: build
@@ -36,6 +36,6 @@ clean: build
     rm $(BUILDDIR)/css/lifegame.css
     rm $(BUILDDIR)/css/lifegame-ball.css
     rm $(BUILDDIR)/css/lifegame-ring.css
-    rm $(BUILDDIR)/css/lifegame-major.css
+    rm $(BUILDDIR)/css/lifegame-classic.css
     rm $(BUILDDIR)/js/index.js
     rm $(BUILDDIR)/coffee/index.coffee
