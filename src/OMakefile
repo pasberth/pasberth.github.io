@@ -6,6 +6,11 @@ LIFEGAME_CSS[] =
   lifegame-hacker.css
   lifegame-alice-margatroid.css
 
+LIFEGAME_INIT[] =
+  index/lifegame-init/nebula
+  index/lifegame-init/pulsar
+  index/lifegame-init/pentadecathlon
+
 $(BUILDDIR)/index.html: $(BUILDDIR) main.html index.html.erb
     env X=30 Y=30 erb index.html.erb > $(BUILDDIR)/index.html
 
@@ -26,8 +31,11 @@ $(BUILDDIR)/usercss: $(LIFEGAME_CSS) usercss.erb
     foreach (css, $(LIFEGAME_CSS))
         env CSS=$(css) erb usercss.erb > $(BUILDDIR)/usercss/$(css)
 
-$(BUILDDIR)/coffee/index.coffee: $(BUILDDIR)/coffee index.coffee.erb
-    env X=30 Y=30 LIFEGAME_CSS=$(concat :, $(LIFEGAME_CSS)) erb index.coffee.erb > $(BUILDDIR)/coffee/index.coffee
+$(BUILDDIR)/coffee/index.coffee: $(BUILDDIR)/coffee index.coffee.erb $(LIFEGAME_INIT)
+    env X=30 Y=30 \
+        LIFEGAME_CSS=$(concat :, $(LIFEGAME_CSS)) \
+        LIFEGAME_INIT=$(concat :, $(LIFEGAME_INIT)) \
+        erb index.coffee.erb > $(BUILDDIR)/coffee/index.coffee
 
 $(BUILDDIR)/js/index.js: $(BUILDDIR)/js $(BUILDDIR)/coffee/index.coffee
     coffee -o $(BUILDDIR)/js -c $(BUILDDIR)/coffee/index.coffee
