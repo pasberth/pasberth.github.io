@@ -3,6 +3,8 @@
     height: 16px;
     margin: 32px;
     padding: 0;
+
+    border-width: 0;
 }
 
 .lifegame-control-live, .lifegame-control-dead {
@@ -10,4 +12,6 @@
     height: 2px;
     margin: 2px;
     padding: 0;
+
+    border-width: 0;
 }

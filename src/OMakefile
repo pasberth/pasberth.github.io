@@ -1,5 +1,8 @@
 LIFEGAME_CSS[] =
   index/css/color/classic.css
+  index/css/color/skyblue.css
+  index/css/color/hacker.css
+  index/css/color/pop.css
   index/css/figure/circle.css
   index/css/figure/rectangle.css
   index/css/size/max.css
@@ -10,10 +13,19 @@ LIFEGAME_CSS[] =
 
 LIFEGAME_CSS_PATTERNS[] = 
   classic.css max.css rectangle.css no-outline.css
-  classic.css max.css rectangle.css solid.css
   classic.css max.css circle.css no-outline.css
   classic.css mid.css circle.css no-outline.css
-  classic.css mid.css circle.css solid.css
+
+  skyblue.css max.css rectangle.css solid.css
+  skyblue.css max.css rectangle.css no-outline.css
+
+  hacker.css max.css rectangle.css solid.css
+  hacker.css max.css rectangle.css no-outline.css
+  hacker.css mid.css rectangle.css no-outline.css
+  hacker.css min.css rectangle.css no-outline.css
+
+  pop.css mid.css circle.css no-outline.css
+  pop.css min.css circle.css no-outline.css
 
 LIFEGAME_INIT[] =
   index/lifegame-init/nebula
