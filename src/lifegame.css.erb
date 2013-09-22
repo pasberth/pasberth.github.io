@@ -30,10 +30,13 @@
 <% for i in ENV["X"].to_i.times %>
   <% for j in ENV["Y"].to_i.times %>
 
-#lifegame-control-<%= i %>-<%= j %> {
+#lifegame-control-<%= i %>-<%= j %>-wrapper {
+    width: 6px;
+    height: 6px;
     position: absolute;
     left:     <%= i * 6 %>px;
     top:      <%= j * 6 %>px;
 }
+
   <% end %>
 <% end %>

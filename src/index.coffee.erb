@@ -27,7 +27,7 @@ LifeGameControlHTML = ""
 LifeGameControlHTML += '<section class="content">'
 LifeGameControlHTML += '<header><h1 class="content-title">Life Game</h1></header>'
 LifeGameControlHTML += '<div id="lifegame-control">'
-LifeGameControlHTML += '<% for i in ENV["X"].to_i.times %><% for j in ENV["Y"].to_i.times %><div id="lifegame-control-<%= i %>-<%= j %>" class="lifegame-control-dead"></div><% end %><% end %>'
+LifeGameControlHTML += '<% for i in ENV["X"].to_i.times %><% for j in ENV["Y"].to_i.times %><div id="lifegame-control-<%= i %>-<%= j %>-wrapper"><div id="lifegame-control-<%= i %>-<%= j %>" class="lifegame-control-dead"></div></div><% end %><% end %>'
 LifeGameControlHTML += '</div>'
 LifeGameControlHTML += '</section>'
 
@@ -40,7 +40,7 @@ jQuery ($) ->
             fn = ((lifeGameId, lifeGameControlId) -> () ->
                       $(lifeGameId).attr("isLive", "true").removeClass("lifegame-live lifegame-dead").addClass("lifegame-born")
                       $(lifeGameControlId).removeClass("lifegame-control-dead").addClass("lifegame-control-live")) "#lifegame-#{i}-#{j}", "#lifegame-control-#{i}-#{j}"
-            $("#lifegame-control-#{i}-#{j}").mousemove(fn)
+            $("#lifegame-control-#{i}-#{j}-wrapper").mousemove(fn)
 
 jQuery ($) ->
 
