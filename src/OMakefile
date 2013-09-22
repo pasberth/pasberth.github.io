@@ -3,6 +3,7 @@ LIFEGAME_CSS[] =
   index/css/color/skyblue.css
   index/css/color/hacker.css
   index/css/color/pop.css
+  index/css/color/tile.css
   index/css/figure/circle.css
   index/css/figure/rectangle.css
   index/css/size/max.css
@@ -26,7 +27,10 @@ LIFEGAME_CSS_PATTERNS[] =
 
   pop.css mid.css circle.css no-outline.css
   pop.css min.css circle.css no-outline.css
-  pop.css dotted.css circle.css no-outline.css
+  pop.css min.css circle.css no-outline.css dotted.css
+
+  tile.css max.css rectangle.css solid.css
+  tile.css min.css rectangle.css solid.css dotted.css
 
 LIFEGAME_INIT[] =
   index/lifegame-init/nebula
