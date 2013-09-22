@@ -132,6 +132,44 @@ CSS_PATTERNS = [
     ]
 
   
+
+    [
+
+    
+        "pop.css"
+        "min.css"
+        "circle.css"
+        "no-outline.css"
+        "dotted.css"
+
+    ]
+
+  
+
+    [
+
+    
+        "tile.css"
+        "max.css"
+        "rectangle.css"
+        "solid.css"
+
+    ]
+
+  
+
+    [
+
+    
+        "tile.css"
+        "min.css"
+        "rectangle.css"
+        "solid.css"
+        "dotted.css"
+
+    ]
+
+  
 ]
 
 INITIAL_PATTERNS = [
