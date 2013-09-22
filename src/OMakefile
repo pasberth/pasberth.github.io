@@ -1,11 +1,19 @@
 LIFEGAME_CSS[] =
-  lifegame-ball.css
-  lifegame-ring.css
-  lifegame-classic.css
-  lifegame-skyblue.css
-  lifegame-tile.css
-  lifegame-hacker.css
-  lifegame-alice-margatroid.css
+  index/css/color/classic.css
+  index/css/figure/circle.css
+  index/css/figure/rectangle.css
+  index/css/size/max.css
+  index/css/size/mid.css
+  index/css/size/min.css
+  index/css/outline/no-outline.css
+  index/css/outline/solid.css
+
+LIFEGAME_CSS_PATTERNS[] = 
+  classic.css max.css rectangle.css no-outline.css
+  classic.css max.css rectangle.css solid.css
+  classic.css max.css circle.css no-outline.css
+  classic.css mid.css circle.css no-outline.css
+  classic.css mid.css circle.css solid.css
 
 LIFEGAME_INIT[] =
   index/lifegame-init/nebula
@@ -31,14 +39,22 @@ $(BUILDDIR)/css: $(LIFEGAME_CSS)
     foreach (css, $(LIFEGAME_CSS))
         cp $(css) $(BUILDDIR)/css
 
-$(BUILDDIR)/usercss: $(LIFEGAME_CSS) usercss.erb
+$(BUILDDIR)/usercss: $(LIFEGAME_CSS) usercss.erb $(LIFEGAME_CSS)
     mkdir -p $(BUILDDIR)/usercss
     foreach (css, $(LIFEGAME_CSS))
-        env CSS=$(css) erb usercss.erb > $(BUILDDIR)/usercss/$(css)
+        env CSS=$(css) erb usercss.erb > $(BUILDDIR)/usercss/$(basename $(css))
 
-$(BUILDDIR)/coffee/index.coffee: $(BUILDDIR)/coffee index.coffee.erb $(LIFEGAME_INIT)
+$(BUILDDIR)/coffee/index.coffee: $(BUILDDIR)/coffee index.coffee.erb $(LIFEGAME_INIT) $(LIFEGAME_CSS)
+
+  section:
+    LIFEGAME_CSSES =
+
+    foreach (csses, $(LIFEGAME_CSS_PATTERNS))
+        LIFEGAME_CSSES += $(concat \,, $(csses))
+        export
+
     env X=30 Y=30 \
-        LIFEGAME_CSS=$(concat :, $(LIFEGAME_CSS)) \
+        LIFEGAME_CSS=$(concat :, $(LIFEGAME_CSSES)) \
         LIFEGAME_INIT=$(concat :, $(LIFEGAME_INIT)) \
         erb index.coffee.erb > $(BUILDDIR)/coffee/index.coffee
 
@@ -58,8 +74,8 @@ clean: build
     rm $(BUILDDIR)/css/lifegame.css
 
     foreach (css, $(LIFEGAME_CSS))
-      rm $(BUILDDIR)/css/$(css)
-      rm $(BUILDDIR)/usercss/$(css)
+      rm $(BUILDDIR)/css/$(basename $(css))
+      rm $(BUILDDIR)/usercss/$(basename $(css))
 
     rmdir $(BUILDDIR)/usercss
     rm $(BUILDDIR)/js/index.js

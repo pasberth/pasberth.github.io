@@ -1,0 +1,24 @@
+.lifegame-born {
+    border-color: black;
+    background-color: black;
+}
+
+.lifegame-live {
+    border-color: gray;
+    background-color: gray;
+}
+
+.lifegame-dead {
+    border-color: white;
+    background-color: white;
+}
+
+.lifegame-control-live {
+    border-color: black;
+    background-color: black;
+}
+
+.lifegame-control-dead {
+    border-color: white;
+    background-color: white;
+}

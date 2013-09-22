@@ -1,0 +1,13 @@
+.lifegame-born, .lifegame-live, .lifegame-dead {
+    width: 16px;
+    height: 16px;
+    margin: 32px;
+    padding: 0;
+}
+
+.lifegame-control-live, .lifegame-control-dead {
+    width: 2px;
+    height: 2px;
+    margin: 2px;
+    padding: 0;
+}

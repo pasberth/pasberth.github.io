@@ -1,0 +1,12 @@
+.lifegame-live, .lifegame-born, .lifegame-dead, .lifegame-control-live, .lifegame-control-dead {
+    background-color: white;
+    border-style: solid;
+}
+
+.lifegame-live, .lifegame-born {
+    border-width: 8px;
+}
+
+.lifegame-control-live {
+    border-width: 1px;
+}

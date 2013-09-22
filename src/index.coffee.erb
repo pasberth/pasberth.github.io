@@ -1,4 +1,22 @@
-CSS_PATTERNS = [ <%= ENV["LIFEGAME_CSS"].split(':').map(&:inspect).join "," %> ]
+CSS_PATTERNS = [
+  <%
+  ENV["LIFEGAME_CSS"].split(':').each do |lst|
+  %>
+
+    [
+
+    <%
+    lst.split(',').map(&:inspect).each do |css| %>
+        <%= css %><%
+    end
+    %>
+
+    ]
+
+  <%
+  end
+  %>
+]
 
 INITIAL_PATTERNS = [
 
@@ -44,9 +62,13 @@ jQuery ($) ->
 
 jQuery ($) ->
 
-    css = CSS_PATTERNS[parseInt(Math.random() * CSS_PATTERNS.length)]
-    $("head").append "<link rel='stylesheet' type='text/css' href='css/#{css}' />"
-    $("#contents > ul").append "<li><a href=\"usercss/#{css}\">#{document.domain}/usercss/#{css}</a></li>"
+    csses = CSS_PATTERNS[parseInt(Math.random() * CSS_PATTERNS.length)]
+
+    for css in csses
+        $("head").append "<link rel='stylesheet' type='text/css' href='css/#{css}' />"
+
+    for css in csses
+        $("#contents > ul").append "<li><a href=\"usercss/#{css}\">#{document.domain}/usercss/#{css}</a></li>"
 
 jQuery ($) ->
     initialPattern = INITIAL_PATTERNS[parseInt(Math.random() * INITIAL_PATTERNS.length)]

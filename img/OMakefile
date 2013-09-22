@@ -3,5 +3,6 @@ $(BUILDDIR)/img: $(BUILDDIR) $(glob *.png)
     cp $(glob *.png) $(BUILDDIR)/img
 
 build: $(BUILDDIR)/img
+
 clean: build
     rm $(glob $(BUILDDIR)/img/*.png)
