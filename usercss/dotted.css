@@ -1,5406 +1,904 @@
 @namespace url(http://www.w3.org/1999/xhtml);
 @-moz-document domain("pasberth.github.io") {
-
-
-
-#lifegame-control-0-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-6 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-7 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-8 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-9 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-10 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-11 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-12 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-13 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-14 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-15 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-16 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-17 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-18 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-19 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-20 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-21 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-22 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-23 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-24 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-0-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-6 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-7 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-8 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-9 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-10 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-11 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-12 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-13 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-14 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-15 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-16 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-17 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-18 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-19 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-20 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-21 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-22 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-23 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-24 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-1-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-6 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-7 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-8 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-9 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-10 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-11 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-12 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-13 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-14 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-15 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-16 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-17 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-18 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-19 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-20 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-21 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-22 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-23 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-24 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-2-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-6 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-7 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-8 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-9 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-10 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-11 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-12 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-13 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-14 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-15 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-16 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-17 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-18 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-19 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-20 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-21 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-22 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-23 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-24 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-3-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-6 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-7 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-8 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-9 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-10 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-11 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-12 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-13 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-14 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-15 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-16 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-17 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-18 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-19 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-20 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-21 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-22 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-23 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-24 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-4-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-6 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-7 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-8 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-9 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-10 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-11 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-12 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-13 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-14 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-15 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-16 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-17 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-18 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-19 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-20 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-21 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-22 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-23 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-24 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-5-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-6 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-7 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-8 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-9 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-10 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-11 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-12 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-13 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-14 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-15 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-16 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-17 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-18 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-19 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-20 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-21 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-22 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-23 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-24 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-6-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-6 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-7 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-8 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-9 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-10 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-11 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-12 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-13 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-14 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-15 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-16 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-17 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-18 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-19 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-20 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-21 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-22 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-23 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-24 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-7-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-6 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-7 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-8 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-9 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-10 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-11 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-12 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-13 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-14 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-15 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-16 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-17 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-18 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-19 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-20 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-21 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-22 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-23 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-24 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-8-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-6 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-7 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-8 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-9 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-10 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-11 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-12 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-13 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-14 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-15 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-16 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-17 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-18 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-19 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-20 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-21 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-22 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-23 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-24 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-9-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-5 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-6 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-7 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-8 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-9 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-10 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-11 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-12 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-13 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-14 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-15 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-16 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-17 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-18 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-19 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-20 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-21 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-22 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-23 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-24 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-25 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-10-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-5 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-6 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-7 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-8 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-9 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-10 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-11 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-12 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-13 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-14 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-15 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-16 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-17 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-18 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-19 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-20 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-21 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-22 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-23 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-24 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-25 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-11-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-4 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-5 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-6 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-7 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-8 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-9 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-10 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-11 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-12 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-13 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-14 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-15 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-16 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-17 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-18 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-19 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-20 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-21 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-22 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-23 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-24 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-25 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-26 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-12-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-4 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-5 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-6 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-7 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-8 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-9 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-10 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-11 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-12 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-13 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-14 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-15 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-16 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-17 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-18 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-19 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-20 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-21 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-22 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-23 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-24 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-25 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-26 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-13-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-4 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-5 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-6 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-7 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-8 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-9 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-10 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-11 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-12 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-13 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-14 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-15 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-16 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-17 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-18 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-19 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-20 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-21 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-22 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-23 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-24 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-25 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-26 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-14-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-4 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-5 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-6 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-7 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-8 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-9 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-10 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-11 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-12 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-13 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-14 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-15 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-16 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-17 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-18 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-19 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-20 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-21 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-22 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-23 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-24 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-25 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-26 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-15-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-4 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-5 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-6 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-7 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-8 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-9 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-10 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-11 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-12 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-13 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-14 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-15 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-16 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-17 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-18 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-19 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-20 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-21 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-22 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-23 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-24 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-25 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-26 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-16-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-4 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-5 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-6 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-7 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-8 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-9 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-10 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-11 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-12 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-13 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-14 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-15 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-16 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-17 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-18 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-19 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-20 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-21 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-22 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-23 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-24 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-25 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-26 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-17-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-4 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-5 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-6 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-7 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-8 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-9 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-10 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-11 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-12 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-13 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-14 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-15 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-16 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-17 {
-
-    width: 6px !important;
-    height: 6px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-18 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-19 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-20 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-21 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-22 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-23 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-24 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-25 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-26 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-18-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-5 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-6 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-7 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-8 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-9 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-10 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-11 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-12 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-13 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-14 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-15 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-16 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-17 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-18 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-19 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-20 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-21 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-22 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-23 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-24 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-25 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-19-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-5 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-6 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-7 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-8 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-9 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-10 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-11 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-12 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-13 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-14 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-15 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-16 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-17 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-18 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-19 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-20 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-21 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-22 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-23 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-24 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-25 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-20-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-6 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-7 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-8 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-9 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-10 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-11 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-12 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-13 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-14 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-15 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-16 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-17 {
-
-    width: 5px !important;
-    height: 5px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-18 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-19 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-20 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-21 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-22 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-23 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-24 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-21-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-6 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-7 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-8 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-9 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-10 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-11 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-12 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-13 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-14 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-15 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-16 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-17 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-18 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-19 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-20 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-21 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-22 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-23 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-24 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-22-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-6 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-7 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-8 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-9 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-10 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-11 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-12 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-13 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-14 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-15 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-16 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-17 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-18 {
-
-    width: 4px !important;
-    height: 4px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-19 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-20 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-21 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-22 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-23 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-24 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-23-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-6 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-7 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-8 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-9 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-10 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-11 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-12 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-13 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-14 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-15 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-16 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-17 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-18 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-19 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-20 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-21 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-22 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-23 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-24 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-24-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-6 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-7 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-8 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-9 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-10 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-11 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-12 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-13 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-14 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-15 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-16 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-17 {
-
-    width: 3px !important;
-    height: 3px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-18 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-19 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-20 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-21 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-22 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-23 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-24 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-25-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-6 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-7 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-8 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-9 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-10 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-11 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-12 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-13 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-14 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-15 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-16 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-17 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-18 {
-
-    width: 2px !important;
-    height: 2px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-19 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-20 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-21 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-22 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-23 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-24 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-26-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-6 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-7 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-8 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-9 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-10 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-11 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-12 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-13 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-14 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-15 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-16 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-17 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-18 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-19 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-20 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-21 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-22 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-23 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-24 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-27-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-6 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-7 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-8 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-9 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-10 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-11 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-12 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-13 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-14 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-15 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-16 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-17 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-18 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-19 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-20 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-21 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-22 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-23 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-24 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-28-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-0 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-1 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-2 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-3 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-4 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-5 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-6 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-7 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-8 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-9 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-10 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-11 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-12 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-13 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-14 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-15 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-16 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-17 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-18 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-19 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-20 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-21 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-22 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-23 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-24 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-25 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-26 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-27 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-28 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
-#lifegame-control-29-29 {
-
-    width: 1px !important;
-    height: 1px !important;
-    border-width: 1px !important;
-}
+.lifegame-control-live, .lifegame-control-dead {border-width: 1px !important;}
+#lifegame-control-0-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-6 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-7 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-8 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-9 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-10 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-11 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-12 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-13 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-14 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-15 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-16 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-17 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-18 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-19 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-20 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-21 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-22 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-23 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-24 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-0-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-6 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-7 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-8 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-9 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-10 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-11 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-12 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-13 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-14 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-15 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-16 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-17 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-18 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-19 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-20 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-21 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-22 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-23 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-24 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-1-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-6 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-7 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-8 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-9 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-10 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-11 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-12 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-13 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-14 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-15 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-16 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-17 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-18 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-19 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-20 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-21 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-22 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-23 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-24 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-2-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-6 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-7 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-8 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-9 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-10 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-11 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-12 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-13 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-14 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-15 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-16 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-17 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-18 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-19 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-20 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-21 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-22 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-23 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-24 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-3-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-6 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-7 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-8 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-9 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-10 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-11 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-12 {width: 2px !important;height: 2px !important;}
+#lifegame-control-4-13 {width: 2px !important;height: 2px !important;}
+#lifegame-control-4-14 {width: 2px !important;height: 2px !important;}
+#lifegame-control-4-15 {width: 2px !important;height: 2px !important;}
+#lifegame-control-4-16 {width: 2px !important;height: 2px !important;}
+#lifegame-control-4-17 {width: 2px !important;height: 2px !important;}
+#lifegame-control-4-18 {width: 2px !important;height: 2px !important;}
+#lifegame-control-4-19 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-20 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-21 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-22 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-23 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-24 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-4-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-6 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-7 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-8 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-9 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-10 {width: 2px !important;height: 2px !important;}
+#lifegame-control-5-11 {width: 2px !important;height: 2px !important;}
+#lifegame-control-5-12 {width: 2px !important;height: 2px !important;}
+#lifegame-control-5-13 {width: 3px !important;height: 3px !important;}
+#lifegame-control-5-14 {width: 3px !important;height: 3px !important;}
+#lifegame-control-5-15 {width: 3px !important;height: 3px !important;}
+#lifegame-control-5-16 {width: 3px !important;height: 3px !important;}
+#lifegame-control-5-17 {width: 3px !important;height: 3px !important;}
+#lifegame-control-5-18 {width: 2px !important;height: 2px !important;}
+#lifegame-control-5-19 {width: 2px !important;height: 2px !important;}
+#lifegame-control-5-20 {width: 2px !important;height: 2px !important;}
+#lifegame-control-5-21 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-22 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-23 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-24 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-5-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-6-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-6-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-6-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-6-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-6-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-6-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-6-6 {width: 1px !important;height: 1px !important;}
+#lifegame-control-6-7 {width: 1px !important;height: 1px !important;}
+#lifegame-control-6-8 {width: 2px !important;height: 2px !important;}
+#lifegame-control-6-9 {width: 2px !important;height: 2px !important;}
+#lifegame-control-6-10 {width: 2px !important;height: 2px !important;}
+#lifegame-control-6-11 {width: 3px !important;height: 3px !important;}
+#lifegame-control-6-12 {width: 3px !important;height: 3px !important;}
+#lifegame-control-6-13 {width: 3px !important;height: 3px !important;}
+#lifegame-control-6-14 {width: 3px !important;height: 3px !important;}
+#lifegame-control-6-15 {width: 3px !important;height: 3px !important;}
+#lifegame-control-6-16 {width: 3px !important;height: 3px !important;}
+#lifegame-control-6-17 {width: 3px !important;height: 3px !important;}
+#lifegame-control-6-18 {width: 3px !important;height: 3px !important;}
+#lifegame-control-6-19 {width: 3px !important;height: 3px !important;}
+#lifegame-control-6-20 {width: 2px !important;height: 2px !important;}
+#lifegame-control-6-21 {width: 2px !important;height: 2px !important;}
+#lifegame-control-6-22 {width: 2px !important;height: 2px !important;}
+#lifegame-control-6-23 {width: 1px !important;height: 1px !important;}
+#lifegame-control-6-24 {width: 1px !important;height: 1px !important;}
+#lifegame-control-6-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-6-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-6-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-6-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-6-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-7-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-7-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-7-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-7-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-7-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-7-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-7-6 {width: 1px !important;height: 1px !important;}
+#lifegame-control-7-7 {width: 2px !important;height: 2px !important;}
+#lifegame-control-7-8 {width: 2px !important;height: 2px !important;}
+#lifegame-control-7-9 {width: 3px !important;height: 3px !important;}
+#lifegame-control-7-10 {width: 3px !important;height: 3px !important;}
+#lifegame-control-7-11 {width: 3px !important;height: 3px !important;}
+#lifegame-control-7-12 {width: 4px !important;height: 4px !important;}
+#lifegame-control-7-13 {width: 4px !important;height: 4px !important;}
+#lifegame-control-7-14 {width: 4px !important;height: 4px !important;}
+#lifegame-control-7-15 {width: 4px !important;height: 4px !important;}
+#lifegame-control-7-16 {width: 4px !important;height: 4px !important;}
+#lifegame-control-7-17 {width: 4px !important;height: 4px !important;}
+#lifegame-control-7-18 {width: 4px !important;height: 4px !important;}
+#lifegame-control-7-19 {width: 3px !important;height: 3px !important;}
+#lifegame-control-7-20 {width: 3px !important;height: 3px !important;}
+#lifegame-control-7-21 {width: 3px !important;height: 3px !important;}
+#lifegame-control-7-22 {width: 2px !important;height: 2px !important;}
+#lifegame-control-7-23 {width: 2px !important;height: 2px !important;}
+#lifegame-control-7-24 {width: 1px !important;height: 1px !important;}
+#lifegame-control-7-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-7-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-7-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-7-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-7-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-8-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-8-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-8-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-8-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-8-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-8-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-8-6 {width: 2px !important;height: 2px !important;}
+#lifegame-control-8-7 {width: 2px !important;height: 2px !important;}
+#lifegame-control-8-8 {width: 3px !important;height: 3px !important;}
+#lifegame-control-8-9 {width: 3px !important;height: 3px !important;}
+#lifegame-control-8-10 {width: 4px !important;height: 4px !important;}
+#lifegame-control-8-11 {width: 4px !important;height: 4px !important;}
+#lifegame-control-8-12 {width: 4px !important;height: 4px !important;}
+#lifegame-control-8-13 {width: 4px !important;height: 4px !important;}
+#lifegame-control-8-14 {width: 4px !important;height: 4px !important;}
+#lifegame-control-8-15 {width: 4px !important;height: 4px !important;}
+#lifegame-control-8-16 {width: 4px !important;height: 4px !important;}
+#lifegame-control-8-17 {width: 4px !important;height: 4px !important;}
+#lifegame-control-8-18 {width: 4px !important;height: 4px !important;}
+#lifegame-control-8-19 {width: 4px !important;height: 4px !important;}
+#lifegame-control-8-20 {width: 4px !important;height: 4px !important;}
+#lifegame-control-8-21 {width: 3px !important;height: 3px !important;}
+#lifegame-control-8-22 {width: 3px !important;height: 3px !important;}
+#lifegame-control-8-23 {width: 2px !important;height: 2px !important;}
+#lifegame-control-8-24 {width: 2px !important;height: 2px !important;}
+#lifegame-control-8-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-8-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-8-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-8-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-8-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-9-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-9-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-9-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-9-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-9-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-9-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-9-6 {width: 2px !important;height: 2px !important;}
+#lifegame-control-9-7 {width: 3px !important;height: 3px !important;}
+#lifegame-control-9-8 {width: 3px !important;height: 3px !important;}
+#lifegame-control-9-9 {width: 4px !important;height: 4px !important;}
+#lifegame-control-9-10 {width: 4px !important;height: 4px !important;}
+#lifegame-control-9-11 {width: 4px !important;height: 4px !important;}
+#lifegame-control-9-12 {width: 4px !important;height: 4px !important;}
+#lifegame-control-9-13 {width: 5px !important;height: 5px !important;}
+#lifegame-control-9-14 {width: 5px !important;height: 5px !important;}
+#lifegame-control-9-15 {width: 5px !important;height: 5px !important;}
+#lifegame-control-9-16 {width: 5px !important;height: 5px !important;}
+#lifegame-control-9-17 {width: 5px !important;height: 5px !important;}
+#lifegame-control-9-18 {width: 4px !important;height: 4px !important;}
+#lifegame-control-9-19 {width: 4px !important;height: 4px !important;}
+#lifegame-control-9-20 {width: 4px !important;height: 4px !important;}
+#lifegame-control-9-21 {width: 4px !important;height: 4px !important;}
+#lifegame-control-9-22 {width: 3px !important;height: 3px !important;}
+#lifegame-control-9-23 {width: 3px !important;height: 3px !important;}
+#lifegame-control-9-24 {width: 2px !important;height: 2px !important;}
+#lifegame-control-9-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-9-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-9-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-9-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-9-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-10-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-10-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-10-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-10-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-10-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-10-5 {width: 2px !important;height: 2px !important;}
+#lifegame-control-10-6 {width: 2px !important;height: 2px !important;}
+#lifegame-control-10-7 {width: 3px !important;height: 3px !important;}
+#lifegame-control-10-8 {width: 4px !important;height: 4px !important;}
+#lifegame-control-10-9 {width: 4px !important;height: 4px !important;}
+#lifegame-control-10-10 {width: 4px !important;height: 4px !important;}
+#lifegame-control-10-11 {width: 5px !important;height: 5px !important;}
+#lifegame-control-10-12 {width: 5px !important;height: 5px !important;}
+#lifegame-control-10-13 {width: 5px !important;height: 5px !important;}
+#lifegame-control-10-14 {width: 5px !important;height: 5px !important;}
+#lifegame-control-10-15 {width: 5px !important;height: 5px !important;}
+#lifegame-control-10-16 {width: 5px !important;height: 5px !important;}
+#lifegame-control-10-17 {width: 5px !important;height: 5px !important;}
+#lifegame-control-10-18 {width: 5px !important;height: 5px !important;}
+#lifegame-control-10-19 {width: 5px !important;height: 5px !important;}
+#lifegame-control-10-20 {width: 4px !important;height: 4px !important;}
+#lifegame-control-10-21 {width: 4px !important;height: 4px !important;}
+#lifegame-control-10-22 {width: 4px !important;height: 4px !important;}
+#lifegame-control-10-23 {width: 3px !important;height: 3px !important;}
+#lifegame-control-10-24 {width: 2px !important;height: 2px !important;}
+#lifegame-control-10-25 {width: 2px !important;height: 2px !important;}
+#lifegame-control-10-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-10-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-10-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-10-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-11-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-11-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-11-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-11-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-11-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-11-5 {width: 2px !important;height: 2px !important;}
+#lifegame-control-11-6 {width: 3px !important;height: 3px !important;}
+#lifegame-control-11-7 {width: 3px !important;height: 3px !important;}
+#lifegame-control-11-8 {width: 4px !important;height: 4px !important;}
+#lifegame-control-11-9 {width: 4px !important;height: 4px !important;}
+#lifegame-control-11-10 {width: 5px !important;height: 5px !important;}
+#lifegame-control-11-11 {width: 5px !important;height: 5px !important;}
+#lifegame-control-11-12 {width: 5px !important;height: 5px !important;}
+#lifegame-control-11-13 {width: 5px !important;height: 5px !important;}
+#lifegame-control-11-14 {width: 5px !important;height: 5px !important;}
+#lifegame-control-11-15 {width: 5px !important;height: 5px !important;}
+#lifegame-control-11-16 {width: 5px !important;height: 5px !important;}
+#lifegame-control-11-17 {width: 5px !important;height: 5px !important;}
+#lifegame-control-11-18 {width: 5px !important;height: 5px !important;}
+#lifegame-control-11-19 {width: 5px !important;height: 5px !important;}
+#lifegame-control-11-20 {width: 5px !important;height: 5px !important;}
+#lifegame-control-11-21 {width: 4px !important;height: 4px !important;}
+#lifegame-control-11-22 {width: 4px !important;height: 4px !important;}
+#lifegame-control-11-23 {width: 3px !important;height: 3px !important;}
+#lifegame-control-11-24 {width: 3px !important;height: 3px !important;}
+#lifegame-control-11-25 {width: 2px !important;height: 2px !important;}
+#lifegame-control-11-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-11-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-11-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-11-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-12-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-12-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-12-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-12-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-12-4 {width: 2px !important;height: 2px !important;}
+#lifegame-control-12-5 {width: 2px !important;height: 2px !important;}
+#lifegame-control-12-6 {width: 3px !important;height: 3px !important;}
+#lifegame-control-12-7 {width: 4px !important;height: 4px !important;}
+#lifegame-control-12-8 {width: 4px !important;height: 4px !important;}
+#lifegame-control-12-9 {width: 4px !important;height: 4px !important;}
+#lifegame-control-12-10 {width: 5px !important;height: 5px !important;}
+#lifegame-control-12-11 {width: 5px !important;height: 5px !important;}
+#lifegame-control-12-12 {width: 5px !important;height: 5px !important;}
+#lifegame-control-12-13 {width: 6px !important;height: 6px !important;}
+#lifegame-control-12-14 {width: 6px !important;height: 6px !important;}
+#lifegame-control-12-15 {width: 6px !important;height: 6px !important;}
+#lifegame-control-12-16 {width: 6px !important;height: 6px !important;}
+#lifegame-control-12-17 {width: 6px !important;height: 6px !important;}
+#lifegame-control-12-18 {width: 5px !important;height: 5px !important;}
+#lifegame-control-12-19 {width: 5px !important;height: 5px !important;}
+#lifegame-control-12-20 {width: 5px !important;height: 5px !important;}
+#lifegame-control-12-21 {width: 4px !important;height: 4px !important;}
+#lifegame-control-12-22 {width: 4px !important;height: 4px !important;}
+#lifegame-control-12-23 {width: 4px !important;height: 4px !important;}
+#lifegame-control-12-24 {width: 3px !important;height: 3px !important;}
+#lifegame-control-12-25 {width: 2px !important;height: 2px !important;}
+#lifegame-control-12-26 {width: 2px !important;height: 2px !important;}
+#lifegame-control-12-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-12-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-12-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-13-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-13-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-13-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-13-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-13-4 {width: 2px !important;height: 2px !important;}
+#lifegame-control-13-5 {width: 3px !important;height: 3px !important;}
+#lifegame-control-13-6 {width: 3px !important;height: 3px !important;}
+#lifegame-control-13-7 {width: 4px !important;height: 4px !important;}
+#lifegame-control-13-8 {width: 4px !important;height: 4px !important;}
+#lifegame-control-13-9 {width: 5px !important;height: 5px !important;}
+#lifegame-control-13-10 {width: 5px !important;height: 5px !important;}
+#lifegame-control-13-11 {width: 5px !important;height: 5px !important;}
+#lifegame-control-13-12 {width: 6px !important;height: 6px !important;}
+#lifegame-control-13-13 {width: 6px !important;height: 6px !important;}
+#lifegame-control-13-14 {width: 6px !important;height: 6px !important;}
+#lifegame-control-13-15 {width: 6px !important;height: 6px !important;}
+#lifegame-control-13-16 {width: 6px !important;height: 6px !important;}
+#lifegame-control-13-17 {width: 6px !important;height: 6px !important;}
+#lifegame-control-13-18 {width: 6px !important;height: 6px !important;}
+#lifegame-control-13-19 {width: 5px !important;height: 5px !important;}
+#lifegame-control-13-20 {width: 5px !important;height: 5px !important;}
+#lifegame-control-13-21 {width: 5px !important;height: 5px !important;}
+#lifegame-control-13-22 {width: 4px !important;height: 4px !important;}
+#lifegame-control-13-23 {width: 4px !important;height: 4px !important;}
+#lifegame-control-13-24 {width: 3px !important;height: 3px !important;}
+#lifegame-control-13-25 {width: 3px !important;height: 3px !important;}
+#lifegame-control-13-26 {width: 2px !important;height: 2px !important;}
+#lifegame-control-13-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-13-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-13-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-14-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-14-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-14-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-14-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-14-4 {width: 2px !important;height: 2px !important;}
+#lifegame-control-14-5 {width: 3px !important;height: 3px !important;}
+#lifegame-control-14-6 {width: 3px !important;height: 3px !important;}
+#lifegame-control-14-7 {width: 4px !important;height: 4px !important;}
+#lifegame-control-14-8 {width: 4px !important;height: 4px !important;}
+#lifegame-control-14-9 {width: 5px !important;height: 5px !important;}
+#lifegame-control-14-10 {width: 5px !important;height: 5px !important;}
+#lifegame-control-14-11 {width: 5px !important;height: 5px !important;}
+#lifegame-control-14-12 {width: 6px !important;height: 6px !important;}
+#lifegame-control-14-13 {width: 6px !important;height: 6px !important;}
+#lifegame-control-14-14 {width: 6px !important;height: 6px !important;}
+#lifegame-control-14-15 {width: 6px !important;height: 6px !important;}
+#lifegame-control-14-16 {width: 6px !important;height: 6px !important;}
+#lifegame-control-14-17 {width: 6px !important;height: 6px !important;}
+#lifegame-control-14-18 {width: 6px !important;height: 6px !important;}
+#lifegame-control-14-19 {width: 5px !important;height: 5px !important;}
+#lifegame-control-14-20 {width: 5px !important;height: 5px !important;}
+#lifegame-control-14-21 {width: 5px !important;height: 5px !important;}
+#lifegame-control-14-22 {width: 4px !important;height: 4px !important;}
+#lifegame-control-14-23 {width: 4px !important;height: 4px !important;}
+#lifegame-control-14-24 {width: 3px !important;height: 3px !important;}
+#lifegame-control-14-25 {width: 3px !important;height: 3px !important;}
+#lifegame-control-14-26 {width: 2px !important;height: 2px !important;}
+#lifegame-control-14-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-14-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-14-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-15-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-15-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-15-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-15-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-15-4 {width: 2px !important;height: 2px !important;}
+#lifegame-control-15-5 {width: 3px !important;height: 3px !important;}
+#lifegame-control-15-6 {width: 3px !important;height: 3px !important;}
+#lifegame-control-15-7 {width: 4px !important;height: 4px !important;}
+#lifegame-control-15-8 {width: 4px !important;height: 4px !important;}
+#lifegame-control-15-9 {width: 5px !important;height: 5px !important;}
+#lifegame-control-15-10 {width: 5px !important;height: 5px !important;}
+#lifegame-control-15-11 {width: 5px !important;height: 5px !important;}
+#lifegame-control-15-12 {width: 6px !important;height: 6px !important;}
+#lifegame-control-15-13 {width: 6px !important;height: 6px !important;}
+#lifegame-control-15-14 {width: 6px !important;height: 6px !important;}
+#lifegame-control-15-15 {width: 6px !important;height: 6px !important;}
+#lifegame-control-15-16 {width: 6px !important;height: 6px !important;}
+#lifegame-control-15-17 {width: 6px !important;height: 6px !important;}
+#lifegame-control-15-18 {width: 6px !important;height: 6px !important;}
+#lifegame-control-15-19 {width: 5px !important;height: 5px !important;}
+#lifegame-control-15-20 {width: 5px !important;height: 5px !important;}
+#lifegame-control-15-21 {width: 5px !important;height: 5px !important;}
+#lifegame-control-15-22 {width: 4px !important;height: 4px !important;}
+#lifegame-control-15-23 {width: 4px !important;height: 4px !important;}
+#lifegame-control-15-24 {width: 3px !important;height: 3px !important;}
+#lifegame-control-15-25 {width: 3px !important;height: 3px !important;}
+#lifegame-control-15-26 {width: 2px !important;height: 2px !important;}
+#lifegame-control-15-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-15-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-15-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-16-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-16-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-16-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-16-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-16-4 {width: 2px !important;height: 2px !important;}
+#lifegame-control-16-5 {width: 3px !important;height: 3px !important;}
+#lifegame-control-16-6 {width: 3px !important;height: 3px !important;}
+#lifegame-control-16-7 {width: 4px !important;height: 4px !important;}
+#lifegame-control-16-8 {width: 4px !important;height: 4px !important;}
+#lifegame-control-16-9 {width: 5px !important;height: 5px !important;}
+#lifegame-control-16-10 {width: 5px !important;height: 5px !important;}
+#lifegame-control-16-11 {width: 5px !important;height: 5px !important;}
+#lifegame-control-16-12 {width: 6px !important;height: 6px !important;}
+#lifegame-control-16-13 {width: 6px !important;height: 6px !important;}
+#lifegame-control-16-14 {width: 6px !important;height: 6px !important;}
+#lifegame-control-16-15 {width: 6px !important;height: 6px !important;}
+#lifegame-control-16-16 {width: 6px !important;height: 6px !important;}
+#lifegame-control-16-17 {width: 6px !important;height: 6px !important;}
+#lifegame-control-16-18 {width: 6px !important;height: 6px !important;}
+#lifegame-control-16-19 {width: 5px !important;height: 5px !important;}
+#lifegame-control-16-20 {width: 5px !important;height: 5px !important;}
+#lifegame-control-16-21 {width: 5px !important;height: 5px !important;}
+#lifegame-control-16-22 {width: 4px !important;height: 4px !important;}
+#lifegame-control-16-23 {width: 4px !important;height: 4px !important;}
+#lifegame-control-16-24 {width: 3px !important;height: 3px !important;}
+#lifegame-control-16-25 {width: 3px !important;height: 3px !important;}
+#lifegame-control-16-26 {width: 2px !important;height: 2px !important;}
+#lifegame-control-16-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-16-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-16-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-17-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-17-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-17-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-17-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-17-4 {width: 2px !important;height: 2px !important;}
+#lifegame-control-17-5 {width: 3px !important;height: 3px !important;}
+#lifegame-control-17-6 {width: 3px !important;height: 3px !important;}
+#lifegame-control-17-7 {width: 4px !important;height: 4px !important;}
+#lifegame-control-17-8 {width: 4px !important;height: 4px !important;}
+#lifegame-control-17-9 {width: 5px !important;height: 5px !important;}
+#lifegame-control-17-10 {width: 5px !important;height: 5px !important;}
+#lifegame-control-17-11 {width: 5px !important;height: 5px !important;}
+#lifegame-control-17-12 {width: 6px !important;height: 6px !important;}
+#lifegame-control-17-13 {width: 6px !important;height: 6px !important;}
+#lifegame-control-17-14 {width: 6px !important;height: 6px !important;}
+#lifegame-control-17-15 {width: 6px !important;height: 6px !important;}
+#lifegame-control-17-16 {width: 6px !important;height: 6px !important;}
+#lifegame-control-17-17 {width: 6px !important;height: 6px !important;}
+#lifegame-control-17-18 {width: 6px !important;height: 6px !important;}
+#lifegame-control-17-19 {width: 5px !important;height: 5px !important;}
+#lifegame-control-17-20 {width: 5px !important;height: 5px !important;}
+#lifegame-control-17-21 {width: 5px !important;height: 5px !important;}
+#lifegame-control-17-22 {width: 4px !important;height: 4px !important;}
+#lifegame-control-17-23 {width: 4px !important;height: 4px !important;}
+#lifegame-control-17-24 {width: 3px !important;height: 3px !important;}
+#lifegame-control-17-25 {width: 3px !important;height: 3px !important;}
+#lifegame-control-17-26 {width: 2px !important;height: 2px !important;}
+#lifegame-control-17-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-17-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-17-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-18-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-18-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-18-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-18-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-18-4 {width: 2px !important;height: 2px !important;}
+#lifegame-control-18-5 {width: 2px !important;height: 2px !important;}
+#lifegame-control-18-6 {width: 3px !important;height: 3px !important;}
+#lifegame-control-18-7 {width: 4px !important;height: 4px !important;}
+#lifegame-control-18-8 {width: 4px !important;height: 4px !important;}
+#lifegame-control-18-9 {width: 4px !important;height: 4px !important;}
+#lifegame-control-18-10 {width: 5px !important;height: 5px !important;}
+#lifegame-control-18-11 {width: 5px !important;height: 5px !important;}
+#lifegame-control-18-12 {width: 5px !important;height: 5px !important;}
+#lifegame-control-18-13 {width: 6px !important;height: 6px !important;}
+#lifegame-control-18-14 {width: 6px !important;height: 6px !important;}
+#lifegame-control-18-15 {width: 6px !important;height: 6px !important;}
+#lifegame-control-18-16 {width: 6px !important;height: 6px !important;}
+#lifegame-control-18-17 {width: 6px !important;height: 6px !important;}
+#lifegame-control-18-18 {width: 5px !important;height: 5px !important;}
+#lifegame-control-18-19 {width: 5px !important;height: 5px !important;}
+#lifegame-control-18-20 {width: 5px !important;height: 5px !important;}
+#lifegame-control-18-21 {width: 4px !important;height: 4px !important;}
+#lifegame-control-18-22 {width: 4px !important;height: 4px !important;}
+#lifegame-control-18-23 {width: 4px !important;height: 4px !important;}
+#lifegame-control-18-24 {width: 3px !important;height: 3px !important;}
+#lifegame-control-18-25 {width: 2px !important;height: 2px !important;}
+#lifegame-control-18-26 {width: 2px !important;height: 2px !important;}
+#lifegame-control-18-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-18-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-18-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-19-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-19-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-19-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-19-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-19-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-19-5 {width: 2px !important;height: 2px !important;}
+#lifegame-control-19-6 {width: 3px !important;height: 3px !important;}
+#lifegame-control-19-7 {width: 3px !important;height: 3px !important;}
+#lifegame-control-19-8 {width: 4px !important;height: 4px !important;}
+#lifegame-control-19-9 {width: 4px !important;height: 4px !important;}
+#lifegame-control-19-10 {width: 5px !important;height: 5px !important;}
+#lifegame-control-19-11 {width: 5px !important;height: 5px !important;}
+#lifegame-control-19-12 {width: 5px !important;height: 5px !important;}
+#lifegame-control-19-13 {width: 5px !important;height: 5px !important;}
+#lifegame-control-19-14 {width: 5px !important;height: 5px !important;}
+#lifegame-control-19-15 {width: 5px !important;height: 5px !important;}
+#lifegame-control-19-16 {width: 5px !important;height: 5px !important;}
+#lifegame-control-19-17 {width: 5px !important;height: 5px !important;}
+#lifegame-control-19-18 {width: 5px !important;height: 5px !important;}
+#lifegame-control-19-19 {width: 5px !important;height: 5px !important;}
+#lifegame-control-19-20 {width: 5px !important;height: 5px !important;}
+#lifegame-control-19-21 {width: 4px !important;height: 4px !important;}
+#lifegame-control-19-22 {width: 4px !important;height: 4px !important;}
+#lifegame-control-19-23 {width: 3px !important;height: 3px !important;}
+#lifegame-control-19-24 {width: 3px !important;height: 3px !important;}
+#lifegame-control-19-25 {width: 2px !important;height: 2px !important;}
+#lifegame-control-19-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-19-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-19-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-19-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-20-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-20-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-20-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-20-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-20-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-20-5 {width: 2px !important;height: 2px !important;}
+#lifegame-control-20-6 {width: 2px !important;height: 2px !important;}
+#lifegame-control-20-7 {width: 3px !important;height: 3px !important;}
+#lifegame-control-20-8 {width: 4px !important;height: 4px !important;}
+#lifegame-control-20-9 {width: 4px !important;height: 4px !important;}
+#lifegame-control-20-10 {width: 4px !important;height: 4px !important;}
+#lifegame-control-20-11 {width: 5px !important;height: 5px !important;}
+#lifegame-control-20-12 {width: 5px !important;height: 5px !important;}
+#lifegame-control-20-13 {width: 5px !important;height: 5px !important;}
+#lifegame-control-20-14 {width: 5px !important;height: 5px !important;}
+#lifegame-control-20-15 {width: 5px !important;height: 5px !important;}
+#lifegame-control-20-16 {width: 5px !important;height: 5px !important;}
+#lifegame-control-20-17 {width: 5px !important;height: 5px !important;}
+#lifegame-control-20-18 {width: 5px !important;height: 5px !important;}
+#lifegame-control-20-19 {width: 5px !important;height: 5px !important;}
+#lifegame-control-20-20 {width: 4px !important;height: 4px !important;}
+#lifegame-control-20-21 {width: 4px !important;height: 4px !important;}
+#lifegame-control-20-22 {width: 4px !important;height: 4px !important;}
+#lifegame-control-20-23 {width: 3px !important;height: 3px !important;}
+#lifegame-control-20-24 {width: 2px !important;height: 2px !important;}
+#lifegame-control-20-25 {width: 2px !important;height: 2px !important;}
+#lifegame-control-20-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-20-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-20-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-20-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-21-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-21-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-21-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-21-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-21-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-21-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-21-6 {width: 2px !important;height: 2px !important;}
+#lifegame-control-21-7 {width: 3px !important;height: 3px !important;}
+#lifegame-control-21-8 {width: 3px !important;height: 3px !important;}
+#lifegame-control-21-9 {width: 4px !important;height: 4px !important;}
+#lifegame-control-21-10 {width: 4px !important;height: 4px !important;}
+#lifegame-control-21-11 {width: 4px !important;height: 4px !important;}
+#lifegame-control-21-12 {width: 4px !important;height: 4px !important;}
+#lifegame-control-21-13 {width: 5px !important;height: 5px !important;}
+#lifegame-control-21-14 {width: 5px !important;height: 5px !important;}
+#lifegame-control-21-15 {width: 5px !important;height: 5px !important;}
+#lifegame-control-21-16 {width: 5px !important;height: 5px !important;}
+#lifegame-control-21-17 {width: 5px !important;height: 5px !important;}
+#lifegame-control-21-18 {width: 4px !important;height: 4px !important;}
+#lifegame-control-21-19 {width: 4px !important;height: 4px !important;}
+#lifegame-control-21-20 {width: 4px !important;height: 4px !important;}
+#lifegame-control-21-21 {width: 4px !important;height: 4px !important;}
+#lifegame-control-21-22 {width: 3px !important;height: 3px !important;}
+#lifegame-control-21-23 {width: 3px !important;height: 3px !important;}
+#lifegame-control-21-24 {width: 2px !important;height: 2px !important;}
+#lifegame-control-21-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-21-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-21-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-21-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-21-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-22-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-22-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-22-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-22-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-22-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-22-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-22-6 {width: 2px !important;height: 2px !important;}
+#lifegame-control-22-7 {width: 2px !important;height: 2px !important;}
+#lifegame-control-22-8 {width: 3px !important;height: 3px !important;}
+#lifegame-control-22-9 {width: 3px !important;height: 3px !important;}
+#lifegame-control-22-10 {width: 4px !important;height: 4px !important;}
+#lifegame-control-22-11 {width: 4px !important;height: 4px !important;}
+#lifegame-control-22-12 {width: 4px !important;height: 4px !important;}
+#lifegame-control-22-13 {width: 4px !important;height: 4px !important;}
+#lifegame-control-22-14 {width: 4px !important;height: 4px !important;}
+#lifegame-control-22-15 {width: 4px !important;height: 4px !important;}
+#lifegame-control-22-16 {width: 4px !important;height: 4px !important;}
+#lifegame-control-22-17 {width: 4px !important;height: 4px !important;}
+#lifegame-control-22-18 {width: 4px !important;height: 4px !important;}
+#lifegame-control-22-19 {width: 4px !important;height: 4px !important;}
+#lifegame-control-22-20 {width: 4px !important;height: 4px !important;}
+#lifegame-control-22-21 {width: 3px !important;height: 3px !important;}
+#lifegame-control-22-22 {width: 3px !important;height: 3px !important;}
+#lifegame-control-22-23 {width: 2px !important;height: 2px !important;}
+#lifegame-control-22-24 {width: 2px !important;height: 2px !important;}
+#lifegame-control-22-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-22-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-22-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-22-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-22-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-23-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-23-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-23-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-23-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-23-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-23-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-23-6 {width: 1px !important;height: 1px !important;}
+#lifegame-control-23-7 {width: 2px !important;height: 2px !important;}
+#lifegame-control-23-8 {width: 2px !important;height: 2px !important;}
+#lifegame-control-23-9 {width: 3px !important;height: 3px !important;}
+#lifegame-control-23-10 {width: 3px !important;height: 3px !important;}
+#lifegame-control-23-11 {width: 3px !important;height: 3px !important;}
+#lifegame-control-23-12 {width: 4px !important;height: 4px !important;}
+#lifegame-control-23-13 {width: 4px !important;height: 4px !important;}
+#lifegame-control-23-14 {width: 4px !important;height: 4px !important;}
+#lifegame-control-23-15 {width: 4px !important;height: 4px !important;}
+#lifegame-control-23-16 {width: 4px !important;height: 4px !important;}
+#lifegame-control-23-17 {width: 4px !important;height: 4px !important;}
+#lifegame-control-23-18 {width: 4px !important;height: 4px !important;}
+#lifegame-control-23-19 {width: 3px !important;height: 3px !important;}
+#lifegame-control-23-20 {width: 3px !important;height: 3px !important;}
+#lifegame-control-23-21 {width: 3px !important;height: 3px !important;}
+#lifegame-control-23-22 {width: 2px !important;height: 2px !important;}
+#lifegame-control-23-23 {width: 2px !important;height: 2px !important;}
+#lifegame-control-23-24 {width: 1px !important;height: 1px !important;}
+#lifegame-control-23-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-23-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-23-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-23-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-23-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-24-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-24-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-24-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-24-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-24-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-24-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-24-6 {width: 1px !important;height: 1px !important;}
+#lifegame-control-24-7 {width: 1px !important;height: 1px !important;}
+#lifegame-control-24-8 {width: 2px !important;height: 2px !important;}
+#lifegame-control-24-9 {width: 2px !important;height: 2px !important;}
+#lifegame-control-24-10 {width: 2px !important;height: 2px !important;}
+#lifegame-control-24-11 {width: 3px !important;height: 3px !important;}
+#lifegame-control-24-12 {width: 3px !important;height: 3px !important;}
+#lifegame-control-24-13 {width: 3px !important;height: 3px !important;}
+#lifegame-control-24-14 {width: 3px !important;height: 3px !important;}
+#lifegame-control-24-15 {width: 3px !important;height: 3px !important;}
+#lifegame-control-24-16 {width: 3px !important;height: 3px !important;}
+#lifegame-control-24-17 {width: 3px !important;height: 3px !important;}
+#lifegame-control-24-18 {width: 3px !important;height: 3px !important;}
+#lifegame-control-24-19 {width: 3px !important;height: 3px !important;}
+#lifegame-control-24-20 {width: 2px !important;height: 2px !important;}
+#lifegame-control-24-21 {width: 2px !important;height: 2px !important;}
+#lifegame-control-24-22 {width: 2px !important;height: 2px !important;}
+#lifegame-control-24-23 {width: 1px !important;height: 1px !important;}
+#lifegame-control-24-24 {width: 1px !important;height: 1px !important;}
+#lifegame-control-24-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-24-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-24-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-24-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-24-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-6 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-7 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-8 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-9 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-10 {width: 2px !important;height: 2px !important;}
+#lifegame-control-25-11 {width: 2px !important;height: 2px !important;}
+#lifegame-control-25-12 {width: 2px !important;height: 2px !important;}
+#lifegame-control-25-13 {width: 3px !important;height: 3px !important;}
+#lifegame-control-25-14 {width: 3px !important;height: 3px !important;}
+#lifegame-control-25-15 {width: 3px !important;height: 3px !important;}
+#lifegame-control-25-16 {width: 3px !important;height: 3px !important;}
+#lifegame-control-25-17 {width: 3px !important;height: 3px !important;}
+#lifegame-control-25-18 {width: 2px !important;height: 2px !important;}
+#lifegame-control-25-19 {width: 2px !important;height: 2px !important;}
+#lifegame-control-25-20 {width: 2px !important;height: 2px !important;}
+#lifegame-control-25-21 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-22 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-23 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-24 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-25-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-6 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-7 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-8 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-9 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-10 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-11 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-12 {width: 2px !important;height: 2px !important;}
+#lifegame-control-26-13 {width: 2px !important;height: 2px !important;}
+#lifegame-control-26-14 {width: 2px !important;height: 2px !important;}
+#lifegame-control-26-15 {width: 2px !important;height: 2px !important;}
+#lifegame-control-26-16 {width: 2px !important;height: 2px !important;}
+#lifegame-control-26-17 {width: 2px !important;height: 2px !important;}
+#lifegame-control-26-18 {width: 2px !important;height: 2px !important;}
+#lifegame-control-26-19 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-20 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-21 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-22 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-23 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-24 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-26-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-6 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-7 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-8 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-9 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-10 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-11 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-12 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-13 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-14 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-15 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-16 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-17 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-18 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-19 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-20 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-21 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-22 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-23 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-24 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-27-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-6 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-7 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-8 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-9 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-10 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-11 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-12 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-13 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-14 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-15 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-16 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-17 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-18 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-19 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-20 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-21 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-22 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-23 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-24 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-28-29 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-0 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-1 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-2 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-3 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-4 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-5 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-6 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-7 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-8 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-9 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-10 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-11 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-12 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-13 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-14 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-15 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-16 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-17 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-18 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-19 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-20 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-21 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-22 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-23 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-24 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-25 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-26 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-27 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-28 {width: 1px !important;height: 1px !important;}
+#lifegame-control-29-29 {width: 1px !important;height: 1px !important;}
 }
