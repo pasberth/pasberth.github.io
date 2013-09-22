@@ -365,6 +365,11 @@ LifeGameControlHTML += '<div id="lifegame-control-0-0-wrapper"><div id="lifegame
 LifeGameControlHTML += '</div>'
 LifeGameControlHTML += '</section>'
 
+StyleSheetHTML = ""
+StyleSheetHTML += '<section id="stylesheets" class="content">'
+StyleSheetHTML += '<header><h1 class="content-title">Style Sheets</h1></header>'
+StyleSheetHTML += '<ul></ul>'
+StyleSheetHTML += '</section>'
 
 jQuery ($) ->
     $("#contents").after LifeGameControlHTML
@@ -378,13 +383,15 @@ jQuery ($) ->
 
 jQuery ($) ->
 
+    $("#tools").after StyleSheetHTML
+
     csses = CSS_PATTERNS[parseInt(Math.random() * CSS_PATTERNS.length)]
 
     for css in csses
         $("head").append "<link rel='stylesheet' type='text/css' href='css/#{css}' />"
 
     for css in csses
-        $("#contents > ul").append "<li><a href=\"usercss/#{css}\">#{document.domain}/usercss/#{css}</a></li>"
+        $("#stylesheets > ul").append "<li><a href=\"usercss/#{css}\">#{document.domain}/usercss/#{css}</a></li>"
 
 jQuery ($) ->
     initialPattern = INITIAL_PATTERNS[parseInt(Math.random() * INITIAL_PATTERNS.length)]
