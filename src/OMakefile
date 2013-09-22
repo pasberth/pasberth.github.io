@@ -26,6 +26,7 @@ LIFEGAME_CSS_PATTERNS[] =
 
   pop.css mid.css circle.css no-outline.css
   pop.css min.css circle.css no-outline.css
+  pop.css dotted.css circle.css no-outline.css
 
 LIFEGAME_INIT[] =
   index/lifegame-init/nebula
@@ -51,10 +52,13 @@ $(BUILDDIR)/css: $(LIFEGAME_CSS)
     foreach (css, $(LIFEGAME_CSS))
         cp $(css) $(BUILDDIR)/css
 
-$(BUILDDIR)/usercss: $(LIFEGAME_CSS) usercss.erb $(LIFEGAME_CSS)
+$(BUILDDIR)/usercss: $(LIFEGAME_CSS) usercss.erb $(LIFEGAME_CSS) $(BUILDDIR)/css/dotted.css
     mkdir -p $(BUILDDIR)/usercss
     foreach (css, $(LIFEGAME_CSS))
         env CSS=$(css) erb usercss.erb > $(BUILDDIR)/usercss/$(basename $(css))
+
+    env CSS=$(BUILDDIR)/css/dotted.css erb usercss.erb > $(BUILDDIR)/usercss/tmp.css
+    mv $(BUILDDIR)/usercss/tmp.css $(BUILDDIR)/usercss/dotted.css
 
 $(BUILDDIR)/coffee/index.coffee: $(BUILDDIR)/coffee index.coffee.erb $(LIFEGAME_INIT) $(LIFEGAME_CSS)
 

@@ -1,0 +1,7 @@
+$(BUILDDIR)/css/dotted.css: $(BUILDDIR)/css dotted.css.erb
+    env X=30 Y=30 erb dotted.css.erb > $(BUILDDIR)/css/dotted.css
+
+build: $(BUILDDIR)/css/dotted.css
+
+clean: build
+    rm $(BUILDDIR)/css/dotted.css
