@@ -17,46 +17,44 @@
   };
 
   updateLifeGame = function(lifeGame) {
-    return jQuery(function($) {
-      var bornCells, cell, deadCells, isLive, liveCells, neighbours, neighboursCount, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m, _ref, _ref1, _results;
-      bornCells = [];
-      liveCells = [];
-      deadCells = [];
-      _ref = lifeGame.cellList;
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        cell = _ref[_i];
-        isLive = "true" === $(cell.self).attr("isLive");
-        neighboursCount = 0;
-        _ref1 = cell.neighboursList;
-        for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
-          neighbours = _ref1[_j];
-          if ("true" === $(neighbours).attr("isLive")) {
-            ++neighboursCount;
-          }
-        }
-        if ((!isLive) && neighboursCount === 3) {
-          bornCells.push(cell);
-        } else if (isLive && (neighboursCount < 2 || neighboursCount > 3)) {
-          deadCells.push(cell);
-        } else if (isLive) {
-          liveCells.push(cell);
+    var bornCells, cell, deadCells, isLive, liveCells, neighbours, neighboursCount, _i, _j, _k, _l, _len, _len1, _len2, _len3, _len4, _m, _ref, _ref1, _results;
+    bornCells = [];
+    liveCells = [];
+    deadCells = [];
+    _ref = lifeGame.cellList;
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      cell = _ref[_i];
+      isLive = "true" === $(cell.self).attr("isLive");
+      neighboursCount = 0;
+      _ref1 = cell.neighboursList;
+      for (_j = 0, _len1 = _ref1.length; _j < _len1; _j++) {
+        neighbours = _ref1[_j];
+        if ("true" === $(neighbours).attr("isLive")) {
+          ++neighboursCount;
         }
       }
-      for (_k = 0, _len2 = bornCells.length; _k < _len2; _k++) {
-        cell = bornCells[_k];
-        cell.whenBorn(cell.self);
+      if ((!isLive) && neighboursCount === 3) {
+        bornCells.push(cell);
+      } else if (isLive && (neighboursCount < 2 || neighboursCount > 3)) {
+        deadCells.push(cell);
+      } else if (isLive) {
+        liveCells.push(cell);
       }
-      for (_l = 0, _len3 = deadCells.length; _l < _len3; _l++) {
-        cell = deadCells[_l];
-        cell.whenDead(cell.self);
-      }
-      _results = [];
-      for (_m = 0, _len4 = liveCells.length; _m < _len4; _m++) {
-        cell = liveCells[_m];
-        _results.push(cell.whenLive(cell.self));
-      }
-      return _results;
-    });
+    }
+    for (_k = 0, _len2 = bornCells.length; _k < _len2; _k++) {
+      cell = bornCells[_k];
+      cell.whenBorn(cell.self);
+    }
+    for (_l = 0, _len3 = deadCells.length; _l < _len3; _l++) {
+      cell = deadCells[_l];
+      cell.whenDead(cell.self);
+    }
+    _results = [];
+    for (_m = 0, _len4 = liveCells.length; _m < _len4; _m++) {
+      cell = liveCells[_m];
+      _results.push(cell.whenLive(cell.self));
+    }
+    return _results;
   };
 
   this.LifeGame = {
