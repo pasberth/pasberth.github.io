@@ -1,0 +1,51 @@
+( < using primitive
+ `. using jQuery
+ `. using Array `in
+    #( > assign self (s "LifeGame") "{}"
+      `; assign ( member self (s "LifeGame"))
+            (s "Cell")
+            ( > %self*
+             `$ %neighbours-list
+             `$ %when-born
+             `$ %when-live
+             `$ %when-dead
+             `$ #( > assign self (s "self")            self*
+                  `; assign self (s "neighboursList")  neighbours-list
+                  `; assign self (s "whenBorn")        when-born
+                  `; assign self (s "whenLive")        when-live
+                  `; assign self (s "whenDead")        when-dead
+                  `; null ))
+      `; assign ( member self (s "LifeGame"))
+            (s "LifeGame")
+            ( > %cell-list
+             `$ #( > assign self (s "cellList") cell-list
+                  `; null ))
+      `; assign ( member self (s "LifeGame"))
+            (s "update")
+            ( > %life-game
+             `$ #( < let %callbacks
+                         ( for (member life-game (s "cellList")) (%cell
+                          #( < let %self*            ( member cell (s "self"))
+                            `. let %neighbours-list  ( member cell (s "neighboursList"))
+                            `. let %when-born        ( member cell (s "whenBorn"))
+                            `. let %when-live        ( member cell (s "whenLive"))
+                            `. let %when-dead        ( member cell (s "whenDead")) `in
+                          #( < let %is-live          (> (s "true") `=== get-attr (s "isLive") ( jQuery self* ))
+                            `. let %neighbours-count ( fold-right (> %count
+                                                                  `$ %neighbours
+                                                                  `$ #(if (> (s "true")
+                                                                          `=== get-attr (s "isLive") ( jQuery neighbours ))
+                                                                          (< count `+ "1")
+                                                                          count )) "0" neighbours-list ) `in
+                                                                          #( if (> $! is-live
+                                                                                `&& neighbours-count
+                                                                                `== "3" )
+                                                                                ( %_ #( when-born self* ))
+                                                                          ( if (> is-live
+                                                                               `&& ( $< neighbours-count "2" )
+                                                                               `|| ( $> neighbours-count "3" ))
+                                                                               ( %_ #( when-dead self* ))
+                                                                          ( if is-live
+                                                                               ( %_ #( when-live self* ))
+                                                                               identity ))))))) `in
+                     #(for callbacks (%callback #( callback nil )))))))
