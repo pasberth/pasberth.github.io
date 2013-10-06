@@ -37,15 +37,11 @@
                                                                           `=== get-attr (s "isLive") ( jQuery neighbours ))
                                                                           (< count `+ "1")
                                                                           count )) "0" neighbours-list ) `in
-                                                                          #( if (> $! is-live
-                                                                                `&& neighbours-count
-                                                                                `== "3" )
-                                                                                ( %_ #( when-born self* ))
-                                                                          ( if (> is-live
-                                                                               `&& ( $< neighbours-count "2" )
-                                                                               `|| ( $> neighbours-count "3" ))
-                                                                               ( %_ #( when-dead self* ))
-                                                                          ( if is-live
-                                                                               ( %_ #( when-live self* ))
-                                                                               identity ))))))) `in
+                          #( if (> $! is-live `&& neighbours-count `== "3" )
+                                ( %_ #( when-born self* ))
+                          ( if (> is-live `&& ( $< neighbours-count "2" ) `|| ( $> neighbours-count "3" ))
+                               ( %_ #( when-dead self* ))
+                          ( if is-live
+                               ( %_ #( when-live self* ))
+                               identity ))))))) `in
                      #(for callbacks (%callback #( callback nil )))))))
