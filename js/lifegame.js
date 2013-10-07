@@ -13,9 +13,7 @@ this["LifeGame"]["LifeGame"] = (function ($31) {
 });
 this["LifeGame"]["update"] = (function (life$2dgame) {
   return Array.prototype.map.call(Array.prototype.map.call(life$2dgame["cellList"], (function (cell) {
-    if (((function ($32) {
-      return jQuery.prototype.not.call($32, ("true" === jQuery.prototype.attr.call(jQuery(cell["self"]), "isLive")));
-    }) && (Array.prototype.reduceRight.call(cell["neighboursList"], (function ($31, $32) {
+    if (((! ("true" === jQuery.prototype.attr.call(jQuery(cell["self"]), "isLive"))) && (Array.prototype.reduceRight.call(cell["neighboursList"], (function ($31, $32) {
       if (("true" === jQuery.prototype.attr.call(jQuery($32), "isLive"))) {
         return (1 + $31);
       } else {
