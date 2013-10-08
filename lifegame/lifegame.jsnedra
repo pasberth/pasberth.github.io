@@ -16,9 +16,9 @@
              `$ #(< let %callbacks
                          (A #for (< life-game `!. s "cellList") (%cell
                           #(< let %is-live
-                                        (> (s "true") `= Q #get-attr (s "isLive") (Q #jQuery (<cell `!. s "self")))
+                                        (Q #get-data (s "isLive") (Q #jQuery (<cell `!. s "self")))
                             `. let %neighbours-count
-                                        (A #fold-right ($_2 #(if (> s "true" `= Q #get-attr (s "isLive") (Q #jQuery $2))
+                                        (A #fold-right ($_2 #(if ( Q #get-data (s "isLive") (Q #jQuery $2))
                                                                  (< $1 `+ "1")
                                                                  $1)) "0" (<cell `!. s "neighboursList")) `in
                           #(if (> not is-live `and neighbours-count `= "3")
