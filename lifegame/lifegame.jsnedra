@@ -1,31 +1,31 @@
-( > #( > (<self `!. s "LifeGame"                  `:= "{}" )
-      `; (<self `!. s "LifeGame" `!. s "Cell"     `:= cell )
-      `; (<self `!. s "LifeGame" `!. s "LifeGame" `:= life-game )
-      `; (<self `!. s "LifeGame" `!. s "update"   `:= update-life-game )) `where
+(> #(> (<self `!. s "LifeGame"                  `:= "{}")
+      `; (<self `!. s "LifeGame" `!. s "Cell"     `:= cell)
+      `; (<self `!. s "LifeGame" `!. s "LifeGame" `:= life-game)
+      `; (<self `!. s "LifeGame" `!. s "update"   `:= update-life-game)) `where
          let %cell
-             ($_5 #( > (<self `!. s "self"           `:= $1 )
-                    `; (<self `!. s "neighboursList" `:= $2 )
-                    `; (<self `!. s "whenBorn"       `:= $3 )
-                    `; (<self `!. s "whenLive"       `:= $4 )
-                    `; (<self `!. s "whenDead"       `:= $5 ) `; null ))
+             ($_5 #(> (<self `!. s "self"           `:= $1)
+                    `; (<self `!. s "neighboursList" `:= $2)
+                    `; (<self `!. s "whenBorn"       `:= $3)
+                    `; (<self `!. s "whenLive"       `:= $4)
+                    `; (<self `!. s "whenDead"       `:= $5) `; null))
       `. let %life-game
-             ($_1 #( > (<self `!. s "cellList" `:= $1 ) `; null ))
+             ($_1 #(> (<self `!. s "cellList" `:= $1) `; null))
       `. let %update-life-game
-             ( < using jQuery
-              `. using Array `in #( > %life-game
-             `$ #( < let %callbacks
-                         ( for (< life-game `!. s "cellList") (%cell
-                          #( < let %is-live
-                                        (> (s "true") `= s "isLive" `get-attr jQuery (<cell `!. s "self" ))
+             (< let %Q (using qualified browser.jquery)
+              `. let %A (using qualified prelude.array) `in #(> %life-game
+             `$ #(< let %callbacks
+                         (A #for (< life-game `!. s "cellList") (%cell
+                          #(< let %is-live
+                                        (> (s "true") `= Q #get-attr (s "isLive") (Q #jQuery (<cell `!. s "self")))
                             `. let %neighbours-count
-                                        ( fold-right ($_2 #(if (> s "true" `= s "isLive" `get-attr jQuery $2 )
-                                                               (< $1 `+ "1")
-                                                               $1 )) "0" (<cell `!. s "neighboursList")) `in
-                          #( if (> not is-live `and neighbours-count `= "3" )
-                               ( %_ #((<cell `!. s "whenBorn") (<cell `!. s "self")))
-                          ( if (> is-live `and (< neighbours-count `gt "2" ) `or (> neighbours-count `gt "3" ))
-                               ( %_ #((<cell `!. s "whenDead") (<cell `!. s "self")))
-                          ( if is-live
-                               ( %_ #((<cell `!. s "whenLive") (<cell `!. s "self")))
-                               identity )))))) `in
-                     #(for callbacks (%callback #( callback nil )))))))
+                                        (A #fold-right ($_2 #(if (> s "true" `= Q #get-attr (s "isLive") (Q #jQuery $2))
+                                                                 (< $1 `+ "1")
+                                                                 $1)) "0" (<cell `!. s "neighboursList")) `in
+                          #(if (> not is-live `and neighbours-count `= "3")
+                               (%_ #((<cell `!. s "whenBorn") (<cell `!. s "self")))
+                          (if (> is-live `and (< neighbours-count `gt "2") `or (> neighbours-count `gt "3"))
+                               (%_ #((<cell `!. s "whenDead") (<cell `!. s "self")))
+                          (if is-live
+                               (%_ #((<cell `!. s "whenLive") (<cell `!. s "self")))
+                               identity)))))) `in
+                     #(A #for callbacks (%callback #(callback (A #nil))))))))

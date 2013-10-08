@@ -1,0 +1,103 @@
+<
+
+let %css-patterns <%=
+  ENV["LIFEGAME_CSS"].split(':').map do |lst|
+    lst.split(',')
+  end.inspect.inspect
+  %>
+
+`.
+
+let %initial-patterns <%=
+  ENV["LIFEGAME_INIT"].split(':').map do |path|
+    File.read(path).split(/\n/).flat_map.with_index do |l, y|
+      l.strip.chars.map.with_index do |c, x|
+        if c !~ /\s|_/ then
+          [x, y]
+        end
+      end.compact
+    end
+  end.inspect.inspect %>
+
+`.  let %lifegame-control-html (s <%= `env X=#{ENV["X"]} Y=#{ENV["Y"]} erb #{File.dirname(__FILE__)}/lifegame-control.html.erb`.inspect %>)
+`.  let %style-sheets-html (s <%= File.read("#{File.dirname(__FILE__)}/style-sheets.html").inspect %>)
+`.  using prelude.math
+`.  using prelude.string
+`.  using prelude.array
+`.  using control.underscore
+`.  using browser.jquery
+`in #(> jQuery ($_1
+       #(> after lifegame-control-html (jQuery (s "#contents"))
+         `; for (range0 "<%= ENV["X"].to_i %>") (%i
+                #(for (range0 "<%= ENV["Y"].to_i %>") (%j
+                       #(<  let %lifegame-id                    (> s "#lifegame-" `+ i `+ s "-" `+ j)
+                        `.  let %lifegame-control-id            (> s "#lifegame-control-" `+ i `+ s "-" `+ j)
+                        `.  let %lifegame-control-wrapper-id    (> s "#lifegame-control-" `+ i `+ s "-" `+ j `+ s "-wrapper") `in
+                        #(< let %fn ($_1 #(> add-class (s "lifegame-born")
+                                                       (remove-class (s "lifegame-live lifegame-dead")
+                                                                     (set-attr (s "isLive") (s "true")
+                                                                               (jQuery lifegame-id)))
+                                          `; add-class (s "lifegame-control-live")
+                                                       (remove-class (s "lifegame-control-dead")
+                                                                     (jQuery lifegame-control-id)))) `in
+                        #(bind-mousemove fn (jQuery lifegame-control-wrapper-id)))))))))
+     `; jQuery ($_1
+       #(> after style-sheets-html (jQuery (s "#tools"))
+         `; (< self `!. s "csses" `:= (< css-patterns `!. "parseInt" (> random `* length css-patterns)))
+         `; for (< self `!. s "csses") (%css
+                #(append (> s "<link rel='stylesheet' type='text/css' href='css/" `+ css `+ s "' />") (jQuery (s "head"))))
+         `; for (< self `!. s "csses") (%css
+                #(append (> s "<li><a href='usercss/" `+ css `+ s "'>" `+ "document.domain" `+ s "/usercss/" `+ css `+ s "</a></li>") (jQuery (s "#stylesheets > ul"))))))
+
+     `; jQuery ($_1
+       #(< let %initial-pattern (< initial-patterns `!. "parseInt" (> random `* length initial-patterns)) `in
+            #(for initial-pattern (%index
+                   #(< let %i ($!. "0" index)
+                     `. let %j ($!. "1" index) `in
+                   #(< let %lifegame-id          (> s "#lifegame-" `+ i `+ s "-" `+ j)
+                     `. let %lifegame-control-id (> s "#lifegame-control-" `+ i `+ s "-" `+ j) `in
+                        #(> add-class (s "lifegame-born")
+                                       (remove-class (s "lifegame-dead")
+                                                     (set-attr (s "isLive") (s "true")
+                                                               (jQuery lifegame-id)))
+                          `; add-class (s "lifegame-control-live")
+                                       (remove-class (s "lifegame-control-dead")
+                                                      (jQuery lifegame-control-id)))))))))
+     `; jQuery ($_1
+        #(< let %whenBorn ($_1 #(> (< jQuery $1 `$ set-attr (s "isLive") (s "true")
+                                                `$ remove-class (s "lifegame-dead")
+                                                `$ add-class (s "lifegame-born"))
+                                `; (< jQuery ( replace (s "lifegame") (s "lifegame-control") $1) `$ remove-class (s "lifegame-control-dead")
+                                                                                                 `$ add-class (s "lifegame-control-live"))))
+         `. let %whenLive ($_1 #(> (< jQuery $1 `$ remove-class (s "lifegame-born") `$ add-class (s "lifegame-live"))
+                                `; (< jQuery ( replace (s "lifegame") (s "lifegame-control") $1) `$ remove-class (s "lifegame-control-dead")
+                                                                                                 `$ add-class (s "lifegame-control-live"))))
+         `. let %whenDead ($_1 #(> (< jQuery $1 `$ set-attr (s "isLive") (s "false")
+                                                `$ remove-class (s "lifegame-live lifegame-born")
+                                                `$ add-class (s "lifegame-dead"))
+                                                `; console #log $1
+                                `; (< jQuery ( replace (s "lifegame") (s "lifegame-control") $1) `$ remove-class (s "lifegame-control-live")
+                                                                                                 `$ add-class (s "lifegame-control-dead"))))
+
+         `in
+
+         #(< let %cell-list (flatten (for (range0 "<%= ENV["X"].to_i %>") (%i
+                                          #(for (range0 "<%= ENV["Y"].to_i %>") (%j
+                                                #("new LifeGame.Cell(%a, %a, %a, %a, %a)"
+                                                       (> s "#lifegame-" `+ i `+ s "-" `+ j)
+                                                       ( "Array" (> s "#lifegame-" `+ ($+ i "1") `+ s "-" `+ j)
+                                                                 (> s "#lifegame-" `+ ($- i "1") `+ s "-" `+ j)
+                                                                 (> s "#lifegame-" `+ ($+ i "1") `+ s "-" `+ ($+ j "1"))
+                                                                 (> s "#lifegame-" `+ ($- i "1") `+ s "-" `+ ($+ j "1"))
+                                                                 (> s "#lifegame-" `+ ($+ i "1") `+ s "-" `+ ($- j "1"))
+                                                                 (> s "#lifegame-" `+ ($- i "1") `+ s "-" `+ ($- j "1"))
+                                                                 (> s "#lifegame-" `+ i `+ s "-" `+ ($+ j "1"))
+                                                                 (> s "#lifegame-" `+ i `+ s "-" `+ ($- j "1")))
+                                                       whenBorn
+                                                       whenLive
+                                                       whenDead))))))
+
+         `in
+
+         #(> (< "lifeGame" `:= "new LifeGame.LifeGame(%a)" cell-list)
+          `; "setInterval" ($_1 #( "LifeGame.update(lifeGame)" )) "500.0")))))

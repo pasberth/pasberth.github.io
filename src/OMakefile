@@ -64,7 +64,7 @@ $(BUILDDIR)/usercss: $(LIFEGAME_CSS) usercss.erb $(LIFEGAME_CSS) $(BUILDDIR)/css
     env CSS=$(BUILDDIR)/css/dotted.css erb usercss.erb > $(BUILDDIR)/usercss/tmp.css
     mv $(BUILDDIR)/usercss/tmp.css $(BUILDDIR)/usercss/dotted.css
 
-$(BUILDDIR)/coffee/index.coffee: $(BUILDDIR)/coffee index.coffee.erb $(LIFEGAME_INIT) $(LIFEGAME_CSS)
+$(BUILDDIR)/jsnedra/index.jsnedra: $(BUILDDIR)/jsnedra index.jsnedra.erb $(LIFEGAME_INIT) $(LIFEGAME_CSS)
 
   section:
     LIFEGAME_CSSES =
@@ -76,10 +76,10 @@ $(BUILDDIR)/coffee/index.coffee: $(BUILDDIR)/coffee index.coffee.erb $(LIFEGAME_
     env X=30 Y=30 \
         LIFEGAME_CSS=$(concat :, $(LIFEGAME_CSSES)) \
         LIFEGAME_INIT=$(concat :, $(LIFEGAME_INIT)) \
-        erb index.coffee.erb > $(BUILDDIR)/coffee/index.coffee
+        erb index.jsnedra.erb > $(BUILDDIR)/jsnedra/index.jsnedra
 
-$(BUILDDIR)/js/index.js: $(BUILDDIR)/js $(BUILDDIR)/coffee/index.coffee
-    coffee -o $(BUILDDIR)/js -c $(BUILDDIR)/coffee/index.coffee
+$(BUILDDIR)/js/index.js: $(BUILDDIR)/js $(BUILDDIR)/jsnedra/index.jsnedra
+    jsnedrac $(BUILDDIR)/jsnedra/index.jsnedra > $(BUILDDIR)/js/index.js
 
 build: $(BUILDDIR)/index.html \
        $(BUILDDIR)/css/main.css \
@@ -96,7 +96,8 @@ clean: build
     foreach (css, $(LIFEGAME_CSS))
       rm $(BUILDDIR)/css/$(basename $(css))
       rm $(BUILDDIR)/usercss/$(basename $(css))
+    rm $(BUILDDIR)/usercss/dotted.css
 
     rmdir $(BUILDDIR)/usercss
     rm $(BUILDDIR)/js/index.js
-    rm $(BUILDDIR)/coffee/index.coffee
+    rm $(BUILDDIR)/jsnedra/index.jsnedra

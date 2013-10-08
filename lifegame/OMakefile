@@ -1,5 +1,5 @@
-$(BUILDDIR)/js/lifegame.js: $(BUILDDIR)/js lifegame.coffee
-    coffee -o $(BUILDDIR)/js -c lifegame.coffee
+$(BUILDDIR)/js/lifegame.js: $(BUILDDIR)/js lifegame.jsnedra
+    jsnedrac lifegame.jsnedra > $(BUILDDIR)/js/lifegame.js
 
 build: $(BUILDDIR)/js/lifegame.js
 

@@ -10,9 +10,13 @@ $(BUILDDIR)/lib: $(BUILDDIR)
 $(BUILDDIR)/coffee: $(BUILDDIR)
     mkdir -p $(BUILDDIR)/coffee
 
+$(BUILDDIR)/jsnedra: $(BUILDDIR)
+    mkdir -p $(BUILDDIR)/jsnedra
+
 clean: build
     rmdir $(BUILDDIR)/css
     rmdir $(BUILDDIR)/js
     rmdir $(BUILDDIR)/lib
     rmdir $(BUILDDIR)/coffee
+    rmdir $(BUILDDIR)/jsnedra
     rmdir $(BUILDDIR)/img

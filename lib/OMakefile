@@ -1,7 +1,10 @@
 $(BUILDDIR)/lib/jquery-2.0.3.js: $(BUILDDIR)/lib jquery-2.0.3.js
     cp jquery-2.0.3.js $(BUILDDIR)/lib/jquery-2.0.3.js
 
-build: $(BUILDDIR)/lib/jquery-2.0.3.js
+$(BUILDDIR)/lib/underscore-min.js: $(BUILDDIR)/lib underscore-min.js
+    cp underscore-min.js $(BUILDDIR)/lib/underscore-min.js
+
+build: $(BUILDDIR)/lib/jquery-2.0.3.js $(BUILDDIR)/lib/underscore-min.js
 
 clean: build
     rm $(BUILDDIR)/lib/jquery-2.0.3.js
