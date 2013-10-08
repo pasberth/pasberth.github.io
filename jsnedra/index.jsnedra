@@ -22,7 +22,7 @@ let %initial-patterns "[[[2, 2], [3, 2], [5, 2], [6, 2], [7, 2], [8, 2], [9, 2],
                         `.  let %lifegame-control-wrapper-id    (> s "#lifegame-control-" `+ i `+ s "-" `+ j `+ s "-wrapper") `in
                         #(< let %fn ($_1 #(> add-class (s "lifegame-born")
                                                        (remove-class (s "lifegame-live lifegame-dead")
-                                                                     (set-attr (s "isLive") (s "true")
+                                                                     (set-data (s "isLive") true
                                                                                (jQuery lifegame-id)))
                                           `; add-class (s "lifegame-control-live")
                                                        (remove-class (s "lifegame-control-dead")
@@ -45,13 +45,13 @@ let %initial-patterns "[[[2, 2], [3, 2], [5, 2], [6, 2], [7, 2], [8, 2], [9, 2],
                      `. let %lifegame-control-id (> s "#lifegame-control-" `+ i `+ s "-" `+ j) `in
                         #(> add-class (s "lifegame-born")
                                        (remove-class (s "lifegame-dead")
-                                                     (set-attr (s "isLive") (s "true")
+                                                     (set-data (s "isLive") true
                                                                (jQuery lifegame-id)))
                           `; add-class (s "lifegame-control-live")
                                        (remove-class (s "lifegame-control-dead")
                                                       (jQuery lifegame-control-id)))))))))
      `; jQuery ($_1
-        #(< let %whenBorn ($_1 #(> (< jQuery $1 `$ set-attr (s "isLive") (s "true")
+        #(< let %whenBorn ($_1 #(> (< jQuery $1 `$ set-data (s "isLive") true
                                                 `$ remove-class (s "lifegame-dead")
                                                 `$ add-class (s "lifegame-born"))
                                 `; (< jQuery ( replace (s "lifegame") (s "lifegame-control") $1) `$ remove-class (s "lifegame-control-dead")
@@ -59,7 +59,7 @@ let %initial-patterns "[[[2, 2], [3, 2], [5, 2], [6, 2], [7, 2], [8, 2], [9, 2],
          `. let %whenLive ($_1 #(> (< jQuery $1 `$ remove-class (s "lifegame-born") `$ add-class (s "lifegame-live"))
                                 `; (< jQuery ( replace (s "lifegame") (s "lifegame-control") $1) `$ remove-class (s "lifegame-control-dead")
                                                                                                  `$ add-class (s "lifegame-control-live"))))
-         `. let %whenDead ($_1 #(> (< jQuery $1 `$ set-attr (s "isLive") (s "false")
+         `. let %whenDead ($_1 #(> (< jQuery $1 `$ set-data (s "isLive") false
                                                 `$ remove-class (s "lifegame-live lifegame-born")
                                                 `$ add-class (s "lifegame-dead"))
                                                 `; console #log $1

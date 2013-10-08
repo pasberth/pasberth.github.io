@@ -3,7 +3,7 @@ jQuery((function ($31) {
   return Array.prototype.map.call(_.range(30), (function (i) {
     return Array.prototype.map.call(_.range(30), (function (j) {
       return (jQuery("#lifegame-control-" + (i + ("-" + (j + "-wrapper"))))).mousemove((function ($31) {
-        (((jQuery("#lifegame-" + (i + ("-" + j)))).attr("isLive", "true")).removeClass("lifegame-live lifegame-dead")).addClass("lifegame-born");
+        (((jQuery("#lifegame-" + (i + ("-" + j)))).data("isLive", true)).removeClass("lifegame-live lifegame-dead")).addClass("lifegame-born");
         return ((jQuery("#lifegame-control-" + (i + ("-" + j)))).removeClass("lifegame-control-dead")).addClass("lifegame-control-live");
       }));
     }));
@@ -21,7 +21,7 @@ jQuery((function ($31) {
 }));
 jQuery((function ($31) {
   return Array.prototype.map.call([[[2, 2], [3, 2], [5, 2], [6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [2, 3], [3, 3], [5, 3], [6, 3], [7, 3], [8, 3], [9, 3], [10, 3], [2, 4], [3, 4], [2, 5], [3, 5], [9, 5], [10, 5], [2, 6], [3, 6], [9, 6], [10, 6], [2, 7], [3, 7], [9, 7], [10, 7], [9, 8], [10, 8], [2, 9], [3, 9], [4, 9], [5, 9], [6, 9], [7, 9], [9, 9], [10, 9], [2, 10], [3, 10], [4, 10], [5, 10], [6, 10], [7, 10], [9, 10], [10, 10]], [[4, 2], [5, 2], [6, 2], [10, 2], [11, 2], [12, 2], [2, 4], [7, 4], [9, 4], [14, 4], [2, 5], [7, 5], [9, 5], [14, 5], [2, 6], [7, 6], [9, 6], [14, 6], [4, 7], [5, 7], [6, 7], [10, 7], [11, 7], [12, 7], [4, 9], [5, 9], [6, 9], [10, 9], [11, 9], [12, 9], [2, 10], [7, 10], [9, 10], [14, 10], [2, 11], [7, 11], [9, 11], [14, 11], [2, 12], [7, 12], [9, 12], [14, 12], [4, 14], [5, 14], [6, 14], [10, 14], [11, 14], [12, 14]], [[5, 2], [10, 2], [4, 3], [5, 3], [10, 3], [11, 3], [5, 4], [10, 4]], [[22, 12], [21, 13], [22, 13], [23, 13], [21, 14]], [[10, 20], [11, 20], [11, 21], [12, 21], [11, 22]], [[13, 15], [11, 16], [12, 16], [13, 16], [12, 17]], [[11, 9], [10, 10], [11, 10], [11, 11], [12, 11]]][(parseInt(Math.random() * ([[[2, 2], [3, 2], [5, 2], [6, 2], [7, 2], [8, 2], [9, 2], [10, 2], [2, 3], [3, 3], [5, 3], [6, 3], [7, 3], [8, 3], [9, 3], [10, 3], [2, 4], [3, 4], [2, 5], [3, 5], [9, 5], [10, 5], [2, 6], [3, 6], [9, 6], [10, 6], [2, 7], [3, 7], [9, 7], [10, 7], [9, 8], [10, 8], [2, 9], [3, 9], [4, 9], [5, 9], [6, 9], [7, 9], [9, 9], [10, 9], [2, 10], [3, 10], [4, 10], [5, 10], [6, 10], [7, 10], [9, 10], [10, 10]], [[4, 2], [5, 2], [6, 2], [10, 2], [11, 2], [12, 2], [2, 4], [7, 4], [9, 4], [14, 4], [2, 5], [7, 5], [9, 5], [14, 5], [2, 6], [7, 6], [9, 6], [14, 6], [4, 7], [5, 7], [6, 7], [10, 7], [11, 7], [12, 7], [4, 9], [5, 9], [6, 9], [10, 9], [11, 9], [12, 9], [2, 10], [7, 10], [9, 10], [14, 10], [2, 11], [7, 11], [9, 11], [14, 11], [2, 12], [7, 12], [9, 12], [14, 12], [4, 14], [5, 14], [6, 14], [10, 14], [11, 14], [12, 14]], [[5, 2], [10, 2], [4, 3], [5, 3], [10, 3], [11, 3], [5, 4], [10, 4]], [[22, 12], [21, 13], [22, 13], [23, 13], [21, 14]], [[10, 20], [11, 20], [11, 21], [12, 21], [11, 22]], [[13, 15], [11, 16], [12, 16], [13, 16], [12, 17]], [[11, 9], [10, 10], [11, 10], [11, 11], [12, 11]]].length)))], (function (index) {
-    (((jQuery("#lifegame-" + ((index[0]) + ("-" + (index[1]))))).attr("isLive", "true")).removeClass("lifegame-dead")).addClass("lifegame-born");
+    (((jQuery("#lifegame-" + ((index[0]) + ("-" + (index[1]))))).data("isLive", true)).removeClass("lifegame-dead")).addClass("lifegame-born");
     return ((jQuery("#lifegame-control-" + ((index[0]) + ("-" + (index[1]))))).removeClass("lifegame-control-dead")).addClass("lifegame-control-live");
   }));
 }));
@@ -29,13 +29,13 @@ jQuery((function ($31) {
   lifeGame = (new LifeGame.LifeGame((_.flatten(Array.prototype.map.call(_.range(30), (function (i) {
     return Array.prototype.map.call(_.range(30), (function (j) {
       return new LifeGame.Cell(("#lifegame-" + (i + ("-" + j))), (Array("#lifegame-" + ((i + 1) + ("-" + j)), "#lifegame-" + ((i - 1) + ("-" + j)), "#lifegame-" + ((i + 1) + ("-" + (j + 1))), "#lifegame-" + ((i - 1) + ("-" + (j + 1))), "#lifegame-" + ((i + 1) + ("-" + (j - 1))), "#lifegame-" + ((i - 1) + ("-" + (j - 1))), "#lifegame-" + (i + ("-" + (j + 1))), "#lifegame-" + (i + ("-" + (j - 1))))), (function ($31) {
-        (((jQuery($31)).attr("isLive", "true")).removeClass("lifegame-dead")).addClass("lifegame-born");
+        (((jQuery($31)).data("isLive", true)).removeClass("lifegame-dead")).addClass("lifegame-born");
         return ((jQuery(String.prototype.replace.call($31, "lifegame", "lifegame-control"))).removeClass("lifegame-control-dead")).addClass("lifegame-control-live");
       }), (function ($31) {
         ((jQuery($31)).removeClass("lifegame-born")).addClass("lifegame-live");
         return ((jQuery(String.prototype.replace.call($31, "lifegame", "lifegame-control"))).removeClass("lifegame-control-dead")).addClass("lifegame-control-live");
       }), (function ($31) {
-        (((jQuery($31)).attr("isLive", "false")).removeClass("lifegame-live lifegame-born")).addClass("lifegame-dead");
+        (((jQuery($31)).data("isLive", false)).removeClass("lifegame-live lifegame-born")).addClass("lifegame-dead");
         console.log($31);
         return ((jQuery(String.prototype.replace.call($31, "lifegame", "lifegame-control"))).removeClass("lifegame-control-live")).addClass("lifegame-control-dead");
       }));
