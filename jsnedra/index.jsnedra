@@ -87,4 +87,4 @@ let %initial-patterns "[[[2, 2], [3, 2], [5, 2], [6, 2], [7, 2], [8, 2], [9, 2],
          `in
 
          #(> (< "lifeGame" `:= "new LifeGame.LifeGame(%a)" cell-list)
-          `; "setInterval" ($_1 #( "LifeGame.update(lifeGame)" )) "500.0")))))
+          `; "setInterval" ($_1 #( "LifeGame.update(lifeGame)" )) "200.0")))))

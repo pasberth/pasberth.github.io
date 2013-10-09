@@ -43,5 +43,5 @@ jQuery((function ($31) {
   }))))));
   return setInterval((function ($31) {
     return LifeGame.update(lifeGame);
-  }), 500.0);
+  }), 200.0);
 }));
