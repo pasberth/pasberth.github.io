@@ -62,7 +62,6 @@ let %initial-patterns "[[[2, 2], [3, 2], [5, 2], [6, 2], [7, 2], [8, 2], [9, 2],
          `. let %whenDead ($_1 #(> (< jQuery $1 `$ set-data (s "isLive") false
                                                 `$ remove-class (s "lifegame-live lifegame-born")
                                                 `$ add-class (s "lifegame-dead"))
-                                                `; console #log $1
                                 `; (< jQuery ( replace (s "lifegame") (s "lifegame-control") $1) `$ remove-class (s "lifegame-control-live")
                                                                                                  `$ add-class (s "lifegame-control-dead"))))
 

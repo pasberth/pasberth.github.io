@@ -36,7 +36,6 @@ jQuery((function ($31) {
         return ((jQuery(String.prototype.replace.call($31, "lifegame", "lifegame-control"))).removeClass("lifegame-control-dead")).addClass("lifegame-control-live");
       }), (function ($31) {
         (((jQuery($31)).data("isLive", false)).removeClass("lifegame-live lifegame-born")).addClass("lifegame-dead");
-        console.log($31);
         return ((jQuery(String.prototype.replace.call($31, "lifegame", "lifegame-control"))).removeClass("lifegame-control-live")).addClass("lifegame-control-dead");
       }));
     }));
