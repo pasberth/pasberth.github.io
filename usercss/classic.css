@@ -1,8 +1,8 @@
 @namespace url(http://www.w3.org/1999/xhtml);
 @-moz-document domain("pasberth.github.io") {
 .lifegame-born {
-    border-color: black !important;
-    background-color: black !important;
+    border-color: #505050 !important;
+    background-color: #505050 !important;
 }
 
 .lifegame-live {
@@ -16,8 +16,8 @@
 }
 
 .lifegame-control-live {
-    border-color: black !important;
-    background-color: black !important;
+    border-color: #505050 !important;
+    background-color: #505050 !important;
 }
 
 .lifegame-control-dead {

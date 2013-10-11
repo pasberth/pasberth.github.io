@@ -1,6 +1,6 @@
 .lifegame-born {
-    border-color: black;
-    background-color: black;
+    border-color: #505050;
+    background-color: #505050;
 }
 
 .lifegame-live {
@@ -14,8 +14,8 @@
 }
 
 .lifegame-control-live {
-    border-color: black;
-    background-color: black;
+    border-color: #505050;
+    background-color: #505050;
 }
 
 .lifegame-control-dead {
