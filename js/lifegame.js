@@ -12,8 +12,8 @@
   return null;
 });
 ((this["LifeGame"])["update"]) = (function (life$2dgame) {
-  return Array.prototype.map.call(Array.prototype.map.call(life$2dgame["cellList"], (function (cell) {
-    if ((! ((jQuery(cell["self"])).data("isLive"))) && ((Array.prototype.reduceRight.call(cell["neighboursList"], (function ($31, $32) {
+  return ((life$2dgame["cellList"]).map((function (cell) {
+    if ((! ((jQuery(cell["self"])).data("isLive"))) && (((cell["neighboursList"]).reduceRight((function ($31, $32) {
       if ((jQuery($32)).data("isLive")) {
         return 1 + $31;
       } else {
@@ -23,13 +23,13 @@
       return (function ($5f) {
         return cell["whenBorn"](cell["self"]);
       });
-    } else if (((jQuery(cell["self"])).data("isLive")) && ((2 > (Array.prototype.reduceRight.call(cell["neighboursList"], (function ($31, $32) {
+    } else if (((jQuery(cell["self"])).data("isLive")) && ((2 > ((cell["neighboursList"]).reduceRight((function ($31, $32) {
       if ((jQuery($32)).data("isLive")) {
         return 1 + $31;
       } else {
         return $31;
       }
-    }), 0))) || ((Array.prototype.reduceRight.call(cell["neighboursList"], (function ($31, $32) {
+    }), 0))) || (((cell["neighboursList"]).reduceRight((function ($31, $32) {
       if ((jQuery($32)).data("isLive")) {
         return 1 + $31;
       } else {
@@ -48,7 +48,7 @@
         return x;
       });
     }
-  })), (function (callback) {
+  }))).map((function (callback) {
     return callback([]);
   }));
 });
