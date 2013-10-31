@@ -46,10 +46,8 @@
     font-weight: bold;
     font-family: "Optima";
 
-    border-bottom-width: 2px;
     border-bottom-style: solid;
-    border-bottom-color: #505050;
-    border-bottom-right-radius: 6em 2em;
+    border-bottom-width: 2px;
 }
 
 #main > section > img {
