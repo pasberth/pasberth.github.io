@@ -64,7 +64,7 @@ $(BUILDDIR)/usercss: $(LIFEGAME_CSS) usercss.erb $(LIFEGAME_CSS) $(BUILDDIR)/css
     env CSS=$(BUILDDIR)/css/dotted.css erb usercss.erb > $(BUILDDIR)/usercss/tmp.css
     mv $(BUILDDIR)/usercss/tmp.css $(BUILDDIR)/usercss/dotted.css
 
-$(BUILDDIR)/jsnedra/index.jsnedra: $(BUILDDIR)/jsnedra index.jsnedra.erb $(LIFEGAME_INIT) $(LIFEGAME_CSS)
+$(BUILDDIR)/ml/index.ml: $(BUILDDIR)/ml index.ml.erb $(LIFEGAME_INIT) $(LIFEGAME_CSS)
 
   section:
     LIFEGAME_CSSES =
@@ -76,10 +76,12 @@ $(BUILDDIR)/jsnedra/index.jsnedra: $(BUILDDIR)/jsnedra index.jsnedra.erb $(LIFEG
     env X=30 Y=30 \
         LIFEGAME_CSS=$(concat :, $(LIFEGAME_CSSES)) \
         LIFEGAME_INIT=$(concat :, $(LIFEGAME_INIT)) \
-        erb index.jsnedra.erb > $(BUILDDIR)/jsnedra/index.jsnedra
+        erb index.ml.erb > $(BUILDDIR)/ml/index.ml
 
-$(BUILDDIR)/js/index.js: $(BUILDDIR)/js $(BUILDDIR)/jsnedra/index.jsnedra
-    jsnedrac $(BUILDDIR)/jsnedra/index.jsnedra > $(BUILDDIR)/js/index.js
+$(BUILDDIR)/js/index.js: $(BUILDDIR)/js $(BUILDDIR)/ml/index.ml
+    ocamlfind ocamlc -package js_of_ocaml -package js_of_ocaml.syntax -syntax camlp4o -I ../.vendor/ocaml-jquery -I ../lifegame JQuery.cmo Tools.cmo Lifegame.cmo -linkpkg $(BUILDDIR)/ml/index.ml -o index.byte
+    js_of_ocaml index.byte
+    cp index.js $(BUILDDIR)/js
 
 build: $(BUILDDIR)/index.html \
        $(BUILDDIR)/css/main.css \
@@ -100,4 +102,4 @@ clean: build
 
     rmdir $(BUILDDIR)/usercss
     rm $(BUILDDIR)/js/index.js
-    rm $(BUILDDIR)/jsnedra/index.jsnedra
+    rm $(BUILDDIR)/ml/index.ml

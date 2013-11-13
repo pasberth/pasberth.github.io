@@ -7,12 +7,12 @@ $(BUILDDIR)/js: $(BUILDDIR)
 $(BUILDDIR)/lib: $(BUILDDIR)
     mkdir -p $(BUILDDIR)/lib
 
-$(BUILDDIR)/jsnedra: $(BUILDDIR)
-    mkdir -p $(BUILDDIR)/jsnedra
+$(BUILDDIR)/ml: $(BUILDDIR)
+    mkdir -p $(BUILDDIR)/ml
 
 clean: build
     rmdir $(BUILDDIR)/css
     rmdir $(BUILDDIR)/js
     rmdir $(BUILDDIR)/lib
-    rmdir $(BUILDDIR)/jsnedra
+    rmdir $(BUILDDIR)/ml
     rmdir $(BUILDDIR)/img

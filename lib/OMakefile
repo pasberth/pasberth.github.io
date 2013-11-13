@@ -8,3 +8,4 @@ build: $(BUILDDIR)/lib/jquery-2.0.3.js $(BUILDDIR)/lib/underscore-min.js
 
 clean: build
     rm $(BUILDDIR)/lib/jquery-2.0.3.js
+    rm $(BUILDDIR)/lib/underscore-min.js

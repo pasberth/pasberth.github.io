@@ -1,0 +1,144 @@
+open JQuery
+
+let _ = Random.self_init ()
+
+let css_patterns = [
+  <%
+  ENV["LIFEGAME_CSS"].split(':').each do |lst|
+  %>
+
+    [
+    <%
+    lst.split(',').map(&:inspect).each do |css| %>
+        <%= css %>;<%
+    end
+    %>
+    ];
+
+  <%
+  end
+  %>
+]
+
+let initial_patterns = [
+
+  <%
+  ENV["LIFEGAME_INIT"].split(':').each do |path|
+  %>
+
+    [
+    <%
+    File.read(path).split(/\n/).each_with_index do |l, y|
+      l.strip.chars.with_index do |c, x|
+        if c !~ /\s|_/ then %>
+        (<%= x %>, <%= y %>);<%
+        end
+      end
+    end
+    %>
+    ];
+
+  <% end %>
+]
+
+let lifegame_control_html = <%= `env X=#{ENV["X"]} Y=#{ENV["Y"]} erb #{File.dirname(__FILE__)}/lifegame-control.html.erb`.inspect %>
+let style_sheets_html = <%= File.read("#{File.dirname(__FILE__)}/style-sheets.html").inspect %>
+
+let _ = (jQ "body")##ready (Js.wrap_callback (fun _ ->
+  (jQ "#contents")##after (Tools.Choice3.i1 (Js.string lifegame_control_html))))
+  (* TODO *)
+
+let _ = (jQ "body")##ready (Js.wrap_callback (fun _ ->
+  let _ = (jQ "#tools")##after (Tools.Choice3.i1 (Js.string style_sheets_html)) in
+  let csses = List.nth css_patterns (Random.int (List.length css_patterns)) in
+
+  List.iter (fun css ->
+              let _ = (jQ "head")##append (Js.string (String.concat "" ["<link rel='stylesheet' type='text/css' href='css/"
+                                                                        ; css
+                                                                        ; "' />"
+                                                                        ]))
+              in ())
+            csses;
+  List.iter (fun css ->
+              let _ = (jQ "#stylesheets > ul")##append (Js.string (String.concat "" [ "<li><a href='usercss/"
+                                                                                    ; css
+                                                                                    ; "'>pasberth.github.io/usercss/"
+                                                                                    ; css
+                                                                                    ; "</a></li>"
+                                                                                    ]))
+              in ())
+            csses
+  ))
+
+let _ = (jQ "body")##ready (Js.wrap_callback (fun _ ->
+  let initial_pattern = List.nth initial_patterns (Random.int (List.length initial_patterns)) in
+
+  List.iter (fun (i, j) ->
+              let lifegame_id         = String.concat "" ["#lifegame-"; string_of_int i; "-"; string_of_int j] in
+              let lifegame_control_id = String.concat "" ["#lifegame-control-"; string_of_int i; "-"; string_of_int j] in
+              let _ = (jQ lifegame_id)##attr_set ((Js.string "isLive"), (Js.string "true")) in
+              let _ = (jQ lifegame_id)##removeClass (Js.Opt.return (Js.string "lifegame-dead")) in
+              let _ = (jQ lifegame_id)##addClass (Js.string "lifegame-live") in
+              let _ = (jQ lifegame_control_id)##removeClass (Js.Opt.return (Js.string "lifegame-control-dead")) in
+              let _ = (jQ lifegame_control_id)##addClass (Js.string "lifegame-control-live") in
+              ())
+            initial_pattern))
+
+let _ = (jQ "body")##ready (Js.wrap_callback (fun _ ->
+  let cell_list = ref [] in
+
+  let when_born cell =
+    let _ = (jQ cell)##attr_set (Js.string "isLive", Js.string "true") in
+    let _ = (jQ cell)##removeClass (Js.Opt.return (Js.string "lifegame-dead")) in
+    let _ = (jQ cell)##addClass (Js.string "lifegame-born") in
+
+    let lifegame_control_id = String.concat "" [String.sub cell 0 9; "-control"; String.sub cell 9 (String.length cell - 9)] in
+    let _ = (jQ lifegame_control_id)##removeClass (Js.Opt.return (Js.string "lifegame-control-dead")) in
+    let _ = (jQ lifegame_control_id)##addClass (Js.string "lifegame-control-live") in
+    () in
+
+  let when_live cell =
+    let _ = (jQ cell)##removeClass (Js.Opt.return (Js.string "lifegame-born")) in
+    let _ = (jQ cell)##addClass (Js.string "lifegame-live") in
+
+    let lifegame_control_id = String.concat "" [String.sub cell 0 9; "-control"; String.sub cell 9 (String.length cell - 9)] in
+    let _ = (jQ lifegame_control_id)##removeClass (Js.Opt.return (Js.string "lifegame-control-dead")) in
+    let _ = (jQ lifegame_control_id)##addClass (Js.string "lifegame-control-live") in
+    () in
+
+  let when_dead cell =
+    let _ = (jQ cell)##attr_set (Js.string "isLive", Js.string "false") in
+    let _ = (jQ cell)##removeClass (Js.Opt.return (Js.string "lifegame-born")) in
+    let _ = (jQ cell)##removeClass (Js.Opt.return (Js.string "lifegame-live")) in
+    let _ = (jQ cell)##addClass (Js.string "lifegame-dead") in
+
+    let lifegame_control_id = String.concat "" [String.sub cell 0 9; "-control"; String.sub cell 9 (String.length cell - 9)] in
+    let _ = (jQ lifegame_control_id)##addClass (Js.string "lifegame-control-dead") in
+    let _ = (jQ lifegame_control_id)##removeClass (Js.Opt.return (Js.string "lifegame-control-live")) in
+    () in
+
+  for i = 0 to <%= ENV["X"].to_i - 1 %> do
+    for j = 0 to <%= ENV["Y"].to_i - 1 %> do
+      let cell = {
+        Lifegame.Cell.self = String.concat "" ["#lifegame-"; string_of_int i; "-"; string_of_int j];
+        Lifegame.Cell.neighbours_list = [
+          String.concat "" ["#lifegame-"; string_of_int (i + 1); "-"; string_of_int j];
+          String.concat "" ["#lifegame-"; string_of_int (i - 1); "-"; string_of_int j];
+          String.concat "" ["#lifegame-"; string_of_int (i + 1); "-"; string_of_int (j + 1)];
+          String.concat "" ["#lifegame-"; string_of_int (i - 1); "-"; string_of_int (j + 1)];
+          String.concat "" ["#lifegame-"; string_of_int (i + 1); "-"; string_of_int (j - 1)];
+          String.concat "" ["#lifegame-"; string_of_int (i - 1); "-"; string_of_int (j - 1)];
+          String.concat "" ["#lifegame-"; string_of_int i; "-"; string_of_int (j + 1)];
+          String.concat "" ["#lifegame-"; string_of_int i; "-"; string_of_int (j - 1)];
+        ];
+
+        Lifegame.Cell.when_born = when_born;
+        Lifegame.Cell.when_live = when_live;
+        Lifegame.Cell.when_dead = when_dead;
+      } in
+      cell_list := cell :: !cell_list
+    done
+  done;
+
+  let lifegame = { Lifegame.cell_list = !cell_list } in
+  Js.Unsafe.fun_call (Js.Unsafe.variable "setInterval") [|Js.Unsafe.inject (Js.wrap_callback (fun _ -> Lifegame.update lifegame)); Js.Unsafe.inject (Js.float 200.0)|]))
