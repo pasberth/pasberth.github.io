@@ -323,8 +323,26 @@ let lifegame_control_html = "<section class=\"content\">\n  <header><h1 class=\"
 let style_sheets_html = "<section id=\"stylesheets\" class=\"content\">\n  <header><h1 class=\"content-title\">Style Sheets</h1></header>\n  <ul></ul>\n</section>\n"
 
 let _ = (jQ "body")##ready (Js.wrap_callback (fun _ ->
-  (jQ "#contents")##after (Tools.Choice3.i1 (Js.string lifegame_control_html))))
-  (* TODO *)
+  let _ = (jQ "#contents")##after (Tools.Choice3.i1 (Js.string lifegame_control_html)) in
+
+  for i = 0 to 29 do
+    for j = 0 to 29 do
+      let cell = String.concat "" ["#lifegame-"; string_of_int i; "-"; string_of_int j] in
+      let lifegame_control_elem = Js.Opt.to_option (Dom_html.document##getElementById (Js.string (String.concat "" ["lifegame-control-"; string_of_int i; "-"; string_of_int j; "-wrapper"]))) in
+      match lifegame_control_elem with
+        | None -> ()
+        | Some(lifegame_control_elem) ->
+          lifegame_control_elem##onmousemove <- Dom_html.handler (fun _ ->
+            let _ = (jQ cell)##attr_set (Js.string "isLive", Js.string "true") in
+            let _ = (jQ cell)##removeClass (Js.Opt.return (Js.string "lifegame-dead")) in
+            let _ = (jQ cell)##addClass (Js.string "lifegame-born") in
+
+            let lifegame_control_id = String.concat "" [String.sub cell 0 9; "-control"; String.sub cell 9 (String.length cell - 9)] in
+            let _ = (jQ lifegame_control_id)##removeClass (Js.Opt.return (Js.string "lifegame-control-dead")) in
+            let _ = (jQ lifegame_control_id)##addClass (Js.string "lifegame-control-live") in
+            Js._true)
+    done
+  done))
 
 let _ = (jQ "body")##ready (Js.wrap_callback (fun _ ->
   let _ = (jQ "#tools")##after (Tools.Choice3.i1 (Js.string style_sheets_html)) in
