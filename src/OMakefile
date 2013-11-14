@@ -64,7 +64,7 @@ $(BUILDDIR)/usercss: $(LIFEGAME_CSS) usercss.erb $(LIFEGAME_CSS) $(BUILDDIR)/css
     env CSS=$(BUILDDIR)/css/dotted.css erb usercss.erb > $(BUILDDIR)/usercss/tmp.css
     mv $(BUILDDIR)/usercss/tmp.css $(BUILDDIR)/usercss/dotted.css
 
-$(BUILDDIR)/ml/index.ml: $(BUILDDIR)/ml index.ml.erb $(LIFEGAME_INIT) $(LIFEGAME_CSS)
+$(BUILDDIR)/ml/index.ml: $(BUILDDIR)/ml index.ml.erb lifegame-control.html.erb style-sheets.html $(LIFEGAME_INIT) $(LIFEGAME_CSS)
 
   section:
     LIFEGAME_CSSES =
