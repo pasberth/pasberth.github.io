@@ -1,6 +1,8 @@
-$(BUILDDIR)/img: $(BUILDDIR) $(glob *.png)
+$(BUILDDIR)/img: $(BUILDDIR) $(glob *.png) $(glob ../painting/*.png)
     mkdir -p $(BUILDDIR)/img
     cp $(glob *.png) $(BUILDDIR)/img
+    foreach (painting, $(glob ../painting/*.png))
+        convert -geometry 640x640 $(painting) $(BUILDDIR)/img/$(basename $(painting))
 
 build: $(BUILDDIR)/img
 
