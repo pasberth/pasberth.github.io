@@ -5,4 +5,4 @@ $(BUILDDIR)/img: $(BUILDDIR) $(glob *.png)
 build: $(BUILDDIR)/img
 
 clean: build
-    rm $(glob $(BUILDDIR)/img/*.png)
+    rm -rf $(BUILDDIR)/img

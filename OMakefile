@@ -15,4 +15,3 @@ clean: build
     rmdir $(BUILDDIR)/js
     rmdir $(BUILDDIR)/lib
     rmdir $(BUILDDIR)/ml
-    rmdir $(BUILDDIR)/img
