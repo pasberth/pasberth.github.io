@@ -1,3 +1,6 @@
 .omakedb
 .omakedb.lock
 *.omc
+*.cmi
+*.cmo
+*.ibc
