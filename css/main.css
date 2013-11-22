@@ -50,7 +50,7 @@
     border-bottom-width: 2px;
 }
 
-#main > section > img {
+.content img {
     width: 128px;
     height: auto;
     float: right;
