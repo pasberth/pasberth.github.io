@@ -41,7 +41,7 @@ let initial_patterns = [
   <% end %>
 ]
 
-let lifegame_control_html = <%= `env X=#{ENV["X"]} Y=#{ENV["Y"]} erb #{File.dirname(__FILE__)}/lifegame-control.html.erb`.inspect %>
+let lifegame_control_html = <%= File.read("#{File.dirname(__FILE__)}/lifegame-control.html").inspect %>
 let style_sheets_html = <%= File.read("#{File.dirname(__FILE__)}/style-sheets.html").inspect %>
 
 let _ = (jQ "body")##ready (Js.wrap_callback (fun _ ->
