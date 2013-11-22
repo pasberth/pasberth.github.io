@@ -103,3 +103,5 @@ clean: build
     rmdir $(BUILDDIR)/usercss
     rm $(BUILDDIR)/js/index.js
     rm $(BUILDDIR)/ml/index.ml
+    rm $(BUILDDIR)/ml/index.cmo
+    rm $(BUILDDIR)/ml/index.cmi

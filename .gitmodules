@@ -4,3 +4,6 @@
 [submodule ".vendor/ocaml-jquery"]
 	path = .vendor/ocaml-jquery
 	url = https://github.com/pveber/ocaml-jquery
+[submodule "painting"]
+	path = painting
+	url = git@github.com:pasberth/painting.git
