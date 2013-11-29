@@ -1,7 +1,0 @@
-@namespace url(http://www.w3.org/1999/xhtml);
-@-moz-document domain("pasberth.github.io") {
-.lifegame-live, .lifegame-born, .lifegame-dead, .lifegame-control-live, .lifegame-control-dead {
-    border-style: solid !important;
-}
-
-}

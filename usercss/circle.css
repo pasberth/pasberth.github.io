@@ -1,9 +1,0 @@
-@namespace url(http://www.w3.org/1999/xhtml);
-@-moz-document domain("pasberth.github.io") {
-.lifegame-live, .lifegame-born, .lifegame-dead, .lifegame-control-live, .lifegame-control-dead {
-    border-top-left-radius: 50% 50% !important;
-    border-top-right-radius: 50% 50% !important;
-    border-bottom-left-radius: 50% 50% !important;
-    border-bottom-right-radius: 50% 50% !important;
-}
-}
