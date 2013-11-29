@@ -1,0 +1,129 @@
+LLVM でラムダ計算のコンパイラつくった
+================================================================================
+
+本格的に言語をつくる前に，練習として，ちょっとしたラムダ計算のコンパイラをつくってみようと
+思った．それができなければ，本格的なコンパイラなど夢のまた夢だろう．そういうわけで，
+OCaml と LLVM を使用して， ラムダ計算のコンパイラをつくった．
+
+ラムダ計算のコンパイラを実装するということは，オリジナルの言語のコンパイラに，高階関数を
+実装することに相当する．ラムダ計算のコンパイラが実装できれば，確かな自信をもって，オレオレ
+言語に第一級の関数を仕様として盛り込めるわけだ．
+
+言語として OCaml を使用した．関数型言語はサイコーだ．
+
+まず，目標を決める．今回の目標は，次のような関数をコンパイルして，  C から呼び出せるように
+することだ．なぜ C から呼び出せるようにするかというと， printf などを使用して，実際に
+動作しているかを目で確認したいから，というのと， printf を言語内から呼び出すのは
+ちょっとハードルが高いように思えるからだ．
+
+* ski.txt
+
+  .. literalinclude:: ski.txt
+      :language: none
+      :linenos:
+
+* C から呼び出すイメージ
+
+  .. code-block:: c
+
+     #include "ski.h"
+
+     int main(int argc, char const *argv[])
+     {
+       int x = I(42);
+        printf("%d\n", x); // 42 と表示される
+        return 0;
+     }
+
+まず，型を定義する． AST の型は次のようになる．
+
+.. literalinclude:: ast.ml
+   :language: ocaml
+   :lines: 1-7
+
+たとえば， ``K := \xy.x`` なら， ``Def("K", Lam("x", Lam("y", Ref("x"))))``
+のようになる．
+
+次に，この AST のままだと少々抽象的すぎるので， AST のちょっと形を変えたものにして
+機械が扱いやすいようにする．
+
+.. literalinclude:: ast.ml
+   :language: ocaml
+   :lines: 9-18
+
+たとえば， ``K := \xy.x`` なら， ``IxDef("K", IxLam(n, 0, IxLam(m, 1, IxRef(0))))``
+のようになる． ``\xy.x`` をよく見ると， ``\01.0`` のようにしても
+同じである事がわかる．だから，出現する順に数字に置き換える事で，配列のインデックスを指し示す
+ようにできる． ``n`` とか ``m`` とか書いているのは，ラムダ抽象の id だ．
+LLVM IR の表現に高階関数なんてものはないので，ラムダはすべて静的な関数に置き換える必要がある．
+たとえば， ``\xy.x`` は ``\x.(\y.x)`` と同じで，ラムダの中でラムダが作られているけども，
+LLVM IR の表現に直すときは，関数の中で関数をつくることはできないので，関数の外で定義されている
+ように置き換える．そこで， まず， ``\x.(..)`` という外側のラムダの id を n，
+``...(\y.x)`` という内側のラムダの id を m ということにして，
+
+.. code-block:: llvm
+
+   define void @.anon_func.n() {
+     ; .anon_func.m のクロージャをつくる処理
+   }
+
+   define void @.anon_func.m() {..}
+
+のようにコンパイルするワケだ．
+
+次に，パーサをつくる．パーサに関しては，一言も言及しなくてもよいだろう．
+もしパーサに関して興味があるなら別の記事を読んでみてほしい．
+さて，コンパイルする部分の説明はちょっと難しいのでスキップする．もし興味があるなら
+コードを読んでみてほしい．
+というか正直なところコードを書くのに疲れた．もう寝る．
+
+Full code listing
+--------------------------------------------------------------------------------
+
+* ast.ml
+
+  .. literalinclude:: ast.ml
+      :language: ocaml
+      :linenos:
+
+* lexer.mll
+
+  .. literalinclude:: lexer.mll
+      :language: ocaml
+      :linenos:
+
+* parser.mly
+
+  .. literalinclude:: parser.mly
+      :language: ocaml
+      :linenos:
+
+* lambda.ml
+
+  .. literalinclude:: lambda.ml
+      :language: ocaml
+      :linenos:
+
+* lambda.ll
+
+  .. literalinclude:: lambda.ll
+      :language: llvm
+      :linenos:
+
+* ski.txt
+
+  .. literalinclude:: ski.txt
+      :language: none
+      :linenos:
+
+* test.c
+
+  .. literalinclude:: test.c
+      :language: c
+      :linenos:
+
+* OMakefile
+
+  .. literalinclude:: OMakefile
+      :language: none
+      :linenos:
