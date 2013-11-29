@@ -1,4 +1,0 @@
-lifegame.cmo: $(BUILDDIR)/ml lifegame.ml
-  ocamlfind ocamlc -package js_of_ocaml -package js_of_ocaml.syntax -syntax camlp4o -I ../.vendor/ocaml-jquery -c lifegame.ml
-
-build: lifegame.cmo
