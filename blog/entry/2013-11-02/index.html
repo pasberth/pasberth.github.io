@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    
+      <title>Sphinx で HTML に LaTeX を埋め込む</title>
+    
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+</head>
+<body>
+
+    <div class="body">
+        
+  <div class="section" id="sphinx-html-latex">
+<h1>Sphinx で HTML に LaTeX を埋め込む<a class="headerlink" href="#sphinx-html-latex" title="Permalink to this headline">¶</a></h1>
+<p>Sphinx で， HTML に LaTex を埋め込むには，
+<a class="reference external" href="https://pypi.python.org/pypi/sphinxcontrib-texfigure/0.1.1">texfigure</a>
+という拡張を使うといい． emerge とか pip で必要なライブラリをインストール．
+それから， conf.py に</p>
+<div class="code py highlight-python"><div class="highlight"><pre><span class="n">extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;sphinxcontrib.texfigure&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>と書く．そうして，たとえば，次のような <em>hello.tex</em></p>
+<div class="highlight-latex"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">\documentclass</span><span class="nb">{</span>article<span class="nb">}</span>
+<span class="k">\pagestyle</span><span class="nb">{</span>empty<span class="nb">}</span>
+
+<span class="k">\begin</span><span class="nb">{</span>document<span class="nb">}</span>
+hello world
+<span class="k">\end</span><span class="nb">{</span>document<span class="nb">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>をつくって，</p>
+<div class="highlight-rst"><div class="highlight"><pre><span class="p">..</span> <span class="ow">texfigure</span><span class="p">::</span> hello.tex
+</pre></div>
+</div>
+<p>などと書くと，次のように， PNG として HTML に
+埋め込まれる．</p>
+<img class="texfigure" height="12" src="../../../_images/hello.png" width="73" />
+</div>
+
+
+    </div>
+
+</body>
+</html>

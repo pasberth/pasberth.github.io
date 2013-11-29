@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    
+      <title>C# で hello world</title>
+    
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+</head>
+<body>
+
+    <div class="body">
+        
+  <div class="section" id="c-hello-world">
+<h1>C# で hello world<a class="headerlink" href="#c-hello-world" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="http://www.mono-project.com/Mono:OSX">Mono:OSX</a> を参考に， mono を
+OS X にインストールします．
+<a class="reference external" href="http://www.go-mono.com/mono-downloads/download.html">Download</a>
+から， Mono MDK installer というのをもってきてインストールします．</p>
+<p>それから適当に hello world を書き</p>
+<div class="highlight-c#"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Hello</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="k">void</span> <span class="nf">Main</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>実行します．</p>
+<div class="highlight-sh"><div class="highlight"><pre>gmcs hello.cs
+mono hello.exe
+</pre></div>
+</div>
+</div>
+
+
+    </div>
+
+</body>
+</html>

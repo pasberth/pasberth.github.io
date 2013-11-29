@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    
+      <title>LLVM で四則演算</title>
+    
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+</head>
+<body>
+
+    <div class="body">
+        
+  <div class="section" id="llvm">
+<h1>LLVM で四則演算<a class="headerlink" href="#llvm" title="Permalink to this headline">¶</a></h1>
+<p>LLVM を勉強している． LLVM がなんであるかは，ぼくが説明するより調べてもらった方が
+正確だし，速いだろう．さて，そういうわけで， LLVM で四則演算を計算し，その結果を
+出力するプログラムをつくってみる．言語は OCaml を使用する．
+OCaml を使用した例が <a class="reference external" href="http://llvm.org/docs/tutorial">チュートリアル</a> にあった
+からだ．</p>
+<p>まず，例によって型を定義しよう．
+今回使用する型は，次のコードでぜんぶだ．</p>
+<div class="highlight-ocaml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">type</span> <span class="n">t</span> <span class="o">=</span>
+  <span class="o">|</span> <span class="nc">Num</span> <span class="k">of</span> <span class="kt">float</span>
+  <span class="o">|</span> <span class="nc">Add</span> <span class="k">of</span> <span class="n">t</span> <span class="o">*</span> <span class="n">t</span>
+  <span class="o">|</span> <span class="nc">Sub</span> <span class="k">of</span> <span class="n">t</span> <span class="o">*</span> <span class="n">t</span>
+  <span class="o">|</span> <span class="nc">Mul</span> <span class="k">of</span> <span class="n">t</span> <span class="o">*</span> <span class="n">t</span>
+  <span class="o">|</span> <span class="nc">Div</span> <span class="k">of</span> <span class="n">t</span> <span class="o">*</span> <span class="n">t</span>
+</pre></div>
+</td></tr></table></div>
+<p>説明するまでもないだろう．これは AST だ． Num は数値を保存し， Add は足し算，
+Sub は引き算をあらわす．</p>
+<p>レクサとパーサもつくっておこう．今回の目的はパーサをつくることではない．
+だからあまり凝ったことはしないし説明もしない．
+次のコードが完全なレクサとパーサになる．</p>
+<div class="highlight-ocaml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span class="o">{</span>
+<span class="k">open</span> <span class="nc">Parser</span>
+<span class="o">}</span>
+
+<span class="n">rule</span> <span class="n">token</span> <span class="o">=</span> <span class="n">parse</span>
+  <span class="o">[</span><span class="sc">&#39; &#39;</span> <span class="sc">&#39;\t&#39;</span> <span class="sc">&#39;\n&#39;</span> <span class="sc">&#39;\r&#39;</span><span class="o">]</span>      <span class="o">{</span> <span class="n">token</span> <span class="n">lexbuf</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="o">[</span><span class="sc">&#39;1&#39;</span><span class="o">-</span><span class="sc">&#39;9&#39;</span><span class="o">]</span> <span class="o">[</span><span class="sc">&#39;0&#39;</span><span class="o">-</span><span class="sc">&#39;9&#39;</span><span class="o">]*</span>    <span class="o">{</span> <span class="nc">NUM</span><span class="o">(</span><span class="n">float_of_string</span><span class="o">(</span><span class="nn">Lexing</span><span class="p">.</span><span class="n">lexeme</span> <span class="n">lexbuf</span><span class="o">))</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="sc">&#39;+&#39;</span>                     <span class="o">{</span> <span class="nc">PLUS</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="sc">&#39;-&#39;</span>                     <span class="o">{</span> <span class="nc">MINUS</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="sc">&#39;*&#39;</span>                     <span class="o">{</span> <span class="nc">STAR</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="sc">&#39;/&#39;</span>                     <span class="o">{</span> <span class="nc">SLASH</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="sc">&#39;(&#39;</span>                     <span class="o">{</span> <span class="nc">OPEN</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="sc">&#39;)&#39;</span>                     <span class="o">{</span> <span class="nc">CLOSE</span> <span class="o">}</span>
+</pre></div>
+</td></tr></table></div>
+<div class="highlight-ocaml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31</pre></div></td><td class="code"><div class="highlight"><pre><span class="o">%{</span>
+<span class="o">%}</span>
+
+<span class="o">%</span><span class="n">token</span> <span class="o">&lt;</span><span class="kt">float</span><span class="o">&gt;</span> <span class="nc">NUM</span>
+<span class="o">%</span><span class="n">token</span> <span class="nc">PLUS</span>
+<span class="o">%</span><span class="n">token</span> <span class="nc">MINUS</span>
+<span class="o">%</span><span class="n">token</span> <span class="nc">STAR</span>
+<span class="o">%</span><span class="n">token</span> <span class="nc">SLASH</span>
+<span class="o">%</span><span class="n">token</span> <span class="nc">OPEN</span>
+<span class="o">%</span><span class="n">token</span> <span class="nc">CLOSE</span>
+
+<span class="o">%</span><span class="n">start</span> <span class="n">expr</span>
+<span class="o">%</span><span class="k">type</span> <span class="o">&lt;</span><span class="nn">Ast</span><span class="p">.</span><span class="n">t</span><span class="o">&gt;</span> <span class="n">expr</span>
+
+<span class="o">%%</span>
+
+<span class="n">expr</span><span class="o">:</span>
+    <span class="nc">NUM</span>                 <span class="o">{</span> <span class="nn">Ast</span><span class="p">.</span><span class="nc">Num</span><span class="o">($</span><span class="mi">1</span><span class="o">)</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="nc">OPEN</span> <span class="n">additive</span> <span class="nc">CLOSE</span> <span class="o">{</span> <span class="o">$</span><span class="mi">2</span> <span class="o">}</span>
+
+<span class="n">mult</span><span class="o">:</span>
+    <span class="n">expr</span>                <span class="o">{</span> <span class="o">$</span><span class="mi">1</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="n">mult</span> <span class="nc">STAR</span> <span class="n">expr</span>      <span class="o">{</span> <span class="nn">Ast</span><span class="p">.</span><span class="nc">Mul</span><span class="o">($</span><span class="mi">1</span><span class="o">,</span> <span class="o">$</span><span class="mi">3</span><span class="o">)</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="n">mult</span> <span class="nc">SLASH</span> <span class="n">expr</span>     <span class="o">{</span> <span class="nn">Ast</span><span class="p">.</span><span class="nc">Div</span><span class="o">($</span><span class="mi">1</span><span class="o">,</span> <span class="o">$</span><span class="mi">3</span><span class="o">)</span> <span class="o">}</span>
+
+<span class="n">additive</span><span class="o">:</span>
+    <span class="n">mult</span>                <span class="o">{</span> <span class="o">$</span><span class="mi">1</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="n">additive</span> <span class="nc">PLUS</span> <span class="n">mult</span>  <span class="o">{</span> <span class="nn">Ast</span><span class="p">.</span><span class="nc">Add</span><span class="o">($</span><span class="mi">1</span><span class="o">,</span> <span class="o">$</span><span class="mi">3</span><span class="o">)</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="n">additive</span> <span class="nc">MINUS</span> <span class="n">mult</span> <span class="o">{</span> <span class="nn">Ast</span><span class="p">.</span><span class="nc">Sub</span><span class="o">($</span><span class="mi">1</span><span class="o">,</span> <span class="o">$</span><span class="mi">3</span><span class="o">)</span> <span class="o">}</span>
+
+<span class="o">%%</span>
+</pre></div>
+</td></tr></table></div>
+<p>次に数値の演算をコンパイルする部分をつくる．</p>
+<div class="highlight-ocaml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">open</span> <span class="nc">Llvm</span>
+
+<span class="k">let</span> <span class="n">context</span> <span class="o">=</span> <span class="n">global_context</span> <span class="bp">()</span>
+<span class="k">let</span> <span class="n">calc_module</span> <span class="o">=</span> <span class="n">create_module</span> <span class="n">context</span> <span class="s2">&quot;calc&quot;</span>
+<span class="k">let</span> <span class="n">builder</span> <span class="o">=</span> <span class="n">builder</span> <span class="n">context</span>
+
+<span class="k">let</span> <span class="n">double_t</span> <span class="o">=</span> <span class="n">double_type</span> <span class="n">context</span>
+<span class="k">let</span> <span class="n">calc_t</span> <span class="o">=</span> <span class="n">function_type</span> <span class="n">double_t</span> <span class="o">[||]</span>
+<span class="k">let</span> <span class="n">calc</span> <span class="o">=</span> <span class="n">declare_function</span> <span class="s2">&quot;calc&quot;</span> <span class="n">calc_t</span> <span class="n">calc_module</span>
+
+<span class="k">let</span> <span class="k">rec</span> <span class="n">codegen</span> <span class="o">=</span> <span class="k">function</span>
+  <span class="o">|</span> <span class="nn">Ast</span><span class="p">.</span><span class="nc">Num</span><span class="o">(</span><span class="n">x</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">const_float</span> <span class="n">double_t</span> <span class="n">x</span>
+  <span class="o">|</span> <span class="nn">Ast</span><span class="p">.</span><span class="nc">Add</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">x&#39;</span> <span class="o">=</span> <span class="n">codegen</span> <span class="n">x</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="n">y&#39;</span> <span class="o">=</span> <span class="n">codegen</span> <span class="n">y</span> <span class="k">in</span>
+    <span class="n">build_fadd</span> <span class="n">x&#39;</span> <span class="n">y&#39;</span> <span class="s2">&quot;addtmp&quot;</span> <span class="n">builder</span>
+  <span class="o">|</span> <span class="nn">Ast</span><span class="p">.</span><span class="nc">Sub</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">x&#39;</span> <span class="o">=</span> <span class="n">codegen</span> <span class="n">x</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="n">y&#39;</span> <span class="o">=</span> <span class="n">codegen</span> <span class="n">y</span> <span class="k">in</span>
+    <span class="n">build_fsub</span> <span class="n">x&#39;</span> <span class="n">y&#39;</span> <span class="s2">&quot;subtmp&quot;</span> <span class="n">builder</span>
+  <span class="o">|</span> <span class="nn">Ast</span><span class="p">.</span><span class="nc">Mul</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">x&#39;</span> <span class="o">=</span> <span class="n">codegen</span> <span class="n">x</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="n">y&#39;</span> <span class="o">=</span> <span class="n">codegen</span> <span class="n">y</span> <span class="k">in</span>
+    <span class="n">build_fmul</span> <span class="n">x&#39;</span> <span class="n">y&#39;</span> <span class="s2">&quot;multmp&quot;</span> <span class="n">builder</span>
+  <span class="o">|</span> <span class="nn">Ast</span><span class="p">.</span><span class="nc">Div</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">-&gt;</span>
+    <span class="k">let</span> <span class="n">x&#39;</span> <span class="o">=</span> <span class="n">codegen</span> <span class="n">x</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="n">y&#39;</span> <span class="o">=</span> <span class="n">codegen</span> <span class="n">y</span> <span class="k">in</span>
+    <span class="n">build_fdiv</span> <span class="n">x&#39;</span> <span class="n">y&#39;</span> <span class="s2">&quot;divtmp&quot;</span> <span class="n">builder</span>
+
+<span class="k">let</span> <span class="n">x</span> <span class="o">=</span>
+  <span class="k">let</span> <span class="n">lexbuf</span> <span class="o">=</span> <span class="nn">Lexing</span><span class="p">.</span><span class="n">from_channel</span> <span class="n">stdin</span> <span class="k">in</span>
+  <span class="nn">Parser</span><span class="p">.</span><span class="n">expr</span> <span class="nn">Lexer</span><span class="p">.</span><span class="n">token</span> <span class="n">lexbuf</span>
+
+<span class="k">let</span> <span class="n">x</span> <span class="o">=</span> <span class="n">codegen</span> <span class="n">x</span>
+
+<span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">position_at_end</span> <span class="o">(</span><span class="n">append_block</span> <span class="n">context</span> <span class="s2">&quot;entry&quot;</span> <span class="n">calc</span><span class="o">)</span> <span class="n">builder</span>
+<span class="k">let</span> <span class="o">_</span> <span class="o">=</span> <span class="n">build_ret</span> <span class="n">x</span> <span class="n">builder</span>
+
+<span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">dump_value</span> <span class="n">calc</span>
+</pre></div>
+</td></tr></table></div>
+<p>このプログラムに，たとえば</p>
+<div class="highlight-none"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre>(1+1)
+</pre></div>
+</td></tr></table></div>
+<p>というコードを食わせると，</p>
+<div class="highlight-llvm"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">define</span> <span class="kt">double</span> <span class="vg">@calc</span><span class="p">()</span> <span class="p">{</span>
+<span class="nl">entry:</span>
+  <span class="k">ret</span> <span class="kt">double</span> <span class="m">2.000000e+00</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>というような calc 関数が吐かれる．
+おっと，出力する部分がまだない．そういうわけで， calc 関数が返す値を
+出力するコードが必要だ．ここは C言語で書くことにする．</p>
+<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="kt">double</span> <span class="nf">calc</span><span class="p">();</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">double</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">calc</span><span class="p">();</span>
+    <span class="n">printf</span> <span class="p">(</span><span class="s">&quot;%f</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ret</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>最終的には，この C のコードと llvm の出力したコードを
+リンクすることで目的のプログラムをつくる．</p>
+<p>c の関数とリンクすると，次のようなコードができあがる．
+これを clang でコンパイルする．</p>
+<div class="highlight-llvm"><pre>; ModuleID = 'test1.ll'
+target datalayout = "e-p:64:64:64-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:64:64-f32:32:32-f64:64:64-v64:64:64-v128:128:128-a0:0:64-s0:64:64-f80:128:128-n8:16:32:64-S128"
+target triple = "x86_64-apple-macosx10.8.0"
+
+@.str = private unnamed_addr constant [4 x i8] c"%f\0A\00", align 1
+
+define double @calc() {
+entry:
+  ret double 2.000000e+00
+}
+
+define i32 @main(i32 %argc, i8** %argv) nounwind uwtable ssp {
+  %1 = alloca i32, align 4
+  %2 = alloca i32, align 4
+  %3 = alloca i8**, align 8
+  %ret = alloca double, align 8
+  store i32 0, i32* %1
+  store i32 %argc, i32* %2, align 4
+  store i8** %argv, i8*** %3, align 8
+  %4 = call double (...)* bitcast (double ()* @calc to double (...)*)()
+  store double %4, double* %ret, align 8
+  %5 = load double* %ret, align 8
+  %6 = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([4 x i8]* @.str, i32 0, i32 0), double %5)
+  ret i32 0
+}
+
+declare i32 @printf(i8*, ...)
+</pre>
+</div>
+<p>実際にコンパイルするには，次のようなコマンドを実行すればよい．</p>
+<div class="highlight-sh"><div class="highlight"><pre>omake calc
+clang -emit-llvm -S print.c -o print.ll
+./calc &lt;test1.txt 2&gt;test1.ll
+llvm-link -S test1.ll print.ll -o test1_main.ll
+clang test1_main.ll -o test1_main
+</pre></div>
+</div>
+<p>さて，完成だ．では，テストしてみよう．</p>
+<p>テストコード1</p>
+<div class="highlight-none"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre>(1+1)
+</pre></div>
+</td></tr></table></div>
+<p>テストコード出力</p>
+<div class="code highlight-python"><div class="highlight"><pre><span class="mf">2.000000</span>
+</pre></div>
+</div>
+<p>テストコード2</p>
+<div class="highlight-none"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre>(2*2)
+</pre></div>
+</td></tr></table></div>
+<p>テストコード出力</p>
+<div class="code highlight-python"><div class="highlight"><pre><span class="mf">4.000000</span>
+</pre></div>
+</div>
+<p>テストコード3</p>
+<div class="highlight-none"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre>(1*2+3*4)
+</pre></div>
+</td></tr></table></div>
+<p>テストコード出力</p>
+<div class="code highlight-python"><div class="highlight"><pre><span class="mf">14.000000</span>
+</pre></div>
+</div>
+<p>テストコード4</p>
+<div class="highlight-none"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre>(10/3)
+</pre></div>
+</td></tr></table></div>
+<p>テストコード出力</p>
+<div class="code highlight-python"><div class="highlight"><pre><span class="mf">3.333333</span>
+</pre></div>
+</div>
+</div>
+
+
+    </div>
+
+</body>
+</html>

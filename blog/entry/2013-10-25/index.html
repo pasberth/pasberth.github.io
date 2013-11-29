@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    
+      <title>ocamlyacc と ocamllex で S式をパースする</title>
+    
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+</head>
+<body>
+
+    <div class="body">
+        
+  <div class="section" id="ocamlyacc-ocamllex-s">
+<h1>ocamlyacc と ocamllex で S式をパースする<a class="headerlink" href="#ocamlyacc-ocamllex-s" title="Permalink to this headline">¶</a></h1>
+<p>よく知られたツールとして， yacc と lex がある．
+これは C言語でパーサを書くツールで，たとえば， Ruby の実装に使われている．
+BNF のような記法で構文仕様を記述すれば， C言語のパーサのソースコードを
+出力してくれるというわけである．OCaml では，よく似たツールとして ocamlyacc と
+ocamllex というものがある．これは， yacc と lex に似た記法で構文仕様を記述
+すれば， C言語の代わりに， OCaml のソースコードを出力してくれるというものである．
+ツールの機能としては似ているけど， C言語よりも， OCaml のほうが型が強力なので，
+ちょっとした間違いならコンパイルするときにあらかた見つけてくれる．
+これらは， OCaml にもともとついてくるので，普通の方法で OCaml をインストールして
+いればおそらく使えるはずだ．</p>
+<p>今回使用するソースコード，および，テストコード，および，それをコンパイルする
+ための OMakefile は，
+<a class="reference external" href="https://github.com/pasberth/pasberth.github.io/tree/master/blog/entry/2013-10-25">ここ</a> に
+置いてある．もし，興味があれば，リポジトリを clone してほしい．</p>
+<div class="section" id="s">
+<h2>S式とは<a class="headerlink" href="#s" title="Permalink to this headline">¶</a></h2>
+<p>S式 を知らない人もいるかもしれない．もちろん，そういう方は少数派だろうけど，
+確認のためにも，そもそも S式がいったいなんなのか確認しておこうと思う．
+S式とは，次のような規則を持つ構文のことだ．ただし， Atom は <tt class="docutils literal"><span class="pre">&quot;string&quot;</span></tt> とか <tt class="docutils literal"><span class="pre">42</span></tt>
+とか <tt class="docutils literal"><span class="pre">hoge</span></tt> とかいうもののことで，複雑だから記述しない事にする．ここでは，
+<tt class="docutils literal"><span class="pre">()</span></tt> というものこそが nil ということにしておこうと思う．</p>
+<pre>
+<strong id="grammar-token-SExp">SExp</strong> ::=  <tt class="xref docutils literal"><span class="pre">Atom</span></tt>
+          <a class="reference internal" href="#grammar-token-Cons"><tt class="xref docutils literal"><span class="pre">Cons</span></tt></a>
+          <a class="reference internal" href="#grammar-token-List"><tt class="xref docutils literal"><span class="pre">List</span></tt></a>
+          <a class="reference internal" href="#grammar-token-Nil"><tt class="xref docutils literal"><span class="pre">Nil</span></tt></a>
+<strong id="grammar-token-Cons">Cons</strong> ::=  ( <a class="reference internal" href="#grammar-token-SExp"><tt class="xref docutils literal"><span class="pre">SExp</span></tt></a> . <a class="reference internal" href="#grammar-token-SExp"><tt class="xref docutils literal"><span class="pre">SExp</span></tt></a> )
+<strong id="grammar-token-List">List</strong> ::=  <a class="reference internal" href="#grammar-token-SExp"><tt class="xref docutils literal"><span class="pre">SExp</span></tt></a>
+          ( <a class="reference internal" href="#grammar-token-SExp"><tt class="xref docutils literal"><span class="pre">SExp</span></tt></a> <a class="reference internal" href="#grammar-token-List"><tt class="xref docutils literal"><span class="pre">List</span></tt></a> )
+<strong id="grammar-token-Nil">Nil </strong> ::=  ()
+</pre>
+<p>S式における予約語は，カッコ ( <tt class="docutils literal"><span class="pre">(</span></tt> と <tt class="docutils literal"><span class="pre">)</span></tt> )，それから，ドット( <tt class="docutils literal"><span class="pre">.</span></tt> )
+くらいで，あとのほとんどの文字は識別子として使用できる．たとえば，よく使われる
+言語では <tt class="docutils literal"><span class="pre">+</span></tt> は識別子ではないけど， S式では <tt class="docutils literal"><span class="pre">+</span></tt> も <tt class="docutils literal"><span class="pre">add</span></tt> も同じように
+識別子なのである．</p>
+<p><a class="reference internal" href="#grammar-token-List"><tt class="xref std std-token docutils literal"><span class="pre">List</span></tt></a> は， <a class="reference internal" href="#grammar-token-Cons"><tt class="xref std std-token docutils literal"><span class="pre">Cons</span></tt></a> の省略ということにする．たとえば，
+<tt class="docutils literal"><span class="pre">(a</span> <span class="pre">b</span> <span class="pre">c)</span></tt> は， <tt class="docutils literal"><span class="pre">(a</span> <span class="pre">.</span> <span class="pre">(b</span> <span class="pre">.</span> <span class="pre">(c</span> <span class="pre">.</span> <span class="pre">())))</span></tt> の省略ということになる．
+こうすれば，無意味なカッコを減らすことができる．</p>
+</div>
+<div class="section" id="id2">
+<h2>実装<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>まず， S式をあらわす型を定義しようと思う．それは，実際に次のようなコードになる．</p>
+<div class="highlight-ocaml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">type</span> <span class="n">t</span> <span class="o">=</span>
+  <span class="o">|</span> <span class="nc">Symbol</span> <span class="k">of</span> <span class="kt">string</span>
+  <span class="o">|</span> <span class="nc">Cons</span>   <span class="k">of</span> <span class="o">(</span><span class="n">t</span> <span class="o">*</span> <span class="n">t</span><span class="o">)</span>
+  <span class="o">|</span> <span class="nc">Nil</span>
+</pre></div>
+</td></tr></table></div>
+<p>今回は，文字列とか，数値とかは実装しない．理由は，面倒だから．
+代わりに， <tt class="code highlight ocaml docutils literal"><span class="name class"><span class="pre">Symbol</span></span></tt> だけが唯一の <tt class="xref std std-token docutils literal"><span class="pre">Atom</span></tt> だということにする．
+<a class="reference internal" href="#grammar-token-List"><tt class="xref std std-token docutils literal"><span class="pre">List</span></tt></a> は， <a class="reference internal" href="#grammar-token-Cons"><tt class="xref std std-token docutils literal"><span class="pre">Cons</span></tt></a> の省略なので， AST としては存在しない．</p>
+<p>次に， ocamllex でトークンを切り分ける関数を作る．たとえば， <tt class="docutils literal"><span class="pre">.</span></tt> は <tt class="code highlight ocaml docutils literal"><span class="name class"><span class="pre">DOT</span></span></tt>
+にして，あとでパーサが使うわけである．この時点で，識別子はひとつのトークンになる．
+9行めの spaces は，単に空白をスキップするように用意する．こうしておくと，
+たとえば， <tt class="docutils literal"><span class="pre">(a</span> <span class="pre">b</span> <span class="pre">c)</span></tt> は <tt class="code highlight ocaml docutils literal"><span class="name class"><span class="pre">OPEN</span></span> <span class="name class"><span class="pre">SYMBOL</span></span><span class="operator"><span class="pre">(</span></span><span class="literal string double"><span class="pre">&quot;a&quot;</span></span><span class="operator"><span class="pre">)</span></span> <span class="name class"><span class="pre">SYMBOL</span></span><span class="operator"><span class="pre">(</span></span><span class="literal string double"><span class="pre">&quot;b&quot;</span></span><span class="operator"><span class="pre">)</span></span> <span class="name class"><span class="pre">SYMBOL</span></span><span class="operator"><span class="pre">(</span></span><span class="literal string double"><span class="pre">&quot;c&quot;</span></span><span class="operator"><span class="pre">)</span></span> <span class="name class"><span class="pre">CLOSE</span></span></tt>
+のようになる．</p>
+<div class="highlight-ocaml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</pre></div></td><td class="code"><div class="highlight"><pre><span class="o">{</span>
+<span class="k">open</span> <span class="nc">Parser</span>
+<span class="o">}</span>
+
+<span class="k">let</span> <span class="n">spaces</span>   <span class="o">=</span> <span class="o">[</span><span class="sc">&#39; &#39;</span> <span class="sc">&#39;\t&#39;</span> <span class="sc">&#39;\r&#39;</span> <span class="sc">&#39;\n&#39;</span><span class="o">]+</span>
+<span class="k">let</span> <span class="n">symbol</span>  <span class="o">=</span> <span class="o">[^</span> <span class="sc">&#39;(&#39;</span> <span class="sc">&#39;)&#39;</span> <span class="sc">&#39;.&#39;</span> <span class="sc">&#39; &#39;</span> <span class="sc">&#39;\t&#39;</span> <span class="sc">&#39;\r&#39;</span> <span class="sc">&#39;\n&#39;</span><span class="o">]+</span>
+
+<span class="n">rule</span> <span class="n">token</span> <span class="o">=</span> <span class="n">parse</span>
+    <span class="n">spaces</span>  <span class="o">{</span> <span class="n">token</span> <span class="n">lexbuf</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="n">symbol</span>  <span class="o">{</span> <span class="nc">SYMBOL</span><span class="o">(</span><span class="nn">Lexing</span><span class="p">.</span><span class="n">lexeme</span> <span class="n">lexbuf</span><span class="o">)</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="sc">&#39;(&#39;</span>     <span class="o">{</span> <span class="nc">OPEN</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="sc">&#39;.&#39;</span>     <span class="o">{</span> <span class="nc">DOT</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="sc">&#39;)&#39;</span>     <span class="o">{</span> <span class="nc">CLOSE</span> <span class="o">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>次に， ocamlyacc でトークンの列を AST にする関数を作る．
+さっき定義した S式をあらわすデータをつくるわけである．
+次のコードは BNF をそのまま書いたようになっている．
+たとえば， <tt class="code highlight ocaml docutils literal"><span class="name class"><span class="pre">OPEN</span></span> <span class="name class"><span class="pre">SYMBOL</span></span><span class="operator"><span class="pre">(</span></span><span class="literal string double"><span class="pre">&quot;a&quot;</span></span><span class="operator"><span class="pre">)</span></span> <span class="name class"><span class="pre">SYMBOL</span></span><span class="operator"><span class="pre">(</span></span><span class="literal string double"><span class="pre">&quot;b&quot;</span></span><span class="operator"><span class="pre">)</span></span> <span class="name class"><span class="pre">SYMBOL</span></span><span class="operator"><span class="pre">(</span></span><span class="literal string double"><span class="pre">&quot;c&quot;</span></span><span class="operator"><span class="pre">)</span></span> <span class="name class"><span class="pre">CLOSE</span></span></tt> のようにすると，
+19 行めの <tt class="docutils literal"><span class="pre">OPEN</span> <span class="pre">sexp_list</span> <span class="pre">CLOSE</span></tt> という定義にマッチする．
+<tt class="docutils literal"><span class="pre">sexp_list</span></tt> は，右再帰の S式のリストになる．たとえば
+<tt class="docutils literal"><span class="pre">sexp1</span> <span class="pre">sexp2</span> <span class="pre">..</span> <span class="pre">sexp3</span></tt> のようなトークンの列なら <tt class="docutils literal"><span class="pre">sexp_list</span></tt> というわけである．
+SYMBOL は S式だから， <tt class="code highlight ocaml docutils literal"><span class="name class"><span class="pre">SYMBOL</span></span><span class="operator"><span class="pre">(</span></span><span class="literal string double"><span class="pre">&quot;a&quot;</span></span><span class="operator"><span class="pre">)</span></span> <span class="name class"><span class="pre">SYMBOL</span></span><span class="operator"><span class="pre">(</span></span><span class="literal string double"><span class="pre">&quot;b&quot;</span></span><span class="operator"><span class="pre">)</span></span> <span class="name class"><span class="pre">SYMBOL</span></span><span class="operator"><span class="pre">(</span></span><span class="literal string double"><span class="pre">&quot;c&quot;</span></span><span class="operator"><span class="pre">)</span></span></tt> は
+この定義にマッチする．</p>
+<div class="highlight-ocaml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></div></td><td class="code"><div class="highlight"><pre><span class="o">%{</span>
+<span class="o">%}</span>
+
+<span class="o">%</span><span class="n">token</span> <span class="o">&lt;</span><span class="kt">string</span><span class="o">&gt;</span> <span class="nc">SYMBOL</span>
+<span class="o">%</span><span class="n">token</span> <span class="nc">OPEN</span>
+<span class="o">%</span><span class="n">token</span> <span class="nc">DOT</span>
+<span class="o">%</span><span class="n">token</span> <span class="nc">CLOSE</span>
+<span class="o">%</span><span class="n">start</span> <span class="n">main</span>
+<span class="o">%</span><span class="k">type</span> <span class="o">&lt;</span><span class="nn">Sexp</span><span class="p">.</span><span class="n">t</span><span class="o">&gt;</span> <span class="n">main</span>
+
+<span class="o">%%</span>
+
+<span class="n">main</span><span class="o">:</span>
+    <span class="n">sexp</span> <span class="o">{</span> <span class="o">$</span><span class="mi">1</span> <span class="o">}</span>
+
+<span class="n">sexp</span><span class="o">:</span>
+    <span class="nc">SYMBOL</span>                   <span class="o">{</span> <span class="nn">Sexp</span><span class="p">.</span><span class="nc">Symbol</span><span class="o">($</span><span class="mi">1</span><span class="o">)</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="nc">OPEN</span> <span class="n">sexp</span> <span class="nc">DOT</span> <span class="n">sexp</span> <span class="nc">CLOSE</span> <span class="o">{</span> <span class="nn">Sexp</span><span class="p">.</span><span class="nc">Cons</span><span class="o">($</span><span class="mi">2</span><span class="o">,</span> <span class="o">$</span><span class="mi">4</span><span class="o">)</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="nc">OPEN</span> <span class="n">sexp_list</span> <span class="nc">CLOSE</span>     <span class="o">{</span> <span class="o">$</span><span class="mi">2</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="nc">OPEN</span> <span class="nc">CLOSE</span>               <span class="o">{</span> <span class="nn">Sexp</span><span class="p">.</span><span class="nc">Nil</span> <span class="o">}</span>
+
+<span class="n">sexp_list</span><span class="o">:</span>
+    <span class="n">sexp</span>           <span class="o">{</span> <span class="nn">Sexp</span><span class="p">.</span><span class="nc">Cons</span><span class="o">($</span><span class="mi">1</span><span class="o">,</span> <span class="nn">Sexp</span><span class="p">.</span><span class="nc">Nil</span><span class="o">)</span> <span class="o">}</span>
+  <span class="o">|</span> <span class="n">sexp</span> <span class="n">sexp_list</span> <span class="o">{</span> <span class="nn">Sexp</span><span class="p">.</span><span class="nc">Cons</span><span class="o">($</span><span class="mi">1</span><span class="o">,</span> <span class="o">$</span><span class="mi">2</span><span class="o">)</span> <span class="o">}</span>
+
+<span class="o">%%</span>
+</pre></div>
+</td></tr></table></div>
+<p>テスト用の main.ml をつくる．コードが正しく動いているかたしかめる
+ためである．</p>
+<div class="highlight-ocaml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">let</span> <span class="k">rec</span> <span class="n">spp</span> <span class="n">x</span> <span class="o">=</span>
+  <span class="k">match</span> <span class="n">x</span> <span class="k">with</span>
+  <span class="o">|</span> <span class="nn">Sexp</span><span class="p">.</span><span class="nc">Symbol</span><span class="o">(</span><span class="n">s</span><span class="o">)</span>  <span class="o">-&gt;</span> <span class="n">s</span>
+  <span class="o">|</span> <span class="nn">Sexp</span><span class="p">.</span><span class="nc">Cons</span><span class="o">(</span><span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="nn">Printf</span><span class="p">.</span><span class="n">sprintf</span> <span class="s2">&quot;(%s.%s)&quot;</span> <span class="o">(</span><span class="n">spp</span> <span class="n">x</span><span class="o">)</span> <span class="o">(</span><span class="n">spp</span> <span class="n">y</span><span class="o">)</span>
+  <span class="o">|</span> <span class="nn">Sexp</span><span class="p">.</span><span class="nc">Nil</span>        <span class="o">-&gt;</span> <span class="s2">&quot;()&quot;</span>
+
+<span class="k">let</span> <span class="n">pp</span> <span class="n">x</span> <span class="o">=</span> <span class="n">print_endline</span> <span class="o">(</span><span class="n">spp</span> <span class="n">x</span><span class="o">)</span>
+
+<span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> 
+  <span class="k">let</span> <span class="n">lexbuf</span> <span class="o">=</span> <span class="nn">Lexing</span><span class="p">.</span><span class="n">from_channel</span> <span class="n">stdin</span> <span class="k">in</span>
+  <span class="k">let</span> <span class="n">sexp</span> <span class="o">=</span> <span class="nn">Parser</span><span class="p">.</span><span class="n">main</span> <span class="nn">Lexer</span><span class="p">.</span><span class="n">token</span> <span class="n">lexbuf</span> <span class="k">in</span>
+  <span class="n">pp</span> <span class="n">sexp</span>
+</pre></div>
+</td></tr></table></div>
+<p>最後に，コンパイルするための OMakefile を作る．
+<tt class="docutils literal"><span class="pre">OCamlProgram(a.out,</span> <span class="pre">$(FILES))</span></tt> は， FILES を使用して，
+a.out というプログラムをつくるという意味である．
+<tt class="docutils literal"><span class="pre">OCamlGeneratedFiles(parser.ml</span> <span class="pre">lexer.ml)</span></tt> は， parser.ml
+や lexer.ml が， ocamlyacc や ocamllex を使用して自動生成される
+ファイルである，と OMake に知らせる．</p>
+<div class="highlight-none"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre>FILES[] =
+  main
+  sexp
+  parser
+  lexer
+
+OCamlProgram(a.out, $(FILES))
+OCamlGeneratedFiles(parser.ml lexer.ml)
+</pre></div>
+</td></tr></table></div>
+<p>この OMakefile を使用して， <tt class="docutils literal"><span class="pre">$</span> <span class="pre">omake</span> <span class="pre">a.out</span></tt> のようにすると，ぜんぶ
+合わせてコンパイルし，実行可能なa.out がつくられる．さて，実装ができた
+ので，実際に実行してみようではないか．</p>
+<p>テストコード1</p>
+<div class="highlight-python"><pre>(a b c)
+</pre>
+</div>
+<p>テストコード出力</p>
+<div class="code highlight-python"><pre>(a.(b.(c.())))</pre>
+</div>
+<p>テストコード2</p>
+<div class="highlight-python"><pre>(define (S x y z)
+  (x z (y z)))
+</pre>
+</div>
+<p>テストコード出力</p>
+<div class="code highlight-python"><pre>(define.((S.(x.(y.(z.())))).((x.(z.((y.(z.())).()))).())))</pre>
+</div>
+</div>
+</div>
+
+
+    </div>
+
+</body>
+</html>

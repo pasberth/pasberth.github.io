@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    
+      <title>再帰型</title>
+    
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+</head>
+<body>
+
+    <div class="body">
+        
+  <div class="section" id="id1">
+<h1>再帰型<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>型システムの勉強を進めると，ひとつ疑問に思えることがあった．それは， Y コンビネータの
+型付けのことだ．型システムは，ASTを走査して，式に静的な型を付ける．ところが，
+素直にYコンビネータを型付けしようとすると，おそらくなんらかの型エラーを起こす．
+<tt class="docutils literal"><span class="pre">(λf.(λx.f(xx))(λx.f(xx)))</span></tt> という Y コンビネータを考えよう．
+この関数の中に， <tt class="docutils literal"><span class="pre">xx</span></tt> という部分が出現する．
+この部分に着目してみる．まず， <tt class="docutils literal"><span class="pre">x</span></tt> が 型 T→T&#8217; を持つと仮定する．
+T の具体例はとくに制限していない (Int でも Stringでもよい)．右の x
+の型は T→T&#8217; だから， 左の x の T の具体例は T→T&#8217; ということになる．
+したがって，左の x は (T→T&#8217;)→T&#8217; という型を持つ．しかし，右の x は T→T&#8217; だ．
+左の x と右の x が違う型を持ってしまった．</p>
+<img alt="App1" class="texfigure" height="37" src="../../../_images/app1.png" width="401" />
+<p>型を合わせるため，右の x を (T→T&#8217;)→T&#8217; だということにする．そうすると
+今度は左の x は ((T→T&#8217;)→T&#8217;)→T&#8217; ということになってしまう．</p>
+<img alt="App2" class="texfigure" height="37" src="../../../_images/app2.png" width="450" />
+<p>この議論が無限に繰り返されてしまうわけだ．
+簡単に要約すると，たとえば， <tt class="docutils literal"><span class="pre">(λx.xx)</span></tt> のようなラムダに型をつけることは
+できないということだ．実際， GHCi で <tt class="code highlight haskell docutils literal"><span class="punctuation"><span class="pre">(</span></span><span class="name function"><span class="pre">\</span></span><span class="name"><span class="pre">x</span></span> <span class="operator word"><span class="pre">-&gt;</span></span> <span class="name"><span class="pre">x</span></span> <span class="name"><span class="pre">x</span></span><span class="punctuation"><span class="pre">)</span></span></tt> のようにすると
+なんかエラーがでるはずだ．</p>
+<p>しかし，そういうラムダにも型をつけるのが再帰型というものらしい．再帰型は
+型システム入門の21章で触れられている．型システム入門とかではμ型といわれて
+いる．</p>
+<p>奇しくも OCaml は再帰型をオプションで有効化できるようだ．
+<tt class="docutils literal"><span class="pre">-rectypes</span></tt> オプションでこれを有効化できる．
+実際に試すには，次のようにすればよい．</p>
+<div class="code highlight-python"><pre>$ ocaml -rectypes
+(fun x -&gt; x x)
+# (fun x -&gt; x x);;
+- : ('a -&gt; 'b as 'a) -&gt; 'b = &lt;fun&gt;</pre>
+</div>
+<p>さて， <tt class="code highlight ocaml docutils literal"><span class="operator"><span class="pre">(</span></span><span class="keyword"><span class="pre">'</span></span><span class="name"><span class="pre">a</span></span> <span class="operator"><span class="pre">-&gt;</span></span> <span class="keyword"><span class="pre">'</span></span><span class="name"><span class="pre">b</span></span> <span class="keyword"><span class="pre">as</span></span> <span class="keyword"><span class="pre">'</span></span><span class="name"><span class="pre">a</span></span><span class="operator"><span class="pre">)</span></span></tt> という型は，型システム入門の記法を用いれば
+<tt class="docutils literal"><span class="pre">μX.X→Y</span></tt> のようになる． as &#8216;a という部分が μX のように書かれる
+わけだ．これは， X の部分をその型自体で置換するような型となる．
+たとえば， <tt class="docutils literal"><span class="pre">μX.X→Y</span></tt> は <tt class="docutils literal"><span class="pre">(μX.X→Y)→Y</span></tt> とか <tt class="docutils literal"><span class="pre">((μX.X→Y)→Y)→Y</span></tt>
+になるみたいなイメージだ．</p>
+<p>ocaml を使用して， <tt class="docutils literal"><span class="pre">μX.(X×Int)→X</span></tt> という型をあらわしてみよう．</p>
+<div class="highlight-ocaml"><div class="highlight"><pre><span class="c">(* μX.(X×Int)→X *)</span>
+<span class="k">let</span> <span class="n">f</span> <span class="o">:</span> <span class="k">&#39;</span><span class="n">a</span> <span class="o">*</span> <span class="kt">int</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">a</span> <span class="k">as</span> <span class="k">&#39;</span><span class="n">a</span> <span class="o">=</span> <span class="n">fst</span>
+
+<span class="c">(* &#39;a * int -&gt; &#39;a の &#39;a が</span>
+<span class="c"> * &#39;a * int -&gt; &#39;a に展開されたような型を持つ</span>
+<span class="c"> *)</span>
+<span class="k">let</span> <span class="n">f</span> <span class="o">=</span> <span class="n">f</span> <span class="o">(</span><span class="n">f</span><span class="o">,</span> <span class="mi">42</span><span class="o">)</span>
+<span class="k">let</span> <span class="n">f</span> <span class="o">=</span> <span class="n">f</span> <span class="o">((</span><span class="n">f</span> <span class="o">(</span><span class="n">f</span><span class="o">,</span> <span class="mi">42</span><span class="o">)),</span> <span class="mi">42</span><span class="o">)</span>
+</pre></div>
+</div>
+<p><tt class="code highlight ocaml docutils literal"><span class="name"><span class="pre">f</span></span> <span class="operator"><span class="pre">(</span></span><span class="name"><span class="pre">f</span></span><span class="operator"><span class="pre">,</span></span> <span class="literal number integer"><span class="pre">42</span></span><span class="operator"><span class="pre">)</span></span></tt> は， <tt class="code highlight ocaml docutils literal"><span class="operator"><span class="pre">(</span></span><span class="name"><span class="pre">f</span></span><span class="operator"><span class="pre">,</span></span> <span class="literal number integer"><span class="pre">42</span></span><span class="operator"><span class="pre">)</span></span></tt> のような引数をとって f を返す
+ということになる． f を返すということは，これにまた <tt class="code highlight ocaml docutils literal"><span class="operator"><span class="pre">(</span></span><span class="name"><span class="pre">f</span></span><span class="operator"><span class="pre">,</span></span> <span class="literal number integer"><span class="pre">42</span></span><span class="operator"><span class="pre">)</span></span></tt> のように
+渡してもまた f が返るということになる． <tt class="code highlight ocaml docutils literal"><span class="name"><span class="pre">f</span></span> <span class="operator"><span class="pre">(</span></span><span class="name"><span class="pre">f</span></span><span class="operator"><span class="pre">,</span></span> <span class="literal number integer"><span class="pre">42</span></span><span class="operator"><span class="pre">)</span></span> <span class="operator"><span class="pre">(</span></span><span class="name"><span class="pre">f</span></span><span class="operator"><span class="pre">,</span></span> <span class="literal number integer"><span class="pre">42</span></span><span class="operator"><span class="pre">)</span></span> <span class="operator"><span class="pre">(</span></span><span class="name"><span class="pre">f</span></span><span class="operator"><span class="pre">,</span></span> <span class="literal number integer"><span class="pre">42</span></span><span class="operator"><span class="pre">)</span></span></tt> のように
+してもよい．ちょうど <tt class="code highlight haskell docutils literal"><span class="name function"><span class="pre">id</span></span> <span class="name"><span class="pre">id</span></span> <span class="name"><span class="pre">id</span></span> <span class="name"><span class="pre">id</span></span></tt> みたいな感じである．</p>
+<p>これを利用すると，再帰するタプルなどの型をあらわすことができる．</p>
+<div class="highlight-ocaml"><div class="highlight"><pre><span class="c">(* μX.(Int×X) *)</span>
+<span class="c">(* a は int と a のペア *)</span>
+<span class="k">let</span> <span class="k">rec</span> <span class="n">ones</span> <span class="o">:</span> <span class="kt">int</span> <span class="o">*</span> <span class="k">&#39;</span><span class="n">a</span> <span class="k">as</span> <span class="k">&#39;</span><span class="n">a</span> <span class="o">=</span> <span class="o">(</span><span class="mi">42</span><span class="o">,</span> <span class="n">ones</span><span class="o">)</span>
+
+<span class="c">(* 注意: OCaml ではデータコンストラクタの引数は</span>
+<span class="c"> * 遅延評価されたように振る舞うので</span>
+<span class="c"> * 無限ループにはならない</span>
+<span class="c"> *)</span>
+<span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">print_int</span> <span class="o">(</span><span class="n">fst</span> <span class="n">ones</span><span class="o">)</span> <span class="o">;</span> <span class="n">print_newline</span> <span class="bp">()</span>
+<span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">print_int</span> <span class="o">(</span><span class="n">fst</span> <span class="o">(</span><span class="n">snd</span> <span class="n">ones</span><span class="o">))</span> <span class="o">;</span> <span class="n">print_newline</span> <span class="bp">()</span>
+</pre></div>
+</div>
+<p>さて，本筋としてはこれで Yコンビネータを型付けできるかどうかだ．
+実際にやってみよう． まず，こういう推論規則があると考える．</p>
+<img alt="Rec" class="texfigure" height="98" src="../../../_images/rec.png" width="364" />
+<p>f:Y→Y かつ x:(μX.X→Y) だということにすると次の
+ようにして λf.(λx.f(xx))(λx.f(xx)) に (Y→Y)→Y という
+型をつけることができる</p>
+<img alt="TypedY" class="texfigure" height="322" src="../../../_images/y.png" width="397" />
+<div class="highlight-ocaml"><div class="highlight"><pre><span class="k">let</span> <span class="n">y</span> <span class="o">:</span> <span class="o">(</span><span class="k">&#39;</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">a</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">a</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">f</span> <span class="o">-&gt;</span>
+  <span class="k">let</span> <span class="n">j</span> <span class="o">:</span> <span class="o">(</span><span class="k">&#39;</span><span class="n">b</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">c</span> <span class="k">as</span> <span class="k">&#39;</span><span class="n">b</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">c</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="o">(</span><span class="n">x</span> <span class="n">x</span><span class="o">)</span> <span class="k">in</span>
+  <span class="n">j</span> <span class="n">j</span>
+
+<span class="c">(* 注意: 無限ループする *)</span>
+<span class="c">(* let () = y (fun x -&gt; x); () *)</span>
+</pre></div>
+</div>
+</div>
+
+
+    </div>
+
+</body>
+</html>

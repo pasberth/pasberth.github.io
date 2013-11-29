@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    
+      <title>Nemerle で hello world</title>
+    
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+</head>
+<body>
+
+    <div class="body">
+        
+  <div class="section" id="nemerle-hello-world">
+<h1>Nemerle で hello world<a class="headerlink" href="#nemerle-hello-world" title="Permalink to this headline">¶</a></h1>
+<p>Nemerle という言語で hello world してみます．</p>
+<p>まず， Nemerle 本体をもってきます．ｱ，その前に， <a class="reference internal" href="../2013-11-17/index.html"><em>C# で hello world</em></a> のよう
+に， mono の実行環境がないといけません．</p>
+<div class="highlight-sh"><div class="highlight"><pre>git clone git@github.com:rsdn/nemerle.git
+<span class="nb">cd </span>nemerle
+</pre></div>
+</div>
+<p>次に hello world を書き， hello.n という名前をつけて
+保存します．この拡張子枯渇の時代に， .n なんて拡張子を要求するなんて，
+欲張りな言語ですね！</p>
+<ul>
+<li><p class="first"><em>hello.n</em></p>
+<div class="highlight-nemerle"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">using</span> <span class="n">System</span><span class="p">.</span><span class="n">Console</span><span class="p">;</span>
+
+<span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;hello world&quot;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+</li>
+</ul>
+<p>それから， boot/ncc.exe というものを使用して，これをコンパイルします．</p>
+<div class="highlight-sh"><div class="highlight"><pre>mono boot/ncc.exe hello.n /out:hello.exe
+</pre></div>
+</div>
+<p>最後に，出力された hello.exe を， mono で起動します．</p>
+<div class="highlight-sh"><div class="highlight"><pre>mono hello.exe
+hello world
+</pre></div>
+</div>
+<p>できました！</p>
+<p>ただ，この boot/ncc.exe とううバイナリは，ブートストラップのための
+ものです．実際には， boot/ncc.exe を使用して， Nemerle 本体をコンパイル
+する必要があるでしょう．ただ，とりあえず README に 「 ﾝﾌw Linux なら
+ブートストラップでビルドできるよw」としか書いてないし， make all としても
+なんか止まっちゃったので今は諦めることとします．</p>
+</div>
+
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    
+      <title>存在型</title>
+    
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+</head>
+<body>
+
+    <div class="body">
+        
+  <div class="section" id="id1">
+<h1>存在型<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="../2013-11-04/index.html"><em>全称型, System F</em></a> なら知っている人も多かろう．
+しかし存在型とは聞き慣れない型だ．プログラミングではあまり使わなかろう．
+論理学ではよく使うみたいだ．存在型は， ∃ という記号を使ってあらわされる．
+存在型は，型システム入門の 24章 で触れられている．読んでみてほしい．</p>
+<div class="section" id="id2">
+<h2>パッケージシステム<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>存在型がなんなのかはよくわからない．そこで直感的な例としてパッケージシステムで
+考える．いま，パッケージシステムでしたいことは，型の隠蔽だ．型を隠蔽したい，というのは，
+たとえば list というパッケージがあって， list.t という型がある．
+<tt class="code highlight ocaml docutils literal"><span class="name"><span class="pre">head</span></span> <span class="operator"><span class="pre">:</span></span> <span class="keyword"><span class="pre">'</span></span><span class="name"><span class="pre">a</span></span> <span class="keyword type"><span class="pre">list</span></span><span class="operator"><span class="pre">.</span></span><span class="name"><span class="pre">t</span></span> <span class="operator"><span class="pre">-&gt;</span></span> <span class="keyword"><span class="pre">'</span></span><span class="name"><span class="pre">a</span></span></tt> という関数や， <tt class="code highlight ocaml docutils literal"><span class="name"><span class="pre">tail</span></span> <span class="operator"><span class="pre">:</span></span> <span class="keyword"><span class="pre">'</span></span><span class="name"><span class="pre">a</span></span> <span class="keyword type"><span class="pre">list</span></span><span class="operator"><span class="pre">.</span></span><span class="name"><span class="pre">t</span></span> <span class="operator"><span class="pre">-&gt;</span></span> <span class="keyword"><span class="pre">'</span></span><span class="name"><span class="pre">a</span></span> <span class="keyword type"><span class="pre">list</span></span><span class="operator"><span class="pre">.</span></span><span class="name"><span class="pre">t</span></span></tt>
+という関数は提供したいが， list.t 自体は提供したくない．そういった場合，
+どうすればよいだろうか．</p>
+<p>そこで，まず， list.t を x， head や tail を持つパッケージを T だということにして，</p>
+<img class="texfigure" height="12" src="../../../_images/exists.png" width="33" />
+<p>と書く．T を満たす x が存在する，と読む． いまや head のシグネチャは
+<tt class="code highlight ocaml docutils literal"><span class="name"><span class="pre">head</span></span> <span class="operator"><span class="pre">:</span></span> <span class="keyword"><span class="pre">'</span></span><span class="name"><span class="pre">a</span></span> <span class="name"><span class="pre">x</span></span> <span class="operator"><span class="pre">-&gt;</span></span> <span class="keyword"><span class="pre">'</span></span><span class="name"><span class="pre">a</span></span></tt> ということになる．T を具体的に書けば</p>
+<img class="texfigure" height="108" src="../../../_images/exists1.png" width="194" />
+<p>のようになる．ついでに， nil や cons も最初からあるということに
+しておいた． x はなんだかわからないけど，とにかく存在する型だ．
+forall のようにすべての型をそこに置換してよいわけではない．
+x の部分に置換してよい型は高々ひとつだろう． head はその x(α) というものを
+受け取って， α を返すのだ．</p>
+<p>x がどんな型かみんなは知らない．でも， nil が x(α) という型を持つことは知っている．
+だから， λx:α.cons x nil はやはり合法で，それもまた α→x(α) という肩を持つことがわかる．
+このようにして，見知らぬ隠蔽された x という型をやり取りするパッケージができる．</p>
+<p>JavaScript のクロージャにたとえると，直感的に理解しやすいかもしれない．</p>
+<div class="highlight-js"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">p</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="cm">/* list.t の定義 */</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">head</span><span class="o">:</span> <span class="cm">/* .. */</span><span class="p">,</span>
+    <span class="nx">tail</span><span class="o">:</span> <span class="cm">/* .. */</span><span class="p">,</span>
+    <span class="nx">nil</span><span class="o">:</span> <span class="cm">/* .. */</span><span class="p">,</span>
+    <span class="nx">cons</span><span class="o">:</span> <span class="cm">/* .. */</span>
+  <span class="p">}</span>
+<span class="p">})()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>存在型オブジェクト<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>型システム入門によれば，存在型を用いてオブジェクト指向的なデータ抽象ができるらしい．</p>
+<img class="texfigure" height="126" src="../../../_images/obj.png" width="96" />
+</div>
+<div class="section" id="id4">
+<h2>全称型で存在型をつくる<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>全称型があれば存在型も実装できる (らしい)．
+正直なところ，まだこのあたりはよくわからない．
+そして，これはもはや記号論理の範疇に突入しているように思える．
+全称型で存在型をつくるのは，記号論理入門という本にも書かれていた．
+気が向いたら読んでみてほしい．</p>
+</div>
+</div>
+
+
+    </div>
+
+</body>
+</html>

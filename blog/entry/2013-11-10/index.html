@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    
+      <title>参照の型付け</title>
+    
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+</head>
+<body>
+
+    <div class="body">
+        
+  <div class="section" id="id1">
+<h1>参照の型付け<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>多くの言語には参照という機能がある．説明するまでもないだろう．
+参照という機能を軽く見てみよう． 例は OCaml で書いてある．</p>
+<ul>
+<li><p class="first">参照は，参照の先にひとつ値を持っている．文字とか，整数だ．</p>
+<div class="highlight-ocaml"><div class="highlight"><pre><span class="k">let</span> <span class="n">r</span> <span class="o">=</span> <span class="n">ref</span> <span class="mi">1</span> <span class="c">(* r は参照． r の参照の先の値は 1 *)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">参照の先にある値をもってくる，ロードという言語機能がある．</p>
+<div class="highlight-ocaml"><div class="highlight"><pre><span class="k">let</span> <span class="n">i</span> <span class="o">=</span> <span class="o">!</span><span class="n">r</span> <span class="c">(* i は 1 *)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">参照の先にべつの値を当てはめる，ストアという言語機能がある．</p>
+<div class="highlight-ocaml"><div class="highlight"><pre><span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">r</span> <span class="o">:=</span> <span class="mi">2</span>    <span class="c">(* r の参照の先に 2 をあてはめる *)</span>
+<span class="k">let</span> <span class="n">j</span> <span class="o">=</span> <span class="o">!</span><span class="n">r</span>         <span class="c">(* j は 2 *)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p>参照の型付けについては， 型システム入門の 13章で触れられている．</p>
+<div class="section" id="gc">
+<h2>GC<a class="headerlink" href="#gc" title="Permalink to this headline">¶</a></h2>
+<p>参照を型付けするとき， GC は必要不可欠らしい．理由はぶら下がり参照による．
+明示的にメモリ管理する言語では，参照を型付けすることによる型安全性の達成が困難になってしまう．
+たとえば，</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="k">struct</span> <span class="n">A</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="n">B</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">j</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="k">struct</span> <span class="n">A</span> <span class="o">*</span><span class="n">a_ref</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">A</span> <span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">A</span><span class="p">));</span>
+  <span class="n">a_ref</span><span class="o">-&gt;</span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="n">free</span><span class="p">(</span><span class="n">a_ref</span><span class="p">);</span>
+
+  <span class="k">struct</span> <span class="n">B</span> <span class="o">*</span><span class="n">b_ref</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">B</span> <span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">B</span><span class="p">));</span>
+  <span class="n">b_ref</span><span class="o">-&gt;</span><span class="n">j</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+  <span class="n">printf</span> <span class="p">(</span><span class="s">&quot;a_ref-&gt;i : %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">a_ref</span><span class="o">-&gt;</span><span class="n">i</span><span class="p">);</span>
+  <span class="n">printf</span> <span class="p">(</span><span class="s">&quot;b_ref-&gt;j : %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">b_ref</span><span class="o">-&gt;</span><span class="n">j</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>のようなプログラムをコンパイルして，実行してみると，</p>
+<div class="code highlight-python"><pre>a_ref-&gt;i : 2
+b_ref-&gt;j : 2</pre>
+</div>
+<p>のように表示されるかもしれない (手元の環境ではこう動作した．
+断言できるわけではないのは，規格でそうなると保証されているわけではないから)．
+a_ref-&gt;i と b_ref-&gt;j が同じものを見ている．つまり， a_ref と b_ref が
+同じになってしまった．</p>
+<p>原因は， free(a_ref) にある．最初の malloc で， a_ref に代入したアドレスを，
+仮に addr ということにする． a_ref == addr だ． addr の参照先は，まだ存在している．
+しかし， a_ref を解放すると， addr の参照先は消えてしまう．ところが， a_ref はまだ
+addr を指し示したままになっている．ここで，もう一度 malloc すると， addr と同じ領域
+を再利用しようとする． addr はもう使われていないアドレスだからだ．結果的に，
+b_ref == addr となる． すると， a_ref == b_ref となる．
+したがって， a_ref-&gt;i == b_ref-&gt; j となる．</p>
+<p>そこで問題になるのは， a_ref と b_ref の型が違うということだ．
+a_ref は struct A * だし， b_ref は struct B * だ． C言語に慣れていれば，同じ
+ようなものに見えるかもしれない．だが，これが OCaml の int と string になってきたりすると
+大問題だ．</p>
+<div class="highlight-ocaml"><div class="highlight"><pre><span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="n">ref</span> <span class="mi">42</span>
+<span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">free</span> <span class="n">a</span> <span class="c">(* 本当にあるわけではないけど，そういう関数があるということにするぜぇ *)</span>
+<span class="k">let</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ref</span> <span class="s2">&quot;hello&quot;</span>
+
+<span class="k">let</span> <span class="n">i</span> <span class="o">=</span> <span class="o">!</span><span class="n">a</span> <span class="c">(* a == b だから，なんと文字列が返ってくるのである！ *)</span>
+</pre></div>
+</div>
+<p>そういうわけで，参照を型付けする場合は，型安全性のために GC が必要不可欠らしい．</p>
+</div>
+<div class="section" id="id2">
+<h2>多相な型への代入<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>単純な型の参照の型付けは簡単． int ref には int しか入れられない， int ref から取り出して
+も int しか出てこない． string を入れることや， string が出てくることはないというだけだ．
+ところが，多相型の参照はけっこうやっかいらしい．
+&#8216;a ref のような，多相型の参照に代入する場合．多相型の参照には，なんでも入れることができる，
+とか，なんでも取り出すことができる，というようにしてしまうと困るのだ．そうしたら
+型の意味がない．</p>
+<div class="highlight-ocaml"><div class="highlight"><pre><span class="k">let</span> <span class="n">l</span> <span class="o">=</span> <span class="n">ref</span> <span class="bp">[]</span>
+<span class="c">(* val l : &#39;_a list ref = {contents = [] *)</span>
+
+<span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">l</span> <span class="o">:=</span> <span class="o">[</span><span class="mi">42</span><span class="o">]</span>        <span class="c">(* 任意の型なので int いれて OK *)</span>
+<span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">l</span> <span class="o">:=</span> <span class="o">[</span><span class="s2">&quot;hello&quot;</span><span class="o">]</span>   <span class="c">(* 任意の型なので string いれて OK *)</span>
+
+<span class="n">print_int</span> <span class="o">(</span><span class="nn">List</span><span class="p">.</span><span class="n">hd</span> <span class="o">!</span><span class="n">l</span><span class="o">)</span>     <span class="c">(* 任意の型なので int 取り出しても OK *)</span>
+<span class="n">print_string</span> <span class="o">(</span><span class="nn">List</span><span class="p">.</span><span class="n">hd</span> <span class="o">!</span><span class="n">l</span><span class="o">)</span>  <span class="c">(* 任意の型なので string 取り出しても OK *)</span>
+</pre></div>
+</div>
+<p>逆に，任意の型には，安全の為に int も string もをいれることができない，というように
+しても困るのだ．それでは参照として使えない．</p>
+<div class="highlight-ocaml"><div class="highlight"><pre><span class="k">let</span> <span class="n">l</span> <span class="o">=</span> <span class="n">ref</span> <span class="bp">[]</span>
+<span class="c">(* val l : &#39;_a list ref = {contents = [] *)</span>
+
+<span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">l</span> <span class="o">:=</span> <span class="o">[</span><span class="mi">42</span><span class="o">]</span>        <span class="c">(* ダメ *)</span>
+<span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">l</span> <span class="o">:=</span> <span class="o">[</span><span class="s2">&quot;hello&quot;</span><span class="o">]</span>   <span class="c">(* ダメ *)</span>
+</pre></div>
+</div>
+<p>多相型の参照の場合は，最初の1回だけなんでもいれてよくて，次からは
+そのいれた型しかいれてはいけない，というようにするらしい．</p>
+<div class="highlight-ocaml"><div class="highlight"><pre><span class="k">let</span> <span class="n">l</span> <span class="o">=</span> <span class="n">ref</span> <span class="bp">[]</span>
+<span class="c">(* val l : &#39;_a list ref = {contents = [] *)</span>
+
+<span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">l</span> <span class="o">:=</span> <span class="o">[</span><span class="mi">42</span><span class="o">]</span>        <span class="c">(* 1回目の代入は許可される *)</span>
+<span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="n">l</span> <span class="o">:=</span> <span class="o">[</span><span class="s2">&quot;hello&quot;</span><span class="o">]</span>   <span class="c">(* 2回目の代入はダメ *)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+    </div>
+
+</body>
+</html>

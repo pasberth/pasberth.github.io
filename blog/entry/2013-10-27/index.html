@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    
+      <title>Clojure で構文木を単純に型付けする</title>
+    
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+</head>
+<body>
+
+    <div class="body">
+        
+  <div class="section" id="clojure">
+<h1>Clojure で構文木を単純に型付けする<a class="headerlink" href="#clojure" title="Permalink to this headline">¶</a></h1>
+<p>世の中のプログラミング言語には，静的型付き言語と呼ばれるものがある．
+静的型付「け」言語などと言うと，Twitterで，
+<a class="reference external" href="https://twitter.com/seitekibot">&#64;seitekibot</a> に補足されるので注意が必要だ．
+静的型付き言語の目指すところは，型システム入門によれば，プログラムを実際には実行すること
+なく，プログラムの妥当性を検証することにあるらしい．たとえば， 整数に1を足す
+<tt class="docutils literal"><span class="pre">inc</span></tt> 関数と，論理値である <tt class="docutils literal"><span class="pre">false</span></tt> があったとして， <tt class="docutils literal"><span class="pre">(inc</span> <span class="pre">false)</span></tt> は
+明らかに間違ったプログラムだ．たとえ動的に型検査するとしても，このプログラムの
+評価が行き詰まってしまうのは必然に思える．であらば，このプログラムを実行できても
+なんの意味もない．そういったプログラムを，実行や，コンパイルするより前の段階で，
+できるだけ発見してしまおう，というのが静的型システムを実装するモチベーションらしい．
+今回は，型システム入門の第8章を参考に，簡単な型システムを実装してみる．</p>
+<div class="section" id="id1">
+<h2>静的型システム？<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>静的型システムは， AST を走査して，項に，型と呼ばれるものを割り当て，
+矛盾した項がないか探すシステム．たとえば， <tt class="docutils literal"><span class="pre">false</span></tt> は 型 Bool を持つ．
+<tt class="docutils literal"><span class="pre">0</span></tt> は Int の型を持つ． <tt class="docutils literal"><span class="pre">(inc</span> <span class="pre">x)</span></tt> は， もし <tt class="docutils literal"><span class="pre">x</span></tt> が 型 Int
+を持つなら，型システムの検査をパスし，型 Int を持つが，
+もし， <tt class="docutils literal"><span class="pre">x</span></tt> が 型 Int を持たないなら，型システムが
+それを知らせ，言語はそのプログラムを拒絶する．
+そうすることで，まちがったプログラムの実行をしないようにする．</p>
+</div>
+<div class="section" id="id2">
+<h2>実装<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>言語として Clojue を採用する．理由は， AST の走査をするなら Lisp がよいと
+思ったからだ． Lisp なら，面倒なパーサを書くことなく，リストを構文木として使用できる．
+そして，それは読みやすい．</p>
+<p>今回実装する型は，それほど複雑なものにはしない．型付けできるのは，</p>
+<ul class="simple">
+<li><tt class="code highlight clojure docutils literal"><span class="name variable"><span class="pre">true</span></span></tt></li>
+<li><tt class="code highlight clojure docutils literal"><span class="name variable"><span class="pre">false</span></span></tt></li>
+<li><tt class="code highlight clojure docutils literal"><span class="literal number integer"><span class="pre">0</span></span></tt></li>
+<li><tt class="code highlight clojure docutils literal"><span class="punctuation"><span class="pre">(</span></span><span class="name function"><span class="pre">succ</span></span> <span class="name variable"><span class="pre">x</span></span><span class="punctuation"><span class="pre">)</span></span></tt></li>
+<li><tt class="code highlight clojure docutils literal"><span class="punctuation"><span class="pre">(</span></span><span class="name function"><span class="pre">pred</span></span> <span class="name variable"><span class="pre">x</span></span><span class="punctuation"><span class="pre">)</span></span></tt></li>
+<li><tt class="code highlight clojure docutils literal"><span class="punctuation"><span class="pre">(</span></span><span class="name function"><span class="pre">iszero</span></span> <span class="name variable"><span class="pre">x</span></span><span class="punctuation"><span class="pre">)</span></span></tt></li>
+<li><tt class="code highlight clojure docutils literal"><span class="punctuation"><span class="pre">(</span></span><span class="keyword"><span class="pre">if</span> </span><span class="name variable"><span class="pre">x</span></span> <span class="name variable"><span class="pre">y</span></span> <span class="name variable"><span class="pre">z</span></span><span class="punctuation"><span class="pre">)</span></span></tt></li>
+</ul>
+<p>だけ，ということにする． Clojure のすべての式を型付けするなど
+ということは目指さない．それは難しいし，目的でもないからだ．</p>
+<p>まず，どのように実装するか考える． <tt class="code highlight haskell docutils literal"><span class="name function"><span class="pre">typeof</span></span> <span class="operator word"><span class="pre">::</span></span> <span class="keyword type"><span class="pre">AST</span></span> <span class="operator word"><span class="pre">-&gt;</span></span> <span class="keyword type"><span class="pre">Either</span></span> <span class="keyword type"><span class="pre">Failure</span></span> <span class="keyword type"><span class="pre">Type</span></span></tt>
+のような関数をつくることにしよう． AST は，構文木の型で， Clojure では
+単にリストということになる． Failure は， <tt class="code highlight haskell docutils literal"><span class="keyword reserved"><span class="pre">data</span></span> <span class="keyword type"><span class="pre">Failure</span></span> <span class="operator word"><span class="pre">=</span></span> <span class="keyword type"><span class="pre">Failure</span></span> <span class="punctuation"><span class="pre">[</span></span><span class="keyword type"><span class="pre">Info</span></span><span class="punctuation"><span class="pre">]</span></span></tt> かつ
+<tt class="code highlight haskell docutils literal"><span class="keyword reserved"><span class="pre">data</span></span> <span class="keyword type"><span class="pre">Info</span></span> <span class="operator word"><span class="pre">=</span></span> <span class="keyword type"><span class="pre">Info</span></span> <span class="punctuation"><span class="pre">{</span></span> <span class="name"><span class="pre">expected</span></span> <span class="operator word"><span class="pre">::</span></span> <span class="keyword type"><span class="pre">Type</span></span><span class="punctuation"><span class="pre">,</span></span> <span class="name"><span class="pre">actual</span></span> <span class="operator word"><span class="pre">::</span></span> <span class="keyword type"><span class="pre">Type</span></span><span class="punctuation"><span class="pre">,</span></span> <span class="name"><span class="pre">astAt</span></span> <span class="operator word"><span class="pre">::</span></span> <span class="punctuation"><span class="pre">[</span></span><span class="keyword type"><span class="pre">Int</span></span><span class="punctuation"><span class="pre">]</span></span> <span class="punctuation"><span class="pre">}</span></span></tt> のような
+型で，型エラーの位置を知らせる． expected は期待された型で， actual は実際の型だ．
+astAt は，たとえば， <tt class="code highlight clojure docutils literal"><span class="punctuation"><span class="pre">(</span></span><span class="keyword"><span class="pre">if</span> </span><span class="punctuation"><span class="pre">(</span></span><span class="name function"><span class="pre">iszero</span></span> <span class="name variable"><span class="pre">false</span></span><span class="punctuation"><span class="pre">)</span></span> <span class="literal number integer"><span class="pre">0</span></span> <span class="literal number integer"><span class="pre">0</span></span><span class="punctuation"><span class="pre">)</span></span></tt> のように
+したとすれば，それを x ということにして，x の <tt class="code highlight clojure docutils literal"><span class="punctuation"><span class="pre">(</span></span><span class="name builtin"><span class="pre">nth</span> </span><span class="punctuation"><span class="pre">(</span></span><span class="name builtin"><span class="pre">nth</span> </span><span class="name variable"><span class="pre">x</span></span> <span class="literal number integer"><span class="pre">1</span></span><span class="punctuation"><span class="pre">)</span></span> <span class="literal number integer"><span class="pre">1</span></span><span class="punctuation"><span class="pre">)</span></span></tt> の位置で型
+エラーが起こっている，という， AST のどの位置かを示すポジションのリストだ．
+この例では， <tt class="code highlight haskell docutils literal"><span class="name function"><span class="pre">astAt</span></span> <span class="operator word"><span class="pre">=</span></span> <span class="punctuation"><span class="pre">[</span></span><span class="literal number integer"><span class="pre">1</span></span><span class="punctuation"><span class="pre">,</span></span><span class="literal number integer"><span class="pre">1</span></span><span class="punctuation"><span class="pre">]</span></span></tt> ということになる．
+<tt class="code highlight clojure docutils literal"><span class="punctuation"><span class="pre">(</span></span><span class="name builtin"><span class="pre">reduce</span> <span class="pre">nth</span> </span><span class="name variable"><span class="pre">ast</span></span> <span class="name variable"><span class="pre">ast-at</span></span><span class="punctuation"><span class="pre">)</span></span></tt> のように
+して，エラーが起こっている AST まで辿れるということにする．これは，人間が
+どこでエラーが起こっているか知るメッセージをつくるためにある．
+Type は， Boolean, Long のどちらかということにする．
+ラムダ式の型付けはすこし複雑だから，今回はしないということにする．</p>
+<p>実際の Clojure でのデータの定義は，次のようになる．</p>
+<div class="highlight-clojure"><div class="highlight"><pre><span class="p">(</span><span class="kd">defrecord </span><span class="nv">Just</span> <span class="p">[</span><span class="nv">t</span><span class="p">])</span>
+<span class="p">(</span><span class="kd">defrecord </span><span class="nv">Fail</span> <span class="p">[</span><span class="nv">infos</span><span class="p">])</span>
+<span class="p">(</span><span class="kd">defrecord </span><span class="nv">Info</span> <span class="p">[</span><span class="nv">expected</span> <span class="nv">actual</span> <span class="nv">ast-at</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>それから， typeof 関数を定義する． typeof は，ほとんど単純な場合分けしかしない．</p>
+<p>print-typeof 関数を定義して，正しい型ならそれを，まちがった型なら
+その情報を表示するようにする．そのコードを使用して，次のように
+テストコードを書く．</p>
+<div class="highlight-clojure"><div class="highlight"><pre><span class="p">(</span><span class="nf">print-typeof</span> <span class="nv">false</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="nf">succ</span> <span class="mi">0</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="nf">pred</span> <span class="mi">0</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="nf">iszero</span> <span class="mi">0</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">iszero</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">pred</span> <span class="mi">0</span><span class="p">)))</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">iszero</span> <span class="mi">0</span><span class="p">)</span> <span class="nv">false</span> <span class="nv">true</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="nf">succ</span> <span class="nv">false</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="nf">pred</span> <span class="nv">true</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">iszero</span> <span class="nv">false</span><span class="p">)</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">iszero</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">0</span> <span class="nv">true</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">succ</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">0</span> <span class="nv">true</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>このコードを実行すると，次のように表示される．</p>
+<div class="highlight-python"><pre>true : Boolean
+false : Boolean
+0 : Long
+(succ 0) : Long
+(pred 0) : Long
+(iszero 0) : Boolean
+(if (iszero 0) 0 (pred 0)) : Long
+(if (iszero 0) false true) : Boolean
+Type failure: (succ false)
+expected Long but got Boolean
+(succ false)
+      ~~~~~
+Type failure: (pred true)
+expected Long but got Boolean
+(pred true)
+      ~~~~
+Type failure: (if (iszero false) 0 0)
+expected Long but got Boolean
+(if (iszero false) 0 0)
+            ~~~~~
+Type failure: (if (iszero 0) 0 true)
+expected Long but got Boolean
+(if (iszero 0) 0 true)
+                 ~~~~
+Type failure: (if (succ 0) 0 true)
+expected Boolean but got Long
+(if (succ 0) 0 true)
+    ~~~~~~~~
+expected Long but got Boolean
+(if (succ 0) 0 true)
+               ~~~~
+</pre>
+</div>
+<p>完全なコードは次のようになった．</p>
+<div class="highlight-clojure"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105</pre></div></td><td class="code"><div class="highlight"><pre><span class="p">(</span><span class="kd">defrecord </span><span class="nv">Just</span> <span class="p">[</span><span class="nv">t</span><span class="p">])</span>
+<span class="p">(</span><span class="kd">defrecord </span><span class="nv">Fail</span> <span class="p">[</span><span class="nv">infos</span><span class="p">])</span>
+<span class="p">(</span><span class="kd">defrecord </span><span class="nv">Info</span> <span class="p">[</span><span class="nv">expected</span> <span class="nv">actual</span> <span class="nv">ast-at</span><span class="p">])</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">expect-arity</span> <span class="p">[</span><span class="nv">n</span> <span class="nv">t</span><span class="p">]</span> <span class="p">(</span><span class="nb">when </span><span class="p">(</span><span class="nb">not= </span><span class="p">(</span><span class="nb">count </span><span class="nv">t</span><span class="p">)</span> <span class="nv">n</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">throw</span> <span class="p">(</span><span class="nf">RuntimeException.</span> <span class="p">(</span><span class="nb">str </span><span class="nv">t</span> <span class="s">&quot; unexpected&quot;</span><span class="p">)))))</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">typeof</span> <span class="p">[</span><span class="nv">t</span><span class="p">]</span> <span class="p">(</span><span class="nf">case</span> <span class="nv">t</span>
+  <span class="nv">true</span>  <span class="p">(</span><span class="nf">Just.</span> <span class="ss">&#39;Boolean</span><span class="p">)</span>
+  <span class="nv">false</span> <span class="p">(</span><span class="nf">Just.</span> <span class="ss">&#39;Boolean</span><span class="p">)</span>
+  <span class="mi">0</span>     <span class="p">(</span><span class="nf">Just.</span> <span class="ss">&#39;Long</span><span class="p">)</span>
+  <span class="p">(</span><span class="nf">cond</span>
+    <span class="p">(</span><span class="nb">not </span><span class="p">(</span><span class="nb">seq? </span><span class="nv">t</span><span class="p">))</span>
+      <span class="p">(</span><span class="nf">throw</span> <span class="p">(</span><span class="nf">RuntimeException.</span> <span class="p">(</span><span class="nb">str </span><span class="nv">t</span> <span class="s">&quot; unexpected&quot;</span><span class="p">)))</span>
+    <span class="ss">:else</span>
+      <span class="p">(</span><span class="nf">case</span> <span class="p">(</span><span class="nb">first </span><span class="nv">t</span><span class="p">)</span>
+        <span class="nv">if</span>
+          <span class="p">(</span><span class="nf">do</span>
+            <span class="p">(</span><span class="nf">expect-arity</span> <span class="mi">4</span> <span class="nv">t</span><span class="p">)</span>
+            <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">t1</span> <span class="p">(</span><span class="nf">typeof</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">t</span> <span class="mi">1</span><span class="p">))</span>
+                  <span class="nv">t2</span> <span class="p">(</span><span class="nf">typeof</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">t</span> <span class="mi">2</span><span class="p">))</span>
+                  <span class="nv">t3</span> <span class="p">(</span><span class="nf">typeof</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">t</span> <span class="mi">3</span><span class="p">))]</span>
+              <span class="p">(</span><span class="nf">cond</span>
+                <span class="p">(</span><span class="nb">some </span><span class="o">#</span><span class="p">(</span><span class="nb">instance? </span><span class="nv">Fail</span> <span class="nv">%</span><span class="p">)</span> <span class="p">[</span><span class="nv">t1</span> <span class="nv">t2</span> <span class="nv">t3</span><span class="p">])</span>
+                  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">failures</span> <span class="p">[</span> <span class="p">(</span><span class="nf">update-in</span> <span class="nv">t1</span> <span class="p">[</span><span class="ss">:infos</span><span class="p">]</span> <span class="p">(</span><span class="nb">partial map </span><span class="o">#</span><span class="p">(</span><span class="nf">update-in</span> <span class="nv">%</span> <span class="p">[</span><span class="ss">:ast-at</span><span class="p">]</span> <span class="p">(</span><span class="nb">partial cons </span><span class="mi">1</span><span class="p">))))</span>
+                                   <span class="p">(</span><span class="nf">update-in</span> <span class="nv">t2</span> <span class="p">[</span><span class="ss">:infos</span><span class="p">]</span> <span class="p">(</span><span class="nb">partial map </span><span class="o">#</span><span class="p">(</span><span class="nf">update-in</span> <span class="nv">%</span> <span class="p">[</span><span class="ss">:ast-at</span><span class="p">]</span> <span class="p">(</span><span class="nb">partial cons </span><span class="mi">2</span><span class="p">))))</span>
+                                   <span class="p">(</span><span class="nf">update-in</span> <span class="nv">t3</span> <span class="p">[</span><span class="ss">:infos</span><span class="p">]</span> <span class="p">(</span><span class="nb">partial map </span><span class="o">#</span><span class="p">(</span><span class="nf">update-in</span> <span class="nv">%</span> <span class="p">[</span><span class="ss">:ast-at</span><span class="p">]</span> <span class="p">(</span><span class="nb">partial cons </span><span class="mi">3</span><span class="p">))))</span> <span class="p">]]</span>
+                    <span class="p">(</span><span class="nf">Fail.</span> <span class="p">(</span><span class="nb">apply concat </span><span class="p">(</span><span class="nb">map </span><span class="ss">:infos</span> <span class="p">(</span><span class="nb">filter </span><span class="o">#</span><span class="p">(</span><span class="nb">instance? </span><span class="nv">Fail</span> <span class="nv">%</span><span class="p">)</span> <span class="nv">failures</span><span class="p">)))))</span>
+                <span class="p">(</span><span class="nb">and </span><span class="p">(</span><span class="nb">not= </span><span class="ss">&#39;Boolean</span> <span class="p">(</span><span class="ss">:t</span> <span class="nv">t1</span><span class="p">))</span> <span class="p">(</span><span class="nb">not= </span><span class="p">(</span><span class="ss">:t</span> <span class="nv">t2</span><span class="p">)</span> <span class="p">(</span><span class="ss">:t</span> <span class="nv">t3</span><span class="p">)))</span>
+                  <span class="p">(</span><span class="nf">Fail.</span> <span class="p">[(</span><span class="nf">Info.</span> <span class="ss">&#39;Boolean</span> <span class="p">(</span><span class="ss">:t</span> <span class="nv">t1</span><span class="p">)</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                          <span class="p">(</span><span class="nf">Info.</span> <span class="p">(</span><span class="ss">:t</span> <span class="nv">t2</span><span class="p">)</span> <span class="p">(</span><span class="ss">:t</span> <span class="nv">t3</span><span class="p">)</span> <span class="p">[</span><span class="mi">3</span><span class="p">])])</span>
+                <span class="p">(</span><span class="nb">not= </span><span class="ss">&#39;Boolean</span> <span class="p">(</span><span class="ss">:t</span> <span class="nv">t1</span><span class="p">))</span>
+                  <span class="p">(</span><span class="nf">Fail.</span> <span class="p">[(</span><span class="nf">Info.</span> <span class="ss">&#39;Boolean</span> <span class="p">(</span><span class="ss">:t</span> <span class="nv">t1</span><span class="p">)</span> <span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
+                <span class="p">(</span><span class="nb">not= </span><span class="p">(</span><span class="ss">:t</span> <span class="nv">t2</span><span class="p">)</span> <span class="p">(</span><span class="ss">:t</span> <span class="nv">t3</span><span class="p">))</span>
+                  <span class="p">(</span><span class="nf">Fail.</span> <span class="p">[(</span><span class="nf">Info.</span> <span class="p">(</span><span class="ss">:t</span> <span class="nv">t2</span><span class="p">)</span> <span class="p">(</span><span class="ss">:t</span> <span class="nv">t3</span><span class="p">)</span> <span class="p">[</span><span class="mi">3</span><span class="p">])])</span>
+                <span class="ss">:else</span>
+                  <span class="nv">t2</span><span class="p">)))</span>
+        <span class="nv">succ</span>
+          <span class="p">(</span><span class="nf">do</span>
+            <span class="p">(</span><span class="nf">expect-arity</span> <span class="mi">2</span> <span class="nv">t</span><span class="p">)</span>
+            <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">t1</span> <span class="p">(</span><span class="nf">typeof</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">t</span> <span class="mi">1</span><span class="p">))]</span>
+              <span class="p">(</span><span class="nf">cond</span>
+                <span class="p">(</span><span class="nb">instance? </span><span class="nv">Fail</span> <span class="nv">t1</span><span class="p">)</span>
+                  <span class="p">(</span><span class="nf">update-in</span> <span class="nv">t1</span> <span class="p">[</span><span class="ss">:infos</span><span class="p">]</span> <span class="p">(</span><span class="nb">partial map </span><span class="o">#</span><span class="p">(</span><span class="nf">update-in</span> <span class="nv">%</span> <span class="p">[</span><span class="ss">:ast-at</span><span class="p">]</span> <span class="p">(</span><span class="nb">partial cons </span><span class="mi">1</span><span class="p">))))</span>
+                <span class="p">(</span><span class="nb">not= </span><span class="ss">&#39;Long</span> <span class="p">(</span><span class="ss">:t</span> <span class="nv">t1</span><span class="p">))</span>
+                  <span class="p">(</span><span class="nf">Fail.</span> <span class="p">[(</span><span class="nf">Info.</span> <span class="ss">&#39;Long</span> <span class="p">(</span><span class="ss">:t</span> <span class="nv">t1</span><span class="p">)</span> <span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
+                <span class="ss">:else</span>
+                  <span class="p">(</span><span class="nf">Just.</span> <span class="ss">&#39;Long</span><span class="p">))))</span>
+        <span class="nv">pred</span>
+          <span class="p">(</span><span class="nf">do</span>
+            <span class="p">(</span><span class="nf">expect-arity</span> <span class="mi">2</span> <span class="nv">t</span><span class="p">)</span>
+            <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">t1</span> <span class="p">(</span><span class="nf">typeof</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">t</span> <span class="mi">1</span><span class="p">))]</span>
+              <span class="p">(</span><span class="nf">cond</span>
+                <span class="p">(</span><span class="nb">instance? </span><span class="nv">Fail</span> <span class="nv">t1</span><span class="p">)</span>
+                  <span class="p">(</span><span class="nf">update-in</span> <span class="nv">t1</span> <span class="p">[</span><span class="ss">:infos</span><span class="p">]</span> <span class="p">(</span><span class="nb">partial map </span><span class="o">#</span><span class="p">(</span><span class="nf">update-in</span> <span class="nv">%</span> <span class="p">[</span><span class="ss">:ast-at</span><span class="p">]</span> <span class="p">(</span><span class="nb">partial cons </span><span class="mi">1</span><span class="p">))))</span>
+                <span class="p">(</span><span class="nb">not= </span><span class="ss">&#39;Long</span> <span class="p">(</span><span class="ss">:t</span> <span class="nv">t1</span><span class="p">))</span>
+                  <span class="p">(</span><span class="nf">Fail.</span> <span class="p">[(</span><span class="nf">Info.</span> <span class="ss">&#39;Long</span> <span class="p">(</span><span class="ss">:t</span> <span class="nv">t1</span><span class="p">)</span> <span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
+                <span class="ss">:else</span>
+                  <span class="p">(</span><span class="nf">Just.</span> <span class="ss">&#39;Long</span><span class="p">))))</span>
+        <span class="nv">iszero</span>
+          <span class="p">(</span><span class="nf">do</span>
+            <span class="p">(</span><span class="nf">expect-arity</span> <span class="mi">2</span> <span class="nv">t</span><span class="p">)</span>
+            <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">t1</span> <span class="p">(</span><span class="nf">typeof</span> <span class="p">(</span><span class="nb">nth </span><span class="nv">t</span> <span class="mi">1</span><span class="p">))]</span>
+              <span class="p">(</span><span class="nf">cond</span>
+                <span class="p">(</span><span class="nb">instance? </span><span class="nv">Fail</span> <span class="nv">t1</span><span class="p">)</span>
+                  <span class="p">(</span><span class="nf">update-in</span> <span class="nv">t1</span> <span class="p">[</span><span class="ss">:infos</span><span class="p">]</span> <span class="p">(</span><span class="nb">partial map </span><span class="o">#</span><span class="p">(</span><span class="nf">update-in</span> <span class="nv">%</span> <span class="p">[</span><span class="ss">:ast-at</span><span class="p">]</span> <span class="p">(</span><span class="nb">partial cons </span><span class="mi">1</span><span class="p">))))</span>
+                <span class="p">(</span><span class="nb">not= </span><span class="ss">&#39;Long</span> <span class="p">(</span><span class="ss">:t</span> <span class="nv">t1</span><span class="p">))</span>
+                  <span class="p">(</span><span class="nf">Fail.</span> <span class="p">[(</span><span class="nf">Info.</span> <span class="ss">&#39;Long</span> <span class="p">(</span><span class="ss">:t</span> <span class="nv">t1</span><span class="p">)</span> <span class="p">[</span><span class="mi">1</span><span class="p">])])</span>
+                <span class="ss">:else</span>
+                  <span class="p">(</span><span class="nf">Just.</span> <span class="ss">&#39;Boolean</span><span class="p">))))</span>
+        <span class="p">(</span><span class="nf">throw</span> <span class="p">(</span><span class="nf">RuntimeException.</span> <span class="p">(</span><span class="nb">str </span><span class="nv">t</span> <span class="s">&quot; unexpected&quot;</span><span class="p">)))))))</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">print-typeof</span> <span class="p">[</span><span class="nv">t</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">R</span> <span class="p">(</span><span class="nf">typeof</span> <span class="nv">t</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nf">cond</span>
+      <span class="p">(</span><span class="nb">instance? </span><span class="nv">Just</span> <span class="nv">R</span><span class="p">)</span>
+        <span class="p">(</span><span class="nf">do</span>
+          <span class="p">(</span><span class="nb">print </span><span class="nv">t</span><span class="p">)</span>
+          <span class="p">(</span><span class="nb">print </span><span class="s">&quot; : &quot;</span><span class="p">)</span>
+          <span class="p">(</span><span class="nb">println </span><span class="p">(</span><span class="ss">:t</span> <span class="nv">R</span><span class="p">)))</span>
+      <span class="ss">:else</span>
+        <span class="p">(</span><span class="nf">do</span>
+          <span class="p">(</span><span class="nb">println </span><span class="p">(</span><span class="nb">str </span><span class="s">&quot;Type failure: &quot;</span> <span class="nv">t</span><span class="p">))</span>
+          <span class="p">(</span><span class="nb">doseq </span><span class="p">[</span><span class="nv">info</span> <span class="p">(</span><span class="ss">:infos</span> <span class="nv">R</span><span class="p">)]</span> <span class="p">(</span><span class="nf">do</span>
+            <span class="p">(</span><span class="nb">println </span><span class="p">(</span><span class="nb">str </span><span class="s">&quot;expected &quot;</span> <span class="p">(</span><span class="ss">:expected</span> <span class="nv">info</span><span class="p">)</span> <span class="s">&quot; but got &quot;</span> <span class="p">(</span><span class="ss">:actual</span> <span class="nv">info</span><span class="p">)))</span>
+            <span class="p">(</span><span class="nb">println </span><span class="nv">t</span><span class="p">)</span>
+            <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">failure</span> <span class="p">(</span><span class="nb">reduce </span><span class="p">(</span><span class="k">fn </span><span class="p">[</span><span class="nv">t</span> <span class="nv">i</span><span class="p">]</span>
+              <span class="p">(</span><span class="k">do </span><span class="p">(</span><span class="nb">print </span><span class="p">(</span><span class="nb">apply str </span><span class="p">(</span><span class="nb">replicate </span><span class="p">(</span><span class="nb">count </span><span class="p">(</span><span class="nb">str </span><span class="p">(</span><span class="nb">apply list </span><span class="p">(</span><span class="nb">take </span><span class="nv">i</span> <span class="nv">t</span><span class="p">))))</span> <span class="s">&quot; &quot;</span><span class="p">)))</span>
+                  <span class="p">(</span><span class="nb">nth </span><span class="nv">t</span> <span class="nv">i</span><span class="p">)))</span> <span class="nv">t</span> <span class="p">(</span><span class="ss">:ast-at</span> <span class="nv">info</span><span class="p">))]</span>
+              <span class="p">(</span><span class="nb">println </span><span class="p">(</span><span class="nb">apply str </span><span class="p">(</span><span class="nb">replicate </span><span class="p">(</span><span class="nb">count </span><span class="p">(</span><span class="nb">str </span><span class="nv">failure</span><span class="p">))</span> <span class="s">&quot;~&quot;</span><span class="p">))))))))))</span>
+
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="nv">true</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="nv">false</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="nf">succ</span> <span class="mi">0</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="nf">pred</span> <span class="mi">0</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="nf">iszero</span> <span class="mi">0</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">iszero</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">0</span> <span class="p">(</span><span class="nf">pred</span> <span class="mi">0</span><span class="p">)))</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">iszero</span> <span class="mi">0</span><span class="p">)</span> <span class="nv">false</span> <span class="nv">true</span><span class="p">))</span>
+
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="nf">succ</span> <span class="nv">false</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="nf">pred</span> <span class="nv">true</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">iszero</span> <span class="nv">false</span><span class="p">)</span> <span class="mi">0</span> <span class="mi">0</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">iszero</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">0</span> <span class="nv">true</span><span class="p">))</span>
+<span class="p">(</span><span class="nf">print-typeof</span> <span class="o">&#39;</span><span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nf">succ</span> <span class="mi">0</span><span class="p">)</span> <span class="mi">0</span> <span class="nv">true</span><span class="p">))</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+
+
+    </div>
+
+</body>
+</html>

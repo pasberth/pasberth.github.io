@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    
+      <title>Haskell で infix 持ちの構文をパースする</title>
+    
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+</head>
+<body>
+
+    <div class="body">
+        
+  <div class="section" id="haskell-infix">
+<h1>Haskell で infix 持ちの構文をパースする<a class="headerlink" href="#haskell-infix" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="../2013-10-17/index.html"><em>ブログを Sphinx で書く事にした</em></a> を書いたのは，じつに昨日である．
+Sphinx で書くブログがいかに快適かを知るためにも，そして，せっかくだから，
+ブログを書く習慣でもつけようかと思い，くだらない記事を書くこととしよう．
+今回使用するソースコード，および，テストコード，および，それをコンパイルする
+ための .cabal は，
+<a class="reference external" href="https://github.com/pasberth/pasberth.github.io/tree/master/blog/entry/2013-10-18">ここ</a> に
+置いてある．もし，興味があれば，リポジトリを clone してほしい．</p>
+<div class="section" id="infix">
+<h2>infix とは<a class="headerlink" href="#infix" title="Permalink to this headline">¶</a></h2>
+<p>タイトルにある infix とかいかなるものか．くわしくは，自力で調べてもらう
+として，ﾃｷﾄ-な例を見繕った．例は，このセクションの最後に載せてある．
+この例を実行すると，</p>
+<div class="code highlight-python"><div class="highlight"><pre><span class="s">&quot;((a **** b) ++++ (c **** d))&quot;</span>
+<span class="s">&quot;(((a **** b) **** c) **** d)&quot;</span>
+<span class="s">&quot;(a .... (b .... (c .... d)))&quot;</span>
+</pre></div>
+</div>
+<p>と表示されるはずである．この例で大事なのは，行頭の 3, 4, 6 行め．
+最初のコードの，4行めは， <tt class="docutils literal"><span class="pre">++++</span></tt> とかいう記号が，
+優先順位が 6 である中置記法だということをコンパイラに知らせる．
+優先順位 6 は，優先順位 7 よりも低い．一般的な言語では，中置の記号が
+どのようにパースされるかは，言語で定められているが， Haskell では，
+こういうふうにして，中置の記号をいくらかコントロールできる．</p>
+<p>今回の記事は，この infix という機能を実装してみよう，という趣旨だ．</p>
+<div class="highlight-haskell"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></div></td><td class="code"><div class="highlight"><pre><span class="kr">module</span> <span class="nn">Main</span> <span class="kr">where</span>
+
+<span class="hll"><span class="kr">infixl</span> <span class="mi">7</span> <span class="o">****</span>
+</span><span class="hll"><span class="kr">infixl</span> <span class="mi">6</span> <span class="o">++++</span>
+</span>
+<span class="hll"><span class="kr">infixr</span> <span class="mi">7</span> <span class="o">....</span>
+</span>
+<span class="p">(</span><span class="o">****</span><span class="p">)</span> <span class="ow">::</span> <span class="kt">String</span> <span class="ow">-&gt;</span> <span class="kt">String</span> <span class="ow">-&gt;</span> <span class="kt">String</span>
+<span class="nf">x</span> <span class="o">****</span> <span class="n">y</span> <span class="ow">=</span> <span class="s">&quot;(&quot;</span> <span class="o">++</span> <span class="n">x</span> <span class="o">++</span> <span class="s">&quot; **** &quot;</span> <span class="o">++</span> <span class="n">y</span> <span class="o">++</span> <span class="s">&quot;)&quot;</span>
+
+<span class="p">(</span><span class="o">++++</span><span class="p">)</span> <span class="ow">::</span> <span class="kt">String</span> <span class="ow">-&gt;</span> <span class="kt">String</span> <span class="ow">-&gt;</span> <span class="kt">String</span>
+<span class="nf">x</span> <span class="o">++++</span> <span class="n">y</span> <span class="ow">=</span> <span class="s">&quot;(&quot;</span> <span class="o">++</span> <span class="n">x</span> <span class="o">++</span> <span class="s">&quot; ++++ &quot;</span> <span class="o">++</span> <span class="n">y</span> <span class="o">++</span> <span class="s">&quot;)&quot;</span>
+
+
+<span class="p">(</span><span class="o">....</span><span class="p">)</span> <span class="ow">::</span> <span class="kt">String</span> <span class="ow">-&gt;</span> <span class="kt">String</span> <span class="ow">-&gt;</span> <span class="kt">String</span>
+<span class="nf">x</span> <span class="o">....</span> <span class="n">y</span> <span class="ow">=</span> <span class="s">&quot;(&quot;</span> <span class="o">++</span> <span class="n">x</span> <span class="o">++</span> <span class="s">&quot; .... &quot;</span> <span class="o">++</span> <span class="n">y</span> <span class="o">++</span> <span class="s">&quot;)&quot;</span>
+
+<span class="nf">main</span> <span class="ow">::</span> <span class="kt">IO</span> <span class="nb">()</span>
+<span class="nf">main</span> <span class="ow">=</span> <span class="kr">do</span>
+  <span class="kr">let</span> <span class="n">x</span> <span class="ow">=</span> <span class="s">&quot;a&quot;</span> <span class="o">****</span> <span class="s">&quot;b&quot;</span> <span class="o">++++</span> <span class="s">&quot;c&quot;</span> <span class="o">****</span> <span class="s">&quot;d&quot;</span>
+  <span class="kr">let</span> <span class="n">y</span> <span class="ow">=</span> <span class="s">&quot;a&quot;</span> <span class="o">****</span> <span class="s">&quot;b&quot;</span> <span class="o">****</span> <span class="s">&quot;c&quot;</span> <span class="o">****</span> <span class="s">&quot;d&quot;</span>
+  <span class="kr">let</span> <span class="n">z</span> <span class="ow">=</span> <span class="s">&quot;a&quot;</span> <span class="o">....</span> <span class="s">&quot;b&quot;</span> <span class="o">....</span> <span class="s">&quot;c&quot;</span> <span class="o">....</span> <span class="s">&quot;d&quot;</span>
+
+  <span class="n">print</span> <span class="n">x</span>
+  <span class="n">print</span> <span class="n">y</span>
+  <span class="n">print</span> <span class="n">z</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+<div class="section" id="id2">
+<h2>実際につくってみる<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>まず，もろもろの，使用するライブラリと，言語拡張を確認する．
+今回使用する GHC による言語拡張は GeneralizedNewtypeDeriving
+というもので，データ型の定義の際，面倒な instance 宣言を省く為に
+使用している．ライブラリは，</p>
+<ul class="simple">
+<li><a class="reference external" href="http://hackage.haskell.org/package/parsers">parsers</a></li>
+<li><a class="reference external" href="http://hackage.haskell.org/package/trifecta">trifecta</a></li>
+</ul>
+<p>などを使用する．実際のコードは，このセクションの最後に載せてある．
+スクロールして頂きたい．</p>
+<p>infix のような機能は，ちょっとメタな機能に見える．
+infix は，通常の実行時には作用できない．パースの段階で， AST を組み替える
+機能，あるいは，パーサに対する命令ととれる．そういうわけで，今回は，これを
+パーサに対する命令と考えて，それを書くと，状態を変化させる，いわば，
+メタ手続きのようなものとして，パースの時点で処理させるように，
+パーサをつくってみる．これを作るには，パーサが文脈を持つか，
+あるいは，全体に先立って <tt class="docutils literal"><span class="pre">infix</span></tt> だけをパースし，ほかのコードをパース
+するようにすればよい．たとえば，インデントでブロックを作るときみたいに．</p>
+<p>そういうわけで，まずは，型を定義しよう．型は， 21, 26, 33 行めで
+定義されている． <tt class="code highlight haskell docutils literal"><span class="keyword type"><span class="pre">InfixOp</span></span></tt> は， <tt class="code highlight haskell docutils literal"><span class="keyword reserved"><span class="pre">infixl</span></span> <span class="name"><span class="pre">i</span></span> <span class="literal string"><span class="pre">&quot;s&quot;</span></span></tt> などとしたときに，
+<tt class="code highlight haskell docutils literal"><span class="keyword type"><span class="pre">InfixOp</span></span> <span class="punctuation"><span class="pre">(</span></span><span class="name"><span class="pre">i</span></span><span class="punctuation"><span class="pre">,</span></span> <span class="name"><span class="pre">s</span></span><span class="punctuation"><span class="pre">)</span></span></tt> のようにしてデータを保存する．
+<tt class="code highlight haskell docutils literal"><span class="keyword type"><span class="pre">ExampleParserState</span></span></tt> は，そのリストである． <tt class="code highlight haskell docutils literal"><span class="keyword type"><span class="pre">ExampleParser</span></span></tt> は，
+Trifecta のパーサに，文脈を
+付け足すため， <tt class="code highlight haskell docutils literal"><span class="keyword type"><span class="pre">ReaderT</span></span></tt> というモナド変換子を使ったパーサである．
+State ではなく， Reader を使ったのは，思わぬ所で値が更新されることがコワい
+からである．一時的に状態を更新したければ， <tt class="code highlight haskell docutils literal"><span class="name function"><span class="pre">runReaderT</span></span></tt> を使えばよろしい．
+<tt class="code highlight haskell docutils literal"><span class="keyword reserved"><span class="pre">type</span></span> <span class="keyword type"><span class="pre">ExampleParser</span></span> <span class="name"><span class="pre">a</span></span> <span class="operator word"><span class="pre">=</span></span> <span class="keyword type"><span class="pre">ReaderT</span></span> <span class="keyword type"><span class="pre">ExampleParserState</span></span> <span class="keyword type"><span class="pre">Trifecta</span></span><span class="operator"><span class="pre">.</span></span><span class="keyword type"><span class="pre">Parser</span></span> <span class="name"><span class="pre">a</span></span></tt> の
+ようにせず， newtype で定義して， GeneralizedNewtypeDeriving で
+<tt class="code highlight haskell docutils literal"><span class="keyword type"><span class="pre">MonadReader</span></span></tt> などの instance にしているのは，シノニムより便利な事が多い
+からである．</p>
+<p>93 行めの， <tt class="code highlight haskell docutils literal"><span class="name function"><span class="pre">parseWithState</span></span></tt> 関数は，中置の記号の状態をパーサに伝えつつ
+パースを開始する．この関数で与えた状態を， 96 行め， 114 行めの，
+<tt class="code highlight haskell docutils literal"><span class="name function"><span class="pre">infixLeft</span></span></tt> ，および， <tt class="code highlight haskell docutils literal"><span class="name function"><span class="pre">infixRight</span></span></tt> が読み取って，正確にパースするわけで
+ある．57 行めの <tt class="code highlight haskell docutils literal"><span class="name function"><span class="pre">defineInfix</span></span> <span class="name"><span class="pre">p</span></span></tt> は， <tt class="code highlight haskell docutils literal"><span class="keyword reserved"><span class="pre">infixl</span></span> <span class="name"><span class="pre">i</span></span> <span class="literal string"><span class="pre">&quot;x&quot;</span></span></tt> などという構文を
+読み取って，それを状態に加えて， <tt class="docutils literal"><span class="pre">p</span></tt> を評価する． <tt class="docutils literal"><span class="pre">p</span></tt> は，
+<tt class="code highlight haskell docutils literal"><span class="name function"><span class="pre">infixRight</span></span></tt> とかになるわけである．パーサコンビネータなのに，
+<tt class="code highlight haskell docutils literal"><span class="name function"><span class="pre">defineInfix</span></span> <span class="operator"><span class="pre">&gt;&gt;</span></span> <span class="name"><span class="pre">p</span></span></tt> のように繋げるのではなく，あくまで <tt class="code highlight haskell docutils literal"><span class="name function"><span class="pre">defineInfix</span></span> <span class="name"><span class="pre">p</span></span></tt> の
+ようにして渡すのは， State ではなく， Reader であるため，状態を更新できない
+からである．</p>
+<p>では，できたので，実際に，走らせてみようではないか．</p>
+<p>テストコード1</p>
+<div class="highlight-python"><pre>infixl 6 "+" 0 + 1 + 2 + 3 + 4
+</pre>
+</div>
+<p>テストコード出力</p>
+<div class="code highlight-python"><div class="highlight"><pre><span class="s">&quot;((((0+1)+2)+3)+4)&quot;</span>
+</pre></div>
+</div>
+<p>テストコード2</p>
+<div class="highlight-python"><pre>infixr 6 "+" 0 + 1 + 2 + 3 + 4
+</pre>
+</div>
+<p>テストコード出力</p>
+<div class="code highlight-python"><div class="highlight"><pre><span class="s">&quot;(0+(1+(2+(3+4))))&quot;</span>
+</pre></div>
+</div>
+<p>テストコード3</p>
+<div class="highlight-python"><pre>infixl 6 "+"
+infixl 7 "*"
+0 * 1 + 2 * 3
+</pre>
+</div>
+<p>テストコード出力</p>
+<div class="code highlight-python"><div class="highlight"><pre><span class="s">&quot;((0*1)+(2*3))&quot;</span>
+</pre></div>
+</div>
+<p>テストコード4</p>
+<div class="highlight-python"><pre>infixl 6 "+"
+infixl 6 "-"
+infixl 7 "*"
+infixl 7 "/"
+0 + 1 - 2 * 3 / 4
+  + 5 - 6 * 7 / 8
+</pre>
+</div>
+<p>テストコード出力</p>
+<div class="code highlight-python"><div class="highlight"><pre><span class="s">&quot;((((0+1)-((2*3)/4))+5)-((6*7)/8))&quot;</span>
+</pre></div>
+</div>
+<p>テストコード5</p>
+<div class="highlight-python"><pre>infixr 6 "+"
+infixr 6 "-"
+infixr 7 "*"
+infixr 7 "/"
+0 + 1 - 2 * 3 / 4
+  + 5 - 6 * 7 / 8
+</pre>
+</div>
+<p>テストコード出力</p>
+<div class="code highlight-python"><div class="highlight"><pre><span class="s">&quot;(0+(1-((2*(3/4))+(5-(6*(7/8))))))&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-haskell"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133</pre></div></td><td class="code"><div class="highlight"><pre><span class="cm">{-# LANGUAGE GeneralizedNewtypeDeriving #-}</span>
+
+<span class="kr">module</span> <span class="nn">Main</span> <span class="kr">where</span>
+
+<span class="kr">import</span>           <span class="nn">Control.Arrow</span>
+<span class="kr">import</span>           <span class="nn">Control.Applicative</span>
+<span class="kr">import</span>           <span class="nn">Control.Monad.Trans</span>
+<span class="kr">import</span>           <span class="nn">Control.Monad.Reader</span>
+<span class="kr">import</span> <span class="k">qualified</span> <span class="nn">Data.List</span>               <span class="k">as</span> <span class="n">L</span>
+<span class="kr">import</span> <span class="k">qualified</span> <span class="nn">Text.Parser.Combinators</span> <span class="k">as</span> <span class="n">P</span>
+<span class="kr">import</span> <span class="k">qualified</span> <span class="nn">Text.Parser.Char</span>        <span class="k">as</span> <span class="n">C</span>
+<span class="kr">import</span> <span class="k">qualified</span> <span class="nn">Text.Parser.Token</span>       <span class="k">as</span> <span class="n">T</span>
+<span class="kr">import</span> <span class="k">qualified</span> <span class="nn">Text.Trifecta</span>           <span class="k">as</span> <span class="n">Trifecta</span>
+
+<span class="c1">-- 中置オペレータ</span>
+<span class="c1">-- 左辺は結合の強さで，数値が低いほど</span>
+<span class="c1">-- 結合は弱く，高いほど結合が強い事を意味する．</span>
+<span class="c1">-- たとえば， 9 は 0 より結合が強い．</span>
+<span class="c1">-- 右辺はシンボルとして使用される文字列．</span>
+<span class="c1">-- たとえば， `+&#39; とか， `*&#39;．</span>
+<span class="hll"><span class="kr">newtype</span> <span class="kt">InfixOp</span>
+</span>  <span class="ow">=</span> <span class="kt">InfixOp</span> <span class="p">(</span><span class="kt">Integer</span><span class="p">,</span> <span class="kt">String</span><span class="p">)</span>
+
+<span class="c1">-- 現在の文脈で使用できる</span>
+<span class="c1">-- 中置オペレータのリスト</span>
+<span class="hll"><span class="kr">data</span> <span class="kt">ExampleParserState</span>
+</span>  <span class="ow">=</span> <span class="kt">ExampleParserState</span>
+    <span class="p">{</span> <span class="n">infixLeftOps</span>  <span class="ow">::</span> <span class="p">[</span><span class="kt">InfixOp</span><span class="p">]</span>
+    <span class="p">,</span> <span class="n">infixRightOps</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">InfixOp</span><span class="p">]</span>
+    <span class="p">}</span>
+
+<span class="c1">-- 状態付きのパーサ</span>
+<span class="hll"><span class="kr">newtype</span> <span class="kt">ExampleParser</span> <span class="n">a</span>
+</span>  <span class="ow">=</span> <span class="kt">ExampleParser</span>
+    <span class="p">{</span> <span class="n">unExampleParser</span> <span class="ow">::</span> <span class="kt">ReaderT</span> <span class="kt">ExampleParserState</span> <span class="kt">Trifecta</span><span class="o">.</span><span class="kt">Parser</span> <span class="n">a</span> <span class="p">}</span>
+  <span class="kr">deriving</span> <span class="p">(</span> <span class="kt">Functor</span>
+           <span class="p">,</span> <span class="kt">Applicative</span>
+           <span class="p">,</span> <span class="kt">Alternative</span>
+           <span class="p">,</span> <span class="kt">Monad</span>
+           <span class="p">,</span> <span class="kt">MonadReader</span> <span class="kt">ExampleParserState</span>
+           <span class="p">,</span> <span class="kt">P</span><span class="o">.</span><span class="kt">Parsing</span>
+           <span class="p">,</span> <span class="kt">C</span><span class="o">.</span><span class="kt">CharParsing</span>
+           <span class="p">,</span> <span class="kt">T</span><span class="o">.</span><span class="kt">TokenParsing</span>
+           <span class="p">)</span>
+
+<span class="nf">getOrd</span> <span class="ow">::</span> <span class="kt">InfixOp</span> <span class="ow">-&gt;</span> <span class="kt">Integer</span>
+<span class="nf">getOrd</span> <span class="p">(</span><span class="kt">InfixOp</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="kr">_</span><span class="p">))</span> <span class="ow">=</span> <span class="n">x</span>
+
+<span class="nf">getSym</span> <span class="ow">::</span> <span class="kt">InfixOp</span> <span class="ow">-&gt;</span> <span class="kt">String</span>
+<span class="nf">getSym</span> <span class="p">(</span><span class="kt">InfixOp</span> <span class="p">(</span><span class="kr">_</span><span class="p">,</span> <span class="n">s</span><span class="p">))</span> <span class="ow">=</span> <span class="n">s</span>
+
+<span class="nf">primExpr</span> <span class="ow">::</span> <span class="kt">T</span><span class="o">.</span><span class="kt">TokenParsing</span> <span class="n">p</span> <span class="ow">=&gt;</span> <span class="n">p</span> <span class="kt">String</span>
+<span class="nf">primExpr</span> <span class="ow">=</span> <span class="n">show</span> <span class="o">&lt;$&gt;</span> <span class="kt">T</span><span class="o">.</span><span class="n">integer</span>
+
+<span class="c1">-- 新しい中置演算子を導入して，</span>
+<span class="c1">-- そのスコープのもとでパーサを評価する</span>
+<span class="hll"><span class="nf">defineInfix</span> <span class="ow">::</span> <span class="kt">ExampleParser</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">ExampleParser</span> <span class="n">a</span>
+</span><span class="nf">defineInfix</span> <span class="n">p</span> <span class="ow">=</span> <span class="kr">do</span>
+    <span class="n">state</span> <span class="ow">&lt;-</span> <span class="n">ask</span>
+    <span class="n">state&#39;</span> <span class="ow">&lt;-</span>
+      <span class="n">many</span> <span class="n">parseInfix</span> <span class="o">&gt;&gt;=</span> <span class="n">return</span> <span class="o">.</span> <span class="n">foldl</span> <span class="p">(</span><span class="nf">\</span><span class="n">state&#39;</span> <span class="p">(</span><span class="n">assoc</span><span class="p">,</span> <span class="n">ord</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="kr">case</span> <span class="n">assoc</span> <span class="kr">of</span>
+                                             <span class="n">&#39;l&#39;</span> <span class="ow">-&gt;</span> <span class="n">state&#39;</span> <span class="p">{</span> <span class="n">infixLeftOps</span> <span class="ow">=</span> <span class="kt">InfixOp</span> <span class="p">(</span><span class="n">ord</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="kt">:</span> <span class="n">infixLeftOps</span> <span class="n">state&#39;</span> <span class="p">}</span>
+                                             <span class="n">&#39;r&#39;</span> <span class="ow">-&gt;</span> <span class="n">state&#39;</span> <span class="p">{</span> <span class="n">infixRightOps</span> <span class="ow">=</span> <span class="kt">InfixOp</span> <span class="p">(</span><span class="n">ord</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="kt">:</span> <span class="n">infixRightOps</span> <span class="n">state&#39;</span> <span class="p">})</span> <span class="n">state</span>
+
+    <span class="n">parseWithState</span> <span class="n">p</span> <span class="n">state&#39;</span>
+
+  <span class="kr">where</span>
+
+    <span class="n">parseInfix</span> <span class="ow">::</span> <span class="kt">ExampleParser</span> <span class="p">(</span><span class="kt">Char</span><span class="p">,</span> <span class="kt">Integer</span><span class="p">,</span> <span class="kt">String</span><span class="p">)</span>
+    <span class="n">parseInfix</span> <span class="ow">=</span> <span class="kr">do</span>
+      <span class="kt">T</span><span class="o">.</span><span class="n">symbol</span> <span class="s">&quot;infix&quot;</span>
+      <span class="n">assoc</span> <span class="ow">&lt;-</span> <span class="kt">T</span><span class="o">.</span><span class="n">symbolic</span> <span class="n">&#39;l&#39;</span> <span class="o">&lt;|&gt;</span> <span class="kt">T</span><span class="o">.</span><span class="n">symbolic</span> <span class="n">&#39;r&#39;</span>
+      <span class="n">ord</span>   <span class="ow">&lt;-</span> <span class="kt">T</span><span class="o">.</span><span class="n">integer</span>
+      <span class="n">s</span>     <span class="ow">&lt;-</span> <span class="kt">T</span><span class="o">.</span><span class="n">stringLiteral</span>
+      <span class="n">return</span> <span class="p">(</span><span class="n">assoc</span><span class="p">,</span> <span class="n">ord</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+
+
+<span class="c1">-- 中置オペレータをグループ化</span>
+<span class="c1">-- たとえば， [[+, -], [*, /]] のように，</span>
+<span class="c1">-- 優先順位が同じものにまとめたリストのリストをつくる．</span>
+<span class="nf">groupOps</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">InfixOp</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[[</span><span class="kt">InfixOp</span><span class="p">]]</span>
+<span class="nf">groupOps</span> <span class="ow">=</span> <span class="kt">L</span><span class="o">.</span><span class="n">sortBy</span> <span class="p">(</span><span class="nf">\</span><span class="n">x</span> <span class="n">y</span> <span class="ow">-&gt;</span> <span class="n">compare</span> <span class="p">(</span><span class="n">getOrd</span> <span class="n">x</span><span class="p">)</span> <span class="p">(</span><span class="n">getOrd</span> <span class="n">y</span><span class="p">))</span> <span class="o">&gt;&gt;&gt;</span>
+             <span class="kt">L</span><span class="o">.</span><span class="n">groupBy</span> <span class="p">(</span><span class="nf">\</span><span class="n">x</span> <span class="n">y</span> <span class="ow">-&gt;</span> <span class="n">getOrd</span> <span class="n">x</span> <span class="o">==</span> <span class="n">getOrd</span> <span class="n">y</span><span class="p">)</span>
+
+
+<span class="c1">-- 中置オペレータのいずれかをパース</span>
+<span class="nf">parseOp</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">InfixOp</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="kt">ExampleParser</span> <span class="kt">String</span>
+<span class="nf">parseOp</span> <span class="p">(</span><span class="n">op</span><span class="kt">:</span><span class="n">ops</span><span class="p">)</span> <span class="ow">=</span> <span class="n">foldl</span> <span class="p">(</span><span class="nf">\</span><span class="n">p</span> <span class="n">op&#39;</span> <span class="ow">-&gt;</span> <span class="kt">P</span><span class="o">.</span><span class="n">try</span> <span class="n">p</span> <span class="o">&lt;|&gt;</span> <span class="kt">T</span><span class="o">.</span><span class="n">symbol</span> <span class="p">(</span><span class="n">getSym</span> <span class="n">op&#39;</span><span class="p">))</span>
+                         <span class="p">(</span><span class="kt">T</span><span class="o">.</span><span class="n">symbol</span> <span class="p">(</span><span class="n">getSym</span> <span class="n">op</span><span class="p">))</span>
+                         <span class="n">ops</span>
+
+<span class="c1">-- 状態付きでパース</span>
+<span class="hll"><span class="nf">parseWithState</span> <span class="ow">::</span> <span class="kt">ExampleParser</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">ExampleParserState</span> <span class="ow">-&gt;</span> <span class="kt">ExampleParser</span> <span class="n">a</span>
+</span><span class="nf">parseWithState</span> <span class="n">p</span> <span class="n">state</span> <span class="ow">=</span>  <span class="kt">ExampleParser</span> <span class="o">$</span> <span class="n">lift</span> <span class="o">$</span> <span class="n">runReaderT</span> <span class="p">(</span><span class="n">unExampleParser</span> <span class="n">p</span><span class="p">)</span> <span class="n">state</span>
+
+<span class="hll"><span class="nf">infixLeft</span> <span class="ow">::</span> <span class="kt">ExampleParser</span> <span class="kt">String</span>
+</span><span class="nf">infixLeft</span> <span class="ow">=</span> <span class="kr">do</span>
+  <span class="n">state</span> <span class="ow">&lt;-</span> <span class="n">ask</span>
+
+  <span class="kr">case</span> <span class="n">groupOps</span> <span class="p">(</span><span class="n">infixLeftOps</span> <span class="n">state</span><span class="p">)</span> <span class="kr">of</span>
+    <span class="kt">[]</span>         <span class="ow">-&gt;</span>
+      <span class="kr">case</span> <span class="n">infixRightOps</span> <span class="n">state</span> <span class="kr">of</span>
+        <span class="kt">[]</span> <span class="ow">-&gt;</span> <span class="n">primExpr</span>
+        <span class="kr">_</span>  <span class="ow">-&gt;</span> <span class="n">infixRight</span>
+    <span class="p">(</span><span class="n">ops</span><span class="kt">:</span><span class="n">opss</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="kr">do</span>
+
+      <span class="kr">let</span> <span class="n">state&#39;</span>    <span class="ow">=</span> <span class="n">state</span> <span class="p">{</span> <span class="n">infixLeftOps</span> <span class="ow">=</span> <span class="n">concat</span> <span class="n">opss</span> <span class="p">}</span>
+      <span class="kr">let</span> <span class="n">parseExpr</span> <span class="ow">=</span> <span class="n">parseWithState</span> <span class="n">infixRight</span> <span class="n">state&#39;</span>
+
+      <span class="n">l</span> <span class="ow">&lt;-</span> <span class="n">parseExpr</span>
+      <span class="n">rs</span> <span class="ow">&lt;-</span> <span class="n">many</span> <span class="p">((,)</span> <span class="o">&lt;$&gt;</span> <span class="n">parseOp</span> <span class="n">ops</span> <span class="o">&lt;*&gt;</span> <span class="n">parseExpr</span><span class="p">)</span>
+      <span class="n">return</span> <span class="o">$</span> <span class="n">foldl</span> <span class="p">(</span><span class="nf">\</span><span class="n">x</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="s">&quot;(&quot;</span> <span class="o">++</span> <span class="n">x</span> <span class="o">++</span> <span class="n">s</span> <span class="o">++</span> <span class="n">y</span> <span class="o">++</span> <span class="s">&quot;)&quot;</span><span class="p">)</span> <span class="n">l</span> <span class="n">rs</span>
+
+<span class="hll"><span class="nf">infixRight</span> <span class="ow">::</span> <span class="kt">ExampleParser</span> <span class="kt">String</span>
+</span><span class="nf">infixRight</span> <span class="ow">=</span> <span class="kr">do</span>
+  <span class="n">state</span> <span class="ow">&lt;-</span> <span class="n">ask</span>
+
+  <span class="kr">case</span> <span class="n">groupOps</span> <span class="p">(</span><span class="n">infixRightOps</span> <span class="n">state</span><span class="p">)</span> <span class="kr">of</span>
+    <span class="kt">[]</span>         <span class="ow">-&gt;</span> <span class="n">infixLeft</span>
+    <span class="p">(</span><span class="n">ops</span><span class="kt">:</span><span class="n">opss</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="kr">do</span>
+
+      <span class="kr">let</span> <span class="n">state&#39;</span>    <span class="ow">=</span> <span class="n">state</span> <span class="p">{</span> <span class="n">infixRightOps</span> <span class="ow">=</span> <span class="n">concat</span> <span class="n">opss</span> <span class="p">}</span>
+      <span class="kr">let</span> <span class="n">parseExpr</span> <span class="ow">=</span> <span class="n">parseWithState</span> <span class="n">infixLeft</span> <span class="n">state&#39;</span>
+
+      <span class="n">l</span> <span class="ow">&lt;-</span> <span class="n">parseExpr</span>
+      <span class="n">rs</span> <span class="ow">&lt;-</span> <span class="n">many</span> <span class="p">((,)</span> <span class="o">&lt;$&gt;</span> <span class="n">parseOp</span> <span class="n">ops</span> <span class="o">&lt;*&gt;</span> <span class="n">parseExpr</span><span class="p">)</span>
+      <span class="n">return</span> <span class="o">$</span> <span class="n">foldr</span> <span class="p">(</span><span class="nf">\</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="n">f</span> <span class="n">x</span> <span class="ow">-&gt;</span> <span class="s">&quot;(&quot;</span> <span class="o">++</span> <span class="n">x</span> <span class="o">++</span> <span class="n">s</span> <span class="o">++</span> <span class="n">f</span> <span class="n">y</span> <span class="o">++</span> <span class="s">&quot;)&quot;</span><span class="p">)</span> <span class="n">id</span> <span class="n">rs</span> <span class="n">l</span>
+
+<span class="nf">main</span> <span class="ow">=</span> <span class="kr">do</span>
+    <span class="n">getContents</span> <span class="o">&gt;&gt;=</span> <span class="kt">Trifecta</span><span class="o">.</span><span class="n">parseTest</span> <span class="n">p</span>
+  <span class="kr">where</span>
+    <span class="n">p</span> <span class="ow">=</span> <span class="n">runReaderT</span> <span class="p">(</span><span class="n">unExampleParser</span> <span class="p">(</span><span class="n">defineInfix</span> <span class="n">infixRight</span><span class="p">))</span> <span class="n">emptyState</span>
+    <span class="n">emptyState</span> <span class="ow">=</span> <span class="kt">ExampleParserState</span> <span class="kt">[]</span> <span class="kt">[]</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+</div>
+
+
+    </div>
+
+</body>
+</html>
