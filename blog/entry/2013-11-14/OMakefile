@@ -1,0 +1,21 @@
+OCAMLPACKS[] =
+  menhir
+
+OCAMLYACC = menhir
+
+OCamlGeneratedFiles(parser.ml lexer.ml)
+
+parser.cmo: parser.ml
+  ocamlc parser.ml
+
+lexer.cmo: lexer.ml
+  ocamlc lexer.ml
+
+main.cmo: main.ml
+  ocamlfind ocamlc -syntax camlp4o -package lwt,js_of_ocaml.syntax -c main.ml
+
+main.byte: main.cmo  parser.cmo lexer.cmo
+  ocamlfind ocamlc -package lwt,js_of_ocaml -linkpkg -o main.byte parser.cmo lexer.cmo main.cmo
+
+main.js: main.byte
+  js_of_ocaml main.byte

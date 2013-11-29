@@ -1,0 +1,6 @@
+dllcallCFunctionFromOCaml.so: callCFunctionFromOCaml.c callCFunctionFromOCaml.o
+  ocamlc -c callCFunctionFromOCaml.c
+  ocamlmklib -o callCFunctionFromOCaml callCFunctionFromOCaml.o
+
+callCFunctionFromOCaml: callCFunctionFromOCaml.ml dllcallCFunctionFromOCaml.so
+  ocamlc -o callCFunctionFromOCaml -dllib dllcallCFunctionFromOCaml.so callCFunctionFromOCaml.ml

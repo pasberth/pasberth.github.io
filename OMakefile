@@ -1,0 +1,4 @@
+$(BUILDDIR): conf.py $(find . -name *.rst) $(find blog/entry -name *) $(find sty -name *) $(find theme -name *) $(find gallery -name *)
+    $(SPHINXBUILD) -b html . $(BUILDDIR)
+
+all: $(BUILDDIR)

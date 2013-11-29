@@ -1,0 +1,8 @@
+hello.cmo: hello.ml
+  ocamlfind ocamlc -syntax camlp4o -package lwt,js_of_ocaml.syntax -g -c hello.ml
+
+hello.byte: hello.cmo
+  ocamlfind ocamlc -package lwt,js_of_ocaml -linkpkg -o hello.byte hello.cmo
+
+hello.js: hello.byte
+  js_of_ocaml hello.byte

@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage{sty/proof}
+\pagestyle{empty}
+
+\begin{document}
+
+\section{P}
+
+    \infer{
+      \lambda x . f \left( x x \right)
+      : \left( \left( \mu \tau_1 . \tau_1 \rightarrow \tau_2 \right) \rightarrow \tau_2 \right) \rightarrow \tau_2
+    }{
+    \infer{
+      \lambda x . f \left( x x \right)
+      : \left( \mu \tau_1 . \tau_1 \rightarrow \tau_2 \right) \rightarrow \tau_2
+    }{
+      \infer{
+        f \left( x x \right)
+        : \tau_2
+      }{
+        f : \tau_2 \rightarrow \tau_2
+        &
+        \infer{
+          xx : \tau_2
+        }{
+          \infer{
+            x : \left( \mu \tau_1 . \tau_1 \rightarrow \tau_2 \right) \rightarrow \tau_2
+          }{
+            x : \mu \tau_1 . \tau_1 \rightarrow \tau_2
+          }
+          &
+          x : \mu \tau_1 . \tau_1 \rightarrow \tau_2
+        }
+      }
+    }
+    }
+
+\section{Proof}
+
+\infer{
+  \lambda f .
+  \left( \lambda x . f \left( x x \right) \right)
+  \left( \lambda x . f \left( x x \right) \right)
+  : \left( \tau_2 \rightarrow \tau_2 \right) \rightarrow \tau_2
+}{
+  \infer{
+    \left( \lambda x . f \left( x x \right) \right)
+    \left( \lambda x . f \left( x x \right) \right)
+    : \tau_2
+  }{
+    {\large P}
+    &
+    \infer{
+      \lambda x . f \left( x x \right)
+      : \left( \mu \tau_1 . \tau_1 \rightarrow \tau_2 \right) \rightarrow \tau_2
+    }{
+      \infer{
+        f \left( x x \right)
+        : \tau_2
+      }{
+        f : \tau_2 \rightarrow \tau_2
+        &
+        \infer{
+          xx : \tau_2
+        }{
+          \infer{
+            x : \left( \mu \tau_1 . \tau_1 \rightarrow \tau_2 \right) \rightarrow \tau_2
+          }{
+            x : \mu \tau_1 . \tau_1 \rightarrow \tau_2
+          }
+          &
+          x : \mu \tau_1 . \tau_1 \rightarrow \tau_2
+        }
+      }
+    }
+  }
+}
+
+\end{document}

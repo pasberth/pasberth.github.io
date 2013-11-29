@@ -1,0 +1,31 @@
+true : Boolean
+false : Boolean
+0 : Long
+(succ 0) : Long
+(pred 0) : Long
+(iszero 0) : Boolean
+(if (iszero 0) 0 (pred 0)) : Long
+(if (iszero 0) false true) : Boolean
+Type failure: (succ false)
+expected Long but got Boolean
+(succ false)
+      ~~~~~
+Type failure: (pred true)
+expected Long but got Boolean
+(pred true)
+      ~~~~
+Type failure: (if (iszero false) 0 0)
+expected Long but got Boolean
+(if (iszero false) 0 0)
+            ~~~~~
+Type failure: (if (iszero 0) 0 true)
+expected Long but got Boolean
+(if (iszero 0) 0 true)
+                 ~~~~
+Type failure: (if (succ 0) 0 true)
+expected Boolean but got Long
+(if (succ 0) 0 true)
+    ~~~~~~~~
+expected Long but got Boolean
+(if (succ 0) 0 true)
+               ~~~~

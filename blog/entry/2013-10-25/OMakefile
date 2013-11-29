@@ -1,0 +1,8 @@
+FILES[] =
+  main
+  sexp
+  parser
+  lexer
+
+OCamlProgram(a.out, $(FILES))
+OCamlGeneratedFiles(parser.ml lexer.ml)

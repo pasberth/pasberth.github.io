@@ -1,0 +1,12 @@
+BUILDDIR      = build
+SPHINXBUILD   = sphinx-build
+
+DefineCommandVars()
+
+BUILDDIR = $(dir $(BUILDDIR))
+
+open build/C
+open build/OCaml
+
+.PHONY: all
+.SUBDIRS: . gallery blog

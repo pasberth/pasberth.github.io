@@ -1,0 +1,19 @@
+42 : java.lang.Long
+(lambda x Long 42) : #user.Arr{:src java.lang.Long, :tgt java.lang.Long}
+(lambda x Long x) : #user.Arr{:src java.lang.Long, :tgt java.lang.Long}
+(lambda x Long (lambda y Long x)) : #user.Arr{:src java.lang.Long, :tgt #user.Arr{:src java.lang.Long, :tgt java.lang.Long}}
+Type failure: (lambda x Long y)
+not in scope: `y'
+(lambda x Long y)
+               ~
+(lambda f (Long -> Long) (lambda x Long f)) : #user.Arr{:src #user.Arr{:src java.lang.Long, :tgt java.lang.Long}, :tgt #user.Arr{:src java.lang.Long, :tgt #user.Arr{:src java.lang.Long, :tgt java.lang.Long}}}
+(lambda f (Long -> Long) (lambda x Long x)) : #user.Arr{:src #user.Arr{:src java.lang.Long, :tgt java.lang.Long}, :tgt #user.Arr{:src java.lang.Long, :tgt java.lang.Long}}
+Type failure: ((lambda f (Long -> Long) f) 42)
+expected #user.Arr{:src java.lang.Long, :tgt java.lang.Long} but got java.lang.Long
+((lambda f (Long -> Long) f) 42)
+                             ~~
+((lambda f (Long -> Long) f) (lambda x Long x)) : #user.Arr{:src java.lang.Long, :tgt java.lang.Long}
+Type failure: ((lambda x Long x) (lambda x Long x))
+expected java.lang.Long but got #user.Arr{:src java.lang.Long, :tgt java.lang.Long}
+((lambda x Long x) (lambda x Long x))
+                   ~~~~~~~~~~~~~~~~~

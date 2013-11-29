@@ -1,0 +1,17 @@
+\documentclass{article}
+\pagestyle{empty}
+
+\begin{document}
+$ \exists x . \{
+\newline
+head=\forall \alpha . x(\alpha) \rightarrow \alpha ;
+\newline
+tail=\forall \alpha . x(\alpha) \rightarrow x(\alpha) ;
+\newline
+nil=\forall \alpha . x(\alpha);
+\newline
+cons=\forall \alpha . \alpha \rightarrow x(\alpha) \rightarrow x(\alpha) ;
+\newline
+\}
+$
+\end{document}

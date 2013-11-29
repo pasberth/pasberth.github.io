@@ -1,0 +1,26 @@
+open build/OCaml
+
+USE_OCAMLFIND = true
+
+OCAMLPACKS[] =
+  llvm
+
+OCamlProgram(calc, calc parser lexer)
+OCamlGeneratedFiles(parser.ml lexer.ml)
+
+.PHONY: compile
+
+compile: calc
+  clang -emit-llvm -S print.c -o print.ll
+  sh -c "./calc < test1.txt 2>test1.ll"
+  sh -c "./calc < test2.txt 2>test2.ll"
+  sh -c "./calc < test3.txt 2>test3.ll"
+  sh -c "./calc < test4.txt 2>test4.ll"
+  llvm-link -S test1.ll print.ll -o test1_main.ll
+  llvm-link -S test2.ll print.ll -o test2_main.ll
+  llvm-link -S test3.ll print.ll -o test3_main.ll
+  llvm-link -S test4.ll print.ll -o test4_main.ll
+  clang test1_main.ll -o test1_main
+  clang test2_main.ll -o test2_main
+  clang test3_main.ll -o test3_main
+  clang test4_main.ll -o test4_main

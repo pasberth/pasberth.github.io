@@ -1,0 +1,12 @@
+\documentclass{article}
+\usepackage{sty/bcprules}
+\pagestyle{empty}
+
+\begin{document}
+\infrule[X-App1]{
+  \Gamma \vdash x : \left( \tau_1 \rightarrow \tau_2 \right) \rightarrow \tau_2
+  \andalso \Gamma \vdash x : \tau_1 \rightarrow \tau_2
+}{
+  \Gamma \vdash x\ x : \tau_2
+}
+\end{document}

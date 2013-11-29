@@ -1,0 +1,13 @@
+\documentclass{article}
+\usepackage{sty/bcprules}
+\pagestyle{empty}
+
+\begin{document}
+\infrule[S-Arrow]{
+  T_1 <: S_1
+  \andalso
+  S_2 <: T_2
+}{
+  S_1 \rightarrow S_2 <: T_1 \rightarrow T_2
+}
+\end{document}

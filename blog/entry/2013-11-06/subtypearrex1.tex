@@ -1,0 +1,13 @@
+\documentclass{article}
+\usepackage{sty/bcprules}
+\pagestyle{empty}
+
+\begin{document}
+\infrule[S-Arrow1]{
+  \{x:Nat,y:Nat\} <: \{x:Nat\}
+  \andalso
+  S_2 <: T_2
+}{
+  \{x:Nat\} \rightarrow S_2 <: \{x:Nat,y:Nat\} \rightarrow T_2
+}
+\end{document}

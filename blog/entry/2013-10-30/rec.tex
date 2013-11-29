@@ -1,0 +1,16 @@
+\documentclass{article}
+\usepackage{sty/bcprules}
+\pagestyle{empty}
+
+\begin{document}
+\infrule[T-Rec1]{
+  \Gamma \vdash x : \mu \alpha . \alpha \rightarrow \beta
+}{
+  \Gamma \vdash x :  \left( \mu \alpha . \alpha \rightarrow \beta \right) \rightarrow \beta
+}
+\infrule[T-Rec2]{
+  \Gamma \vdash x : \left( \mu \alpha . \alpha \rightarrow \beta \right) \rightarrow \beta
+}{
+  \Gamma \vdash x : \left( \left( \mu \alpha . \alpha \rightarrow \beta \right) \rightarrow \beta \right) \rightarrow \beta
+}
+\end{document}
