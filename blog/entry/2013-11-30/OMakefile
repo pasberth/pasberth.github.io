@@ -1,0 +1,24 @@
+open build/OCaml
+
+USE_OCAMLFIND = true
+
+OCAMLPACKS[] =
+  llvm
+
+OCamlProgram(lambda, lambda parser lexer ast)
+OCamlGeneratedFiles(parser.ml lexer.ml)
+
+test.ll: test.c
+  clang test.c -S -emit-llvm -o test.ll
+
+ski.ll: ski.txt lambda
+  sh -c "./lambda < ski.txt 2> ski.ll"
+
+main.ll: test.ll lambda.ll ski.ll
+  llvm-link -S lambda.ll ski.ll test.ll -o main.ll
+
+main.o: main.ll
+  llc -filetype obj main.ll
+
+a.out: main.o
+  gcc main.o

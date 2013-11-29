@@ -9,4 +9,4 @@ open build/C
 open build/OCaml
 
 .PHONY: all
-.SUBDIRS: . gallery blog
+.SUBDIRS: . gallery blog $(glob blog/entry/*)

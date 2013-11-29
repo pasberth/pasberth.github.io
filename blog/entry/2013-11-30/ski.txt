@@ -1,0 +1,4 @@
+S := \xyz.xz(yz)
+K := \xy.x
+I := SKK
+
