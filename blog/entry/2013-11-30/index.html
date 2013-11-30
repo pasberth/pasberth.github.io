@@ -31,9 +31,19 @@ OCaml と LLVM を使用して， ラムダ計算のコンパイラをつくっ�
 <li><p class="first">ski.txt</p>
 <div class="highlight-none"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
-3</pre></div></td><td class="code"><div class="highlight"><pre>S := \xyz.xz(yz)
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre>S := \xyz.xz(yz)
 K := \xy.x
 I := SKK
+T := K
+F := KI
+NOT := S(SI(KF))(KT)
+OR := SI(KT)
+AND := SS(K(KF))
 </pre></div>
 </td></tr></table></div>
 </li>
@@ -94,10 +104,126 @@ LLVM IR の表現に直すときは，関数の中で関数をつくることは
 </div>
 <p>のようにコンパイルするワケだ．</p>
 <p>次に，パーサをつくる．パーサに関しては，一言も言及しなくてもよいだろう．
-もしパーサに関して興味があるなら別の記事を読んでみてほしい．
-さて，コンパイルする部分の説明はちょっと難しいのでスキップする．もし興味があるなら
-コードを読んでみてほしい．
-というか正直なところコードを書くのに疲れた．もう寝る．</p>
+もしパーサに関して興味があるなら別の記事を読んでみてほしい．</p>
+<p>肝心のコンパイラの処理について．実装よりも抽象的な話をする．たとえば， <tt class="docutils literal"><span class="pre">\xy.x</span></tt> が
+どうコンパイルされるか考えてみよう．<tt class="docutils literal"><span class="pre">\xy.x</span></tt> のことを K と呼ぶ事にする．
+まず，引数を渡すためのスタックが必要だ．たとえば， <tt class="docutils literal"><span class="pre">K(1,</span> <span class="pre">2)</span></tt> の呼び出したい場合，
+1 と 2 は引数はいったんスタックに格納する． 2 を先にスタックにいれて， 1 をそのあと
+スタックにいれる．そのあと関数内でスタックから値をひとつずつ取り出す．そうして関数に
+引数を渡すわけだ．スタックはグローバル変数にする．おっと，現在スタックがどの位置を
+指し示しているのか記録するスタックポインタも必要だ．</p>
+<p>次に，引数を格納する環境が必要だ．渡された引数をあとから参照できるようにしないといけ
+ない．スタックから取り出した引数を， x や y のハッシュをとるなりして，あとから見つけられる
+ようにする．環境はグローバル変数にすればよいだろう．</p>
+<p>カリー化もできるようにしたい．カリー化をできるようにするには，ひとつめの引数をとった
+時点で，その環境を保存した匿名関数を返せばよい．匿名関数 f は， f.env として，
+その匿名関数がつくられた時点での環境を保存している．</p>
+<p>まとめると， K の動作は，</p>
+<ol class="arabic simple">
+<li>x をスタックから取り出す</li>
+<li>グローバル環境に x を割り当てる</li>
+<li>グローバル環境を保存した匿名関数 f&#8217; を返す</li>
+</ol>
+<p>となる．また，匿名関数 f&#8217; の動作は，</p>
+<ol class="arabic simple">
+<li>グローバル環境を環境スタックに積む</li>
+<li>グローバル環境に f&#8217;.env を割り当てる</li>
+<li>y をスタックから取り出す</li>
+<li>グローバル環境に y を割り当てる</li>
+<li>グローバル環境から x を取り出し，それを返す</li>
+<li>環境スタックからもともとの環境を取り出し，それをグローバル環境に割り当てる</li>
+</ol>
+<p>どうにも文章を書くのは苦手だ．抽象的な話はこれくらいにする．実際のテスト・コードを
+読んでもらったほうがいくらかわかりやすいだろう．</p>
+<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="c1">// Identity function</span>
+    <span class="n">stack_push</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
+    <span class="n">I</span><span class="p">();</span>
+    <span class="n">app</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">stack_pop</span><span class="p">();</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;I(42) = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>まず， stack_push() でスタックに引数をひとつ積む．今回は 42 を積んでいる．それから，
+スタックに関数を積む． app() を呼ぶと，スタックのいちばん上の関数を取り出して，
+その関数を適用する．スタックに積まれている他の値は引数となる．
+それから，戻り値はスタックに積んで返されるから， stack_pop() で取り出して
+確認する． identity function だから，積んだものがそのまま返されるはずだ．</p>
+<p>戻り値がスタックに積まれているから，もし，戻り値が匿名関数なら，そのままもう一度
+app() を呼べばそのまま適用できる．たとえば， T は 1つ引数をとって匿名関数を
+積む関数になってる．だから [2, 1, T] の順でスタックに積み， app() を呼ぶと，
+スタックは [2, &lt;部分適用された関数&gt;] となる．そこでもう一度 app() を呼ぶと，
+スタックは [1] となる．</p>
+<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">#include &quot;lambda.h&quot;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="n">stack_push</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="n">stack_push</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="n">T</span><span class="p">();</span>
+    <span class="n">app</span><span class="p">();</span>
+    <span class="n">app</span><span class="p">();</span>
+    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">stack_pop</span><span class="p">();</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;T(1, 2) = %d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>結果として，次のようなコードがコンパイルできた．</p>
+<p>OR, AND, NOT などが完璧に動作している．</p>
+<ul>
+<li><p class="first">ski.txt</p>
+<div class="highlight-none"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre>S := \xyz.xz(yz)
+K := \xy.x
+I := SKK
+T := K
+F := KI
+NOT := S(SI(KF))(KT)
+OR := SI(KT)
+AND := SS(K(KF))
+</pre></div>
+</td></tr></table></div>
+</li>
+</ul>
 <div class="section" id="full-code-listing">
 <h2>Full code listing<a class="headerlink" href="#full-code-listing" title="Permalink to this headline">¶</a></h2>
 <ul>
@@ -489,12 +615,7 @@ LLVM IR の表現に直すときは，関数の中で関数をつくることは
 164
 165
 166
-167
-168
-169
-170
-171
-172</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">open</span> <span class="nc">Llvm</span>
+167</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">open</span> <span class="nc">Llvm</span>
 
 <span class="c">(*==... Read code from stdin ...............................................==*)</span>
 <span class="k">let</span> <span class="n">x</span> <span class="o">=</span>
@@ -548,7 +669,6 @@ LLVM IR の表現に直すときは，関数の中で関数をつくることは
 <span class="c">(*--... system functions ...................................................--*)</span>
 <span class="k">let</span> <span class="n">stack_push</span>  <span class="o">=</span> <span class="n">declare_function</span> <span class="s2">&quot;stack_push&quot;</span> <span class="o">(</span><span class="n">function_type</span> <span class="n">void_t</span> <span class="o">[|</span> <span class="n">val_t</span> <span class="o">|])</span> <span class="n">lambda_module</span>
 <span class="k">let</span> <span class="n">stack_pop</span>   <span class="o">=</span> <span class="n">declare_function</span> <span class="s2">&quot;stack_pop&quot;</span> <span class="o">(</span><span class="n">function_type</span> <span class="n">val_t</span> <span class="o">[||])</span> <span class="n">lambda_module</span>
-<span class="k">let</span> <span class="n">env_reset</span>   <span class="o">=</span> <span class="n">declare_function</span> <span class="s2">&quot;env_reset&quot;</span> <span class="o">(</span><span class="n">function_type</span> <span class="n">void_t</span> <span class="o">[||])</span> <span class="n">lambda_module</span>
 <span class="k">let</span> <span class="n">env_access</span>  <span class="o">=</span> <span class="n">declare_function</span> <span class="s2">&quot;env_access&quot;</span> <span class="o">(</span><span class="n">function_type</span> <span class="n">val_t</span> <span class="o">[|</span> <span class="n">i32_t</span> <span class="o">|])</span> <span class="n">lambda_module</span>
 <span class="k">let</span> <span class="n">env_assign</span>  <span class="o">=</span> <span class="n">declare_function</span> <span class="s2">&quot;env_assign&quot;</span> <span class="o">(</span><span class="n">function_type</span> <span class="n">void_t</span> <span class="o">[|</span> <span class="n">i32_t</span><span class="o">;</span> <span class="n">val_t</span> <span class="o">|])</span> <span class="n">lambda_module</span>
 <span class="k">let</span> <span class="n">estack_push</span> <span class="o">=</span> <span class="n">declare_function</span> <span class="s2">&quot;env_stack_push&quot;</span> <span class="o">(</span><span class="n">function_type</span> <span class="n">void_t</span> <span class="o">[|</span> <span class="n">pointer_type</span> <span class="n">env_t</span> <span class="o">|])</span> <span class="n">lambda_module</span>
@@ -558,15 +678,6 @@ LLVM IR の表現に直すときは，関数の中で関数をつくることは
 <span class="c">(*--... implementations of system functions ................................--*)</span>
 <span class="c">(* implementation of stack_push is in lambda.ll *)</span>
 <span class="c">(* implementation of stack_pop is in lambda.ll *)</span>
-<span class="c">(*--... implementation of env_reset ........................................--*)</span>
-<span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="k">begin</span>
-  <span class="k">let</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">append_block</span> <span class="n">context</span> <span class="s2">&quot;entry&quot;</span> <span class="n">env_reset</span> <span class="k">in</span>
-  <span class="n">position_at_end</span> <span class="n">pos</span> <span class="n">builder</span><span class="o">;</span>
-  <span class="k">let</span> <span class="n">env_init</span> <span class="o">=</span> <span class="n">build_malloc</span> <span class="n">env_t</span> <span class="s2">&quot;env&quot;</span> <span class="n">builder</span> <span class="k">in</span>
-  <span class="k">let</span> <span class="o">_</span> <span class="o">=</span> <span class="n">build_store</span> <span class="n">env_init</span> <span class="n">env</span> <span class="n">builder</span> <span class="k">in</span>
-  <span class="k">let</span> <span class="o">_</span> <span class="o">=</span> <span class="n">build_ret_void</span> <span class="n">builder</span> <span class="k">in</span>
-  <span class="bp">()</span>
-<span class="k">end</span>
 <span class="c">(* implementation of env_access is in lambda.ll *)</span>
 <span class="c">(* implementation of env_assign is in lambda.ll *)</span>
 <span class="c">(*--... implementation of estack_push ......................................--*)</span>
@@ -657,9 +768,14 @@ LLVM IR の表現に直すときは，関数の中で関数をつくることは
     <span class="k">let</span> <span class="n">f</span> <span class="o">=</span> <span class="n">declare_function</span> <span class="n">s</span> <span class="n">lambda_t</span> <span class="n">lambda_module</span> <span class="k">in</span>
     <span class="k">let</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">append_block</span> <span class="n">context</span> <span class="s2">&quot;entry&quot;</span> <span class="n">f</span> <span class="k">in</span>
     <span class="n">position_at_end</span> <span class="n">pos</span> <span class="n">builder</span><span class="o">;</span>
-    <span class="k">let</span> <span class="o">_</span> <span class="o">=</span> <span class="n">build_call</span> <span class="n">env_reset</span> <span class="o">[||]</span> <span class="s2">&quot;&quot;</span> <span class="n">builder</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="n">old_env</span> <span class="o">=</span> <span class="n">build_load</span> <span class="n">env</span> <span class="s2">&quot;old_env&quot;</span> <span class="n">builder</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="o">_</span> <span class="o">=</span> <span class="n">build_call</span> <span class="n">estack_push</span> <span class="o">[|</span> <span class="n">old_env</span> <span class="o">|]</span> <span class="s2">&quot;&quot;</span> <span class="n">builder</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="n">env_init</span> <span class="o">=</span> <span class="n">build_malloc</span> <span class="n">env_t</span> <span class="s2">&quot;env&quot;</span> <span class="n">builder</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="o">_</span> <span class="o">=</span> <span class="n">build_store</span> <span class="n">env_init</span> <span class="n">env</span> <span class="n">builder</span> <span class="k">in</span>
     <span class="n">abs_gen_ast</span> <span class="n">s</span> <span class="n">x</span><span class="o">;</span>
     <span class="n">position_at_end</span> <span class="n">pos</span> <span class="n">builder</span><span class="o">;</span>
+    <span class="k">let</span> <span class="n">ret_env</span> <span class="o">=</span> <span class="n">build_call</span> <span class="n">estack_pop</span> <span class="o">[||]</span> <span class="s2">&quot;ret_env&quot;</span> <span class="n">builder</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="o">_</span> <span class="o">=</span> <span class="n">build_store</span> <span class="n">ret_env</span> <span class="n">env</span> <span class="n">builder</span> <span class="k">in</span>
     <span class="k">let</span> <span class="o">_</span> <span class="o">=</span> <span class="n">build_ret_void</span> <span class="n">builder</span> <span class="k">in</span>
     <span class="bp">()</span>
 
@@ -795,119 +911,19 @@ LLVM IR の表現に直すときは，関数の中で関数をつくることは
 <li><p class="first">ski.txt</p>
 <div class="highlight-none"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
-3</pre></div></td><td class="code"><div class="highlight"><pre>S := \xyz.xz(yz)
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre>S := \xyz.xz(yz)
 K := \xy.x
 I := SKK
-</pre></div>
-</td></tr></table></div>
-</li>
-<li><p class="first">test.c</p>
-<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27
-28</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">typedef</span> <span class="k">struct</span> <span class="kt">val_t</span> <span class="p">{</span>
-  <span class="k">struct</span> <span class="kt">val_t</span> <span class="o">**</span><span class="n">env</span><span class="p">;</span>
-  <span class="kt">void</span> <span class="p">(</span><span class="o">*</span><span class="n">fn</span><span class="p">)(</span><span class="kt">void</span><span class="p">);</span>
-<span class="p">}</span> <span class="o">*</span><span class="kt">val_t</span><span class="p">;</span>
-
-<span class="k">extern</span> <span class="kt">void</span> <span class="nf">stack_push</span><span class="p">(</span><span class="kt">val_t</span><span class="p">);</span>
-<span class="k">extern</span> <span class="kt">val_t</span> <span class="nf">stack_pop</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-<span class="k">extern</span> <span class="kt">void</span> <span class="nf">env_assign</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">val_t</span><span class="p">);</span>
-<span class="k">extern</span> <span class="kt">val_t</span> <span class="nf">env_access</span><span class="p">(</span><span class="kt">int</span><span class="p">);</span>
-<span class="k">extern</span> <span class="kt">void</span> <span class="nf">env_stack_push</span><span class="p">(</span><span class="kt">val_t</span> <span class="o">*</span><span class="p">);</span>
-<span class="k">extern</span> <span class="kt">val_t</span> <span class="o">*</span><span class="nf">env_stack_pop</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-<span class="k">extern</span> <span class="kt">void</span> <span class="nf">app</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-
-<span class="k">extern</span> <span class="kt">void</span> <span class="nf">S</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-<span class="k">extern</span> <span class="kt">void</span> <span class="nf">K</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-<span class="k">extern</span> <span class="kt">void</span> <span class="nf">I</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
-<span class="p">{</span>
-    <span class="n">stack_push</span><span class="p">(</span><span class="mi">42</span><span class="p">);</span>
-    <span class="n">I</span><span class="p">();</span>
-    <span class="n">app</span><span class="p">();</span>
-    <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">stack_pop</span><span class="p">();</span>
-
-    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">);</span>
-
-    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</td></tr></table></div>
-</li>
-<li><p class="first">OMakefile</p>
-<div class="highlight-none"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24</pre></div></td><td class="code"><div class="highlight"><pre>open build/OCaml
-
-USE_OCAMLFIND = true
-
-OCAMLPACKS[] =
-  llvm
-
-OCamlProgram(lambda, lambda parser lexer ast)
-OCamlGeneratedFiles(parser.ml lexer.ml)
-
-test.ll: test.c
-  clang test.c -S -emit-llvm -o test.ll
-
-ski.ll: ski.txt lambda
-  sh -c &quot;./lambda &lt; ski.txt 2&gt; ski.ll&quot;
-
-main.ll: test.ll lambda.ll ski.ll
-  llvm-link -S lambda.ll ski.ll test.ll -o main.ll
-
-main.o: main.ll
-  llc -filetype obj main.ll
-
-a.out: main.o
-  gcc main.o
+T := K
+F := KI
+NOT := S(SI(KF))(KT)
+OR := SI(KT)
+AND := SS(K(KF))
 </pre></div>
 </td></tr></table></div>
 </li>
