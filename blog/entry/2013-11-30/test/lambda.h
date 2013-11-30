@@ -14,15 +14,8 @@ extern void app(void);
 extern void S(void);
 extern void K(void);
 extern void I(void);
-
-int main(int argc, char const *argv[])
-{
-    stack_push(42);
-    I();
-    app();
-    int x = stack_pop();
-
-    printf("%d\n", x);
-
-    return 0;
-}
+extern void T(void);
+extern void F(void);
+extern void NOT(void);
+extern void AND(void);
+extern void NOT(void);

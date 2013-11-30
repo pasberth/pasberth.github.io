@@ -8,17 +8,27 @@ OCAMLPACKS[] =
 OCamlProgram(lambda, lambda parser lexer ast)
 OCamlGeneratedFiles(parser.ml lexer.ml)
 
-test.ll: test.c
-  clang test.c -S -emit-llvm -o test.ll
+.PHONY: test
+
+test: $(foreach $(fun x, $(rootname $(x))), $(glob test/*.c))
+    foreach (x, $(glob test/*.c))
+      $(rootname $(x))
 
 ski.ll: ski.txt lambda
   sh -c "./lambda < ski.txt 2> ski.ll"
 
-main.ll: test.ll lambda.ll ski.ll
-  llvm-link -S lambda.ll ski.ll test.ll -o main.ll
+foreach (test, $(glob test/*.c))
+  section:
+    name = $(basename $(rootname $(test)))
 
-main.o: main.ll
-  llc -filetype obj main.ll
+    test/$(name).ll: test/$(name).c
+      clang test/$(name).c -S -emit-llvm -o test/$(name).ll
 
-a.out: main.o
-  gcc main.o
+    test/linked_$(name).ll: test/$(name).ll lambda.ll ski.ll
+      llvm-link -S lambda.ll ski.ll test/$(name).ll -o test/linked_$(name).ll
+
+    test/$(name).o: test/linked_$(name).ll
+      llc -filetype obj test/linked_$(name).ll -o test/$(name).o
+
+    test/$(name): test/$(name).o
+      gcc test/$(name).o -o test/$(name)
