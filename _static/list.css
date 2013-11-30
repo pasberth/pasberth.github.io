@@ -1,27 +1,8 @@
 ul.list li {
-  animation: nav-ul 1s ease 0s 1 normal;
+  transition: opacity 0.5s ease-in-out;
   opacity: 1;
 }
 
-@keyframes nav-ul {
-  0% {
-    opacity: 0.2;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
 ul.list:hover li:not(:hover) {
-  animation: nav-ul-hover 1s ease 0s 1 normal;
   opacity: 0.2;
-}
-
-@keyframes nav-ul-hover {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.2;
-  }
 }
