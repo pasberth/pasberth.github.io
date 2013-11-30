@@ -52,7 +52,6 @@ let env_stack = define_global ".env_stack" (const_array
 (*--... system functions ...................................................--*)
 let stack_push  = declare_function "stack_push" (function_type void_t [| val_t |]) lambda_module
 let stack_pop   = declare_function "stack_pop" (function_type val_t [||]) lambda_module
-let env_reset   = declare_function "env_reset" (function_type void_t [||]) lambda_module
 let env_access  = declare_function "env_access" (function_type val_t [| i32_t |]) lambda_module
 let env_assign  = declare_function "env_assign" (function_type void_t [| i32_t; val_t |]) lambda_module
 let estack_push = declare_function "env_stack_push" (function_type void_t [| pointer_type env_t |]) lambda_module
@@ -62,15 +61,6 @@ let app         = declare_function "app"  (function_type void_t [||]) lambda_mod
 (*--... implementations of system functions ................................--*)
 (* implementation of stack_push is in lambda.ll *)
 (* implementation of stack_pop is in lambda.ll *)
-(*--... implementation of env_reset ........................................--*)
-let () = begin
-  let pos = append_block context "entry" env_reset in
-  position_at_end pos builder;
-  let env_init = build_malloc env_t "env" builder in
-  let _ = build_store env_init env builder in
-  let _ = build_ret_void builder in
-  ()
-end
 (* implementation of env_access is in lambda.ll *)
 (* implementation of env_assign is in lambda.ll *)
 (*--... implementation of estack_push ......................................--*)
@@ -161,9 +151,14 @@ let abs_gen_stat = function
     let f = declare_function s lambda_t lambda_module in
     let pos = append_block context "entry" f in
     position_at_end pos builder;
-    let _ = build_call env_reset [||] "" builder in
+    let old_env = build_load env "old_env" builder in
+    let _ = build_call estack_push [| old_env |] "" builder in
+    let env_init = build_malloc env_t "env" builder in
+    let _ = build_store env_init env builder in
     abs_gen_ast s x;
     position_at_end pos builder;
+    let ret_env = build_call estack_pop [||] "ret_env" builder in
+    let _ = build_store ret_env env builder in
     let _ = build_ret_void builder in
     ()
 
