@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    
+      <title>参照カウンタ GC を実装してみる</title>
+    
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+</head>
+<body>
+
+    <div class="body">
+        
+  <div class="section" id="gc">
+<h1>参照カウンタ GC を実装してみる<a class="headerlink" href="#gc" title="Permalink to this headline">¶</a></h1>
+<p>インタプリタを実装するにせよ，コンパイラを実装するにせよ，
+GC を実装することは一種のロマンだと思う． GC の実装をせずとも言語はつくれる．もし GC
+が存在する言語で，インタプリタを実装するならば，その言語の GC に頼れば， GC を実装する必要は
+ない． altJS のように，ターゲットとなる言語に GC が搭載されているならば， GC を実装せずとも
+コンパイラを実装できる．むしろ，そのほうが理想的だと思う．しかし，そういう方法があるにも関わ
+らず，あえて GC も実装してみたいと思う気持ちがある．なぜだろうか，吸い寄せられる感じだ．</p>
+<p>GC の勉強をまったくしてないわけではない．いちおう 参照カウンタとか Mark&amp;Sweep とか
+世代別 GC とかの知識をもってはいた．でも，実装したことはなかった．必要がなかったからだ．
+Haskell で実装したインタプリタに， GC を搭載する必要はない． Haskell が既に GC をもっている
+からだ．でも，やっぱり，試しに GC だけ実装してみることにした．</p>
+<p>そういうわけで， GC だけを実装してみる．今回はいちばん簡単だと思われる 参照カウンタからする．
+その次が Mark&amp;Sweep だけど，今回は実装しない．ひとつずつ段階を踏んでゆく．</p>
+<p>次のようなルーチンを用意する． gc_alloc 関数は， gc でマネジメントされる領域を
+確保する．戻り値は gc_heap_t になる． gc_refer 関数は参照カウントをひとつ増やすルーチンで，
+たとえば，インタプリタが代入する操作などをおこなって，新しくその変数に代入されるオブジェクトが
+あとから参照できる状態になったとき， gc_refer(その新しいオブジェクト) のようにして 1回呼ばれるということにする．
+gc_leave 関数は参照カウンタをひとつ減らすルーチンで，たとえば，
+代入する操作などをおこなって， 古いオブジェクト があとから参照できない
+状態になったとき， gc_leave(古いオブジェクト) のようにして1回呼ばれるということにする．
+言葉ではわかりにくいから例示すると，</p>
+<div class="code highlight-python"><pre>x = a // gc_refer(a) が実行される
+x = b // gc_leave(a) と gc_refer(b) が実行される</pre>
+</div>
+<p>のようになるわけである．</p>
+<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">typedef</span> <span class="kt">void</span> <span class="o">*</span> <span class="kt">gc_heap_t</span><span class="p">;</span>
+
+<span class="kt">gc_heap_t</span> <span class="nf">gc_alloc</span><span class="p">(</span><span class="kt">size_t</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">gc_refer</span><span class="p">(</span><span class="kt">gc_heap_t</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">gc_leave</span><span class="p">(</span><span class="kt">gc_heap_t</span><span class="p">);</span>
+</pre></div>
+</td></tr></table></div>
+<p>次に実装の話をする．まず参照カウンタをどのように保持するかが問題になる．
+参照カウンタの GC では，オブジェクト毎に参照カウンタをもっているから，それをどう表現するか
+だ． gc_heap_t を，参照カウンタと，実体であるポインタを持つ構造体のポインタにして，
+gc_refer や gc_leave にはその構造体のポインタを渡すという手もある．
+しかし，そうしてはあまりにも使いにくい．今回は， gc_heap_t は単に void * のエイリアスだと
+いうことにする．では，いったいどうやって参照カウンタを保持するのかというと，
+その gc_heap_t - 1 の位置に保存しておくのだ． 1バイトしか値を保存しておけないから，
+参照カウンタの限界は 255 だ．だからたくさん参照されてしまうと溢れて誤動作する可能性もあるけど，
+今回の GC は実用を考えたものでもないし，まあよしとする．</p>
+<p>あとは素直な実装になる．実際にコードを読むのがいちばん速いだろう．</p>
+<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">#include &lt;stddef.h&gt;</span>
+<span class="cp">#include &lt;stdlib.h&gt;</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &quot;gc.h&quot;</span>
+
+<span class="k">static</span>
+<span class="k">struct</span> <span class="n">reference</span> <span class="p">{</span>
+  <span class="kt">char</span> <span class="n">count</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">static</span> <span class="kr">inline</span> <span class="kt">int</span>
+<span class="nf">reference_size</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span><span class="k">sizeof</span> <span class="p">(</span><span class="k">struct</span> <span class="n">reference</span><span class="p">));</span>
+<span class="p">}</span>
+
+
+<span class="k">static</span> <span class="kr">inline</span> <span class="kt">gc_heap_t</span>
+<span class="nf">reference_to_pointer</span><span class="p">(</span><span class="k">struct</span> <span class="n">reference</span> <span class="o">*</span><span class="n">ref</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="p">((</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span> <span class="n">ref</span><span class="p">)</span> <span class="o">+</span> <span class="n">reference_size</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kr">inline</span> <span class="k">struct</span> <span class="n">reference</span><span class="o">*</span>
+<span class="nf">pointer_to_reference</span><span class="p">(</span><span class="kt">gc_heap_t</span> <span class="n">ptr</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="p">((</span><span class="k">struct</span> <span class="n">reference</span> <span class="o">*</span><span class="p">)</span> <span class="p">(</span><span class="n">ptr</span> <span class="o">-</span> <span class="n">reference_size</span><span class="p">()));</span>
+<span class="p">}</span>
+
+<span class="kt">gc_heap_t</span>
+<span class="nf">gc_alloc</span><span class="p">(</span><span class="kt">size_t</span> <span class="n">size</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">struct</span> <span class="n">reference</span><span class="o">*</span> <span class="n">ref</span> <span class="o">=</span> <span class="p">(</span><span class="k">struct</span> <span class="n">reference</span><span class="o">*</span><span class="p">)</span> <span class="n">malloc</span><span class="p">(</span> <span class="n">size</span> <span class="o">+</span> <span class="n">reference_size</span><span class="p">()</span> <span class="p">);</span>
+  <span class="n">ref</span><span class="o">-&gt;</span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">reference_to_pointer</span><span class="p">(</span> <span class="n">ref</span> <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span>
+<span class="nf">gc_refer</span><span class="p">(</span><span class="kt">gc_heap_t</span> <span class="n">ptr</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">struct</span> <span class="n">reference</span> <span class="o">*</span><span class="n">ref</span> <span class="o">=</span> <span class="n">pointer_to_reference</span><span class="p">(</span> <span class="n">ptr</span> <span class="p">);</span>
+  <span class="n">ref</span><span class="o">-&gt;</span><span class="n">count</span> <span class="o">=</span> <span class="n">ref</span><span class="o">-&gt;</span><span class="n">count</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">void</span>
+<span class="nf">gc_leave</span><span class="p">(</span><span class="kt">gc_heap_t</span> <span class="n">ptr</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">struct</span> <span class="n">reference</span> <span class="o">*</span><span class="n">ref</span> <span class="o">=</span> <span class="n">pointer_to_reference</span><span class="p">(</span> <span class="n">ptr</span> <span class="p">);</span>
+
+  <span class="n">ref</span><span class="o">-&gt;</span><span class="n">count</span> <span class="o">=</span> <span class="n">ref</span><span class="o">-&gt;</span><span class="n">count</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+
+  <span class="k">if</span> <span class="p">(</span> <span class="n">ref</span><span class="o">-&gt;</span><span class="n">count</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">printf</span> <span class="p">(</span> <span class="s">&quot;The pointer %p is freed.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">ptr</span> <span class="p">);</span>
+    <span class="n">free</span><span class="p">(</span> <span class="n">ref</span> <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+</div>
+
+
+    </div>
+
+</body>
+</html>
