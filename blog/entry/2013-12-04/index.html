@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    
+      <title>Copying GC を実装する</title>
+    
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+</head>
+<body>
+
+    <div class="body">
+        
+  <div class="section" id="copying-gc">
+<h1>Copying GC を実装する<a class="headerlink" href="#copying-gc" title="Permalink to this headline">¶</a></h1>
+<p>Copying は， GC のアルゴリズムの一種． Scheme や ML で採用されているらしい．
+<a class="reference external" href="http://wiki.livedoor.jp/author_nari/d/GC/standard/Copying">GC/standard/Copying</a>
+がわかりやすかった．</p>
+<p>Copying GC はいかなるものか． Copying GC には， Mark&amp;Sweep GC と同じように，ルートと
+呼ばれるオブジェクトがある．また，ヒープは最低2つ以上あり，通常はそのいずれか 1つの領域しか
+使用しない．古いヒープがいっぱいになると， Copying GC は，ルートオブジェクトから参照をたどって
+ゆき，新しいヒープにコピーする．もし，参照が古いヒープのオブジェクトの領域を指している場合には，
+新しいヒープの領域にある同じオブジェクトを指すように張り替える．結果的に， GC が終わると，古い
+ヒープにはもはや使用されないオブジェクトしか残っておらず，新しいヒープには参照が切れたオブジェクト
+を取り除いたオブジェクトのグラフができあがる．そこで，古いヒープは，ヒープ全体を解放してしまう．</p>
+<p>次のようなデータ型とルーチンを定義する．
+bt は <a class="reference internal" href="../2013-12-03/index.html"><em>Mark&amp;Sweep GC を実装する</em></a> で定義したものと同じようなものだ．
+copied メンバは， GC で値をコピーしたとき，重複してコピーしないために使用する．
+コピーしたとき，コピーされた古いオブジェクトの copied には，コピーした新しいオブジェクトのアドレスを
+格納する．新しいオブジェクトの copied には， 0 を格納する．そうすることで， copied が
+0 以外の場合，コピー済みであるという意味のフラグとしての役割と，新しいオブジェクトが
+どこであるか知るための変数の役割になる．新しいオブジェクトがどこであるか知るのは，
+コピー済みのオブジェクトへの参照を貼りなおす場合に必要となる．
+gc.heap は，現在使用中のヒープの領域の関する情報だ． gc.heap1 と gc.heap2 は，
+名前の通り 2つのヒープ領域を意味する． gc.heap.objects は，現在 gc.heap1 を使用中である場合には，
+gc.heap1.objects を指し，現在 gc.heap2 を使用中である場合には， gc.heap2.objects を
+指すようになる． gc.heap.head は次にアロケートされるオブジェクトが格納される領域を指していて，
+gc.heap.objects の上のどこかを指しており，オブジェクトを確保する度にインクリメントされる．</p>
+<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">#define HEAP_SIZE 16</span>
+
+<span class="k">struct</span> <span class="n">bt</span> <span class="p">{</span>
+  <span class="k">struct</span> <span class="n">bt</span> <span class="o">*</span><span class="n">left</span><span class="p">;</span>
+  <span class="k">struct</span> <span class="n">bt</span> <span class="o">*</span><span class="n">right</span><span class="p">;</span>
+  <span class="k">struct</span> <span class="n">bt</span> <span class="o">*</span><span class="n">copied</span><span class="p">;</span>
+  <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="n">heap</span> <span class="p">{</span>
+  <span class="k">struct</span> <span class="n">bt</span> <span class="n">objects</span><span class="p">[</span><span class="n">HEAP_SIZE</span><span class="p">];</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="n">gc</span> <span class="p">{</span>
+  <span class="k">struct</span> <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">bt</span> <span class="o">*</span><span class="n">head</span><span class="p">;</span>
+    <span class="k">struct</span> <span class="n">bt</span> <span class="o">*</span><span class="n">objects</span><span class="p">;</span>
+  <span class="p">}</span> <span class="n">heap</span><span class="p">;</span>
+
+  <span class="k">struct</span> <span class="n">heap</span> <span class="n">heap1</span><span class="p">;</span>
+  <span class="k">struct</span> <span class="n">heap</span> <span class="n">heap2</span><span class="p">;</span>
+  <span class="k">struct</span> <span class="n">bt</span> <span class="o">*</span><span class="n">root</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">struct</span> <span class="n">gc</span> <span class="o">*</span><span class="nf">gc_alloc</span><span class="p">();</span>
+<span class="k">struct</span> <span class="n">bt</span> <span class="o">*</span><span class="nf">gc_malloc</span><span class="p">(</span><span class="k">struct</span> <span class="n">gc</span> <span class="o">*</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="p">);</span>
+</pre></div>
+</td></tr></table></div>
+<p>あとは実装だ．</p>
+<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>  1
+  2
+  3
+  4
+  5
+  6
+  7
+  8
+  9
+ 10
+ 11
+ 12
+ 13
+ 14
+ 15
+ 16
+ 17
+ 18
+ 19
+ 20
+ 21
+ 22
+ 23
+ 24
+ 25
+ 26
+ 27
+ 28
+ 29
+ 30
+ 31
+ 32
+ 33
+ 34
+ 35
+ 36
+ 37
+ 38
+ 39
+ 40
+ 41
+ 42
+ 43
+ 44
+ 45
+ 46
+ 47
+ 48
+ 49
+ 50
+ 51
+ 52
+ 53
+ 54
+ 55
+ 56
+ 57
+ 58
+ 59
+ 60
+ 61
+ 62
+ 63
+ 64
+ 65
+ 66
+ 67
+ 68
+ 69
+ 70
+ 71
+ 72
+ 73
+ 74
+ 75
+ 76
+ 77
+ 78
+ 79
+ 80
+ 81
+ 82
+ 83
+ 84
+ 85
+ 86
+ 87
+ 88
+ 89
+ 90
+ 91
+ 92
+ 93
+ 94
+ 95
+ 96
+ 97
+ 98
+ 99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">#include &lt;stdlib.h&gt;</span>
+<span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;string.h&gt;</span>
+<span class="cp">#include &quot;gc.h&quot;</span>
+
+<span class="k">static</span> <span class="kt">void</span>
+<span class="nf">gc_pp</span><span class="p">(</span><span class="k">struct</span> <span class="n">gc</span> <span class="o">*</span><span class="n">gc</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">long</span> <span class="n">object_count</span> <span class="o">=</span> <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">head</span> <span class="o">-</span> <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">objects</span><span class="p">;</span>
+  <span class="n">printf</span> <span class="p">(</span><span class="s">&quot;heap: %d used, %d free.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">object_count</span><span class="p">,</span> <span class="n">HEAP_SIZE</span> <span class="o">-</span> <span class="n">object_count</span><span class="p">);</span>
+  <span class="n">printf</span> <span class="p">(</span><span class="s">&quot;{</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">objects</span> <span class="o">+</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">head</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">printf</span> <span class="p">(</span> <span class="s">&quot;  %p: { left: %p, right: %p, name: %s }</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span>
+                <span class="o">&amp;</span><span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">objects</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">objects</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">left</span><span class="p">,</span>
+                <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">objects</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">right</span><span class="p">,</span>
+                <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">objects</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">name</span> <span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">printf</span> <span class="p">(</span><span class="s">&quot;}</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span>
+<span class="nf">gc_is_not_copied</span><span class="p">(</span><span class="k">struct</span> <span class="n">bt</span> <span class="o">*</span><span class="n">obj</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span> <span class="n">obj</span> <span class="o">&amp;&amp;</span> <span class="o">!</span> <span class="n">obj</span><span class="o">-&gt;</span><span class="n">copied</span> <span class="p">);</span>
+<span class="p">}</span>
+
+
+<span class="k">static</span> <span class="kt">int</span>
+<span class="nf">gc_is_copied</span><span class="p">(</span><span class="k">struct</span> <span class="n">bt</span> <span class="o">*</span><span class="n">obj</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">return</span> <span class="p">(</span> <span class="n">obj</span> <span class="o">&amp;&amp;</span> <span class="o">!!</span> <span class="n">obj</span><span class="o">-&gt;</span><span class="n">copied</span> <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span>
+<span class="nf">gc_copy</span><span class="p">(</span><span class="k">struct</span> <span class="n">bt</span> <span class="o">*</span><span class="n">obj</span><span class="p">,</span> <span class="k">struct</span> <span class="n">bt</span> <span class="o">*</span><span class="n">ptr</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="o">*</span><span class="n">obj</span><span class="p">;</span>
+  <span class="n">obj</span><span class="o">-&gt;</span><span class="n">copied</span> <span class="o">=</span> <span class="n">ptr</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span>
+<span class="nf">gc_run1</span><span class="p">(</span><span class="k">struct</span> <span class="n">gc</span> <span class="o">*</span><span class="n">gc</span><span class="p">,</span> <span class="k">struct</span> <span class="n">heap</span> <span class="o">*</span><span class="n">from_heap</span><span class="p">,</span> <span class="k">struct</span> <span class="n">heap</span> <span class="o">*</span><span class="n">to_heap</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">struct</span> <span class="n">bt</span> <span class="o">*</span><span class="n">scanned</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">to_heap</span><span class="o">-&gt;</span><span class="n">objects</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+  <span class="k">struct</span> <span class="n">bt</span> <span class="o">*</span><span class="n">unscanned</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">to_heap</span><span class="o">-&gt;</span><span class="n">objects</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+  <span class="n">gc_copy</span><span class="p">(</span> <span class="n">gc</span><span class="o">-&gt;</span><span class="n">root</span><span class="p">,</span> <span class="n">scanned</span> <span class="p">);</span>
+  <span class="n">gc</span><span class="o">-&gt;</span><span class="n">root</span> <span class="o">=</span> <span class="n">scanned</span><span class="p">;</span>
+
+  <span class="k">while</span> <span class="p">(</span> <span class="n">scanned</span> <span class="o">!=</span> <span class="n">unscanned</span> <span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="n">gc_is_not_copied</span><span class="p">(</span> <span class="n">scanned</span><span class="o">-&gt;</span><span class="n">left</span> <span class="p">)</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">gc_copy</span><span class="p">(</span> <span class="n">scanned</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">unscanned</span> <span class="p">);</span>
+      <span class="n">scanned</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">unscanned</span><span class="p">;</span>
+      <span class="n">unscanned</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="n">gc_is_copied</span><span class="p">(</span> <span class="n">scanned</span><span class="o">-&gt;</span><span class="n">left</span> <span class="p">)</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">scanned</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">scanned</span><span class="o">-&gt;</span><span class="n">left</span><span class="o">-&gt;</span><span class="n">copied</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span> <span class="n">gc_is_not_copied</span><span class="p">(</span> <span class="n">scanned</span><span class="o">-&gt;</span><span class="n">right</span> <span class="p">)</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">gc_copy</span><span class="p">(</span> <span class="n">scanned</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">unscanned</span> <span class="p">);</span>
+      <span class="n">scanned</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">unscanned</span><span class="p">;</span>
+      <span class="n">unscanned</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="n">gc_is_copied</span><span class="p">(</span> <span class="n">scanned</span><span class="o">-&gt;</span><span class="n">right</span> <span class="p">)</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="n">scanned</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">scanned</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">-&gt;</span><span class="n">copied</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">scanned</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span>
+
+<span class="cp">#if 0</span><span class="c"></span>
+<span class="c">  for (int i = 0; gc-&gt;heap.objects + i &lt; gc-&gt;heap.head; i++)</span>
+<span class="c">  {</span>
+<span class="c">    struct bt bt = from_heap-&gt;objects[i];</span>
+<span class="c">    if (! bt.copied )</span>
+<span class="c">      printf (&quot;The binary tree %s is freed.\n&quot;, bt.name);</span>
+<span class="c">  }</span>
+<span class="cp">#endif</span>
+
+  <span class="n">memset</span><span class="p">(</span><span class="n">from_heap</span><span class="o">-&gt;</span><span class="n">objects</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="k">sizeof</span> <span class="p">(</span><span class="k">struct</span> <span class="n">bt</span><span class="p">))</span> <span class="o">*</span> <span class="n">HEAP_SIZE</span><span class="p">);</span>
+
+  <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">head</span> <span class="o">=</span> <span class="n">scanned</span><span class="p">;</span>
+  <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">objects</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">to_heap</span><span class="o">-&gt;</span><span class="n">objects</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">void</span>
+<span class="nf">gc_run</span><span class="p">(</span><span class="k">struct</span> <span class="n">gc</span> <span class="o">*</span><span class="n">gc</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="n">printf</span> <span class="p">(</span><span class="s">&quot;beginning to run gc...</span><span class="se">\n</span><span class="s">before:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+  <span class="n">gc_pp</span><span class="p">(</span><span class="n">gc</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">objects</span> <span class="o">==</span> <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap1</span><span class="p">.</span><span class="n">objects</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="n">gc_run1</span><span class="p">(</span> <span class="n">gc</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap1</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap2</span> <span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">gc_run1</span><span class="p">(</span> <span class="n">gc</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap2</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap1</span> <span class="p">);</span>
+  <span class="p">}</span>
+  <span class="n">printf</span> <span class="p">(</span><span class="s">&quot;gc was run.</span><span class="se">\n</span><span class="s">after:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+  <span class="n">gc_pp</span><span class="p">(</span><span class="n">gc</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">gc</span> <span class="o">*</span>
+<span class="nf">gc_alloc</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">struct</span> <span class="n">gc</span> <span class="o">*</span><span class="n">gc</span>     <span class="o">=</span> <span class="n">calloc</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="k">struct</span> <span class="n">gc</span><span class="p">)</span> <span class="p">);</span>
+  <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">head</span>     <span class="o">=</span> <span class="o">&amp;</span><span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap1</span><span class="p">.</span><span class="n">objects</span><span class="p">;</span>
+  <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">objects</span>  <span class="o">=</span> <span class="o">&amp;</span><span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap1</span><span class="p">.</span><span class="n">objects</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">gc</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">struct</span> <span class="n">bt</span> <span class="o">*</span>
+<span class="nf">gc_malloc</span><span class="p">(</span><span class="k">struct</span> <span class="n">gc</span> <span class="o">*</span><span class="n">gc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">name</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span> <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">head</span> <span class="o">-</span> <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">objects</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="n">HEAP_SIZE</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="cm">/* 現在使用中のヒープがいっぱいの場合， */</span>
+
+    <span class="cm">/* まず GC を走らせ -- */</span>
+    <span class="n">gc_run</span><span class="p">(</span> <span class="n">gc</span> <span class="p">);</span>
+
+    <span class="k">if</span> <span class="p">(</span> <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">head</span> <span class="o">-</span> <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">objects</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&gt;</span> <span class="n">HEAP_SIZE</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="cm">/* -- それでもなおヒープがいっぱいならエラーにする */</span>
+      <span class="n">printf</span> <span class="p">(</span> <span class="s">&quot;user error: out of memory</span><span class="se">\n</span><span class="s">&quot;</span> <span class="p">);</span>
+      <span class="n">exit</span><span class="p">(</span> <span class="mi">1</span> <span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">struct</span> <span class="n">bt</span> <span class="o">*</span><span class="n">ret</span><span class="p">;</span>
+  <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="p">;</span>
+  <span class="n">ret</span> <span class="o">=</span> <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">head</span><span class="p">;</span>
+  <span class="n">gc</span><span class="o">-&gt;</span><span class="n">heap</span><span class="p">.</span><span class="n">head</span><span class="o">++</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>テストコード．</p>
+<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &quot;gc.h&quot;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="k">struct</span> <span class="n">gc</span> <span class="o">*</span><span class="n">gc</span> <span class="o">=</span> <span class="n">gc_alloc</span><span class="p">();</span>
+  <span class="n">gc</span><span class="o">-&gt;</span><span class="n">root</span> <span class="o">=</span> <span class="n">gc_malloc</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="s">&quot;root&quot;</span><span class="p">);</span>
+
+  <span class="k">struct</span> <span class="n">bt</span> <span class="o">*</span><span class="n">bt</span><span class="p">;</span>
+  <span class="n">bt</span> <span class="o">=</span> <span class="n">gc</span><span class="o">-&gt;</span><span class="n">root</span><span class="p">;</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">HEAP_SIZE</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">bt</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">gc_malloc</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="s">&quot;x&quot;</span><span class="p">);</span>
+    <span class="n">gc_malloc</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="s">&quot;y&quot;</span><span class="p">);</span>
+    <span class="n">bt</span> <span class="o">=</span> <span class="n">bt</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">gc</span><span class="o">-&gt;</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">HEAP_SIZE</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">gc_malloc</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="s">&quot;z&quot;</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>このコードは，次のようにしてコンパイルできる．</p>
+<div class="highlight-sh"><div class="highlight"><pre>gcc -Wall -std<span class="o">=</span>c99 gc.c test.c
+</pre></div>
+</div>
+<p>このテストコードを実行すると，次のように表示されるはずだ．
+不要なオブジェクトが解放されているのがわかる．</p>
+<div class="highlight-none"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62</pre></div></td><td class="code"><div class="highlight"><pre>beginning to run gc...
+before:
+heap: 16 used, 0 free.
+{
+  0x7fed3a003210: { left: 0x7fed3a003230, right: 0x0, name: root }
+  0x7fed3a003230: { left: 0x7fed3a003270, right: 0x0, name: x }
+  0x7fed3a003250: { left: 0x0, right: 0x0, name: y }
+  0x7fed3a003270: { left: 0x7fed3a0032b0, right: 0x0, name: x }
+  0x7fed3a003290: { left: 0x0, right: 0x0, name: y }
+  0x7fed3a0032b0: { left: 0x7fed3a0032f0, right: 0x0, name: x }
+  0x7fed3a0032d0: { left: 0x0, right: 0x0, name: y }
+  0x7fed3a0032f0: { left: 0x7fed3a003330, right: 0x0, name: x }
+  0x7fed3a003310: { left: 0x0, right: 0x0, name: y }
+  0x7fed3a003330: { left: 0x7fed3a003370, right: 0x0, name: x }
+  0x7fed3a003350: { left: 0x0, right: 0x0, name: y }
+  0x7fed3a003370: { left: 0x7fed3a0033b0, right: 0x0, name: x }
+  0x7fed3a003390: { left: 0x0, right: 0x0, name: y }
+  0x7fed3a0033b0: { left: 0x7fed3a0033f0, right: 0x0, name: x }
+  0x7fed3a0033d0: { left: 0x0, right: 0x0, name: y }
+  0x7fed3a0033f0: { left: 0x0, right: 0x0, name: x }
+}
+gc was run.
+after:
+heap: 9 used, 7 free.
+{
+  0x7fed3a003410: { left: 0x7fed3a003430, right: 0x0, name: root }
+  0x7fed3a003430: { left: 0x7fed3a003450, right: 0x0, name: x }
+  0x7fed3a003450: { left: 0x7fed3a003470, right: 0x0, name: x }
+  0x7fed3a003470: { left: 0x7fed3a003490, right: 0x0, name: x }
+  0x7fed3a003490: { left: 0x7fed3a0034b0, right: 0x0, name: x }
+  0x7fed3a0034b0: { left: 0x7fed3a0034d0, right: 0x0, name: x }
+  0x7fed3a0034d0: { left: 0x7fed3a0034f0, right: 0x0, name: x }
+  0x7fed3a0034f0: { left: 0x7fed3a003510, right: 0x0, name: x }
+  0x7fed3a003510: { left: 0x0, right: 0x0, name: x }
+}
+beginning to run gc...
+before:
+heap: 16 used, 0 free.
+{
+  0x7fed3a003410: { left: 0x0, right: 0x0, name: root }
+  0x7fed3a003430: { left: 0x7fed3a003450, right: 0x0, name: x }
+  0x7fed3a003450: { left: 0x7fed3a003470, right: 0x0, name: x }
+  0x7fed3a003470: { left: 0x7fed3a003490, right: 0x0, name: x }
+  0x7fed3a003490: { left: 0x7fed3a0034b0, right: 0x0, name: x }
+  0x7fed3a0034b0: { left: 0x7fed3a0034d0, right: 0x0, name: x }
+  0x7fed3a0034d0: { left: 0x7fed3a0034f0, right: 0x0, name: x }
+  0x7fed3a0034f0: { left: 0x7fed3a003510, right: 0x0, name: x }
+  0x7fed3a003510: { left: 0x0, right: 0x0, name: x }
+  0x7fed3a003530: { left: 0x0, right: 0x0, name: y }
+  0x7fed3a003550: { left: 0x0, right: 0x0, name: z }
+  0x7fed3a003570: { left: 0x0, right: 0x0, name: z }
+  0x7fed3a003590: { left: 0x0, right: 0x0, name: z }
+  0x7fed3a0035b0: { left: 0x0, right: 0x0, name: z }
+  0x7fed3a0035d0: { left: 0x0, right: 0x0, name: z }
+  0x7fed3a0035f0: { left: 0x0, right: 0x0, name: z }
+}
+gc was run.
+after:
+heap: 1 used, 15 free.
+{
+  0x7fed3a003210: { left: 0x0, right: 0x0, name: root }
+}
+</pre></div>
+</td></tr></table></div>
+<p>テストコード2．</p>
+<div class="highlight-c"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &quot;gc.h&quot;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="k">struct</span> <span class="n">gc</span> <span class="o">*</span><span class="n">gc</span> <span class="o">=</span> <span class="n">gc_alloc</span><span class="p">();</span>
+  <span class="n">gc</span><span class="o">-&gt;</span><span class="n">root</span> <span class="o">=</span> <span class="n">gc_malloc</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="s">&quot;root&quot;</span><span class="p">);</span>
+
+  <span class="k">struct</span> <span class="n">bt</span> <span class="o">*</span><span class="n">bt</span><span class="p">;</span>
+  <span class="n">bt</span> <span class="o">=</span> <span class="n">gc</span><span class="o">-&gt;</span><span class="n">root</span><span class="p">;</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">HEAP_SIZE</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">struct</span> <span class="n">bt</span> <span class="o">*</span><span class="n">x</span> <span class="o">=</span> <span class="n">gc_malloc</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="s">&quot;x&quot;</span><span class="p">);</span>
+
+    <span class="n">bt</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="n">x</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">bt</span><span class="p">;</span>
+    <span class="n">bt</span> <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">HEAP_SIZE</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">gc_malloc</span><span class="p">(</span><span class="n">gc</span><span class="p">,</span> <span class="s">&quot;z&quot;</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table></div>
+<p>このテストコードを実行すると，次のように表示されるはずだ．
+循環した参照もきちんと処理しており，また，参照も正しく貼りなおされている
+ことがわかる．</p>
+<div class="highlight-none"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35</pre></div></td><td class="code"><div class="highlight"><pre>beginning to run gc...
+before:
+heap: 16 used, 0 free.
+{
+  0x7fd812803210: { left: 0x7fd812803230, right: 0x0, name: root }
+  0x7fd812803230: { left: 0x7fd812803250, right: 0x7fd812803210, name: x }
+  0x7fd812803250: { left: 0x7fd812803270, right: 0x7fd812803230, name: x }
+  0x7fd812803270: { left: 0x7fd812803290, right: 0x7fd812803250, name: x }
+  0x7fd812803290: { left: 0x7fd8128032b0, right: 0x7fd812803270, name: x }
+  0x7fd8128032b0: { left: 0x7fd8128032d0, right: 0x7fd812803290, name: x }
+  0x7fd8128032d0: { left: 0x7fd8128032f0, right: 0x7fd8128032b0, name: x }
+  0x7fd8128032f0: { left: 0x7fd812803310, right: 0x7fd8128032d0, name: x }
+  0x7fd812803310: { left: 0x0, right: 0x7fd8128032f0, name: x }
+  0x7fd812803330: { left: 0x0, right: 0x0, name: z }
+  0x7fd812803350: { left: 0x0, right: 0x0, name: z }
+  0x7fd812803370: { left: 0x0, right: 0x0, name: z }
+  0x7fd812803390: { left: 0x0, right: 0x0, name: z }
+  0x7fd8128033b0: { left: 0x0, right: 0x0, name: z }
+  0x7fd8128033d0: { left: 0x0, right: 0x0, name: z }
+  0x7fd8128033f0: { left: 0x0, right: 0x0, name: z }
+}
+gc was run.
+after:
+heap: 9 used, 7 free.
+{
+  0x7fd812803410: { left: 0x7fd812803430, right: 0x0, name: root }
+  0x7fd812803430: { left: 0x7fd812803450, right: 0x7fd812803410, name: x }
+  0x7fd812803450: { left: 0x7fd812803470, right: 0x7fd812803430, name: x }
+  0x7fd812803470: { left: 0x7fd812803490, right: 0x7fd812803450, name: x }
+  0x7fd812803490: { left: 0x7fd8128034b0, right: 0x7fd812803470, name: x }
+  0x7fd8128034b0: { left: 0x7fd8128034d0, right: 0x7fd812803490, name: x }
+  0x7fd8128034d0: { left: 0x7fd8128034f0, right: 0x7fd8128034b0, name: x }
+  0x7fd8128034f0: { left: 0x7fd812803510, right: 0x7fd8128034d0, name: x }
+  0x7fd812803510: { left: 0x0, right: 0x7fd8128034f0, name: x }
+}
+</pre></div>
+</td></tr></table></div>
+</div>
+
+
+    </div>
+
+</body>
+</html>
