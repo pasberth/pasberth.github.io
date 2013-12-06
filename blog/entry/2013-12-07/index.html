@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    
+      <title>理想のプログラミング言語は CSS かもしれない</title>
+    
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+</head>
+<body>
+
+    <div class="body">
+        
+  <div class="section" id="css">
+<h1>理想のプログラミング言語は CSS かもしれない<a class="headerlink" href="#css" title="Permalink to this headline">¶</a></h1>
+<p>アセンブリ言語では，言語にもよるけども，変数というものがない．正確にいえば，ローカル変数が
+ないと言った方がいいのかもしれない．かわりに，レジスタという，ある意味でいえば，グローバル
+変数のようなものを共用して，関数の引数を渡したり，戻したりするのである．次のコードは，
+<a class="reference external" href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Reference/Assembler/020-Assembly_Language_Syntax/asm_syntax.html#//apple_ref/doc/uid/TP30000821-TPXREF101">OS X のアセンブリ言語</a>
+で， gcc の呼び出し規約を期待した，ただインクリメントするだけの関数だが，それが現れて
+いる． %edi というレジスタには，第一引数として，整数が入っているはずだ．
+%eax は，戻り値を格納するレジスタだ．</p>
+<div class="highlight-asm"><pre>.globl _inc
+_inc:
+    movl    %edi, %eax
+    incl    %eax
+    ret</pre>
+</div>
+<p>自然言語で読めば，</p>
+<ol class="arabic simple">
+<li>%edi の内容を， %eax にコピーしろ</li>
+<li>1 を， %eax に加えろ</li>
+<li>戻れ</li>
+</ol>
+<p>となる．</p>
+<p>アセンブリ言語で，もうすこし発展した問題を扱ってみよう．次のコードは，同じ OS X のアセンブリ言語で，
+1 から 15 までの和を求めるコードだ．</p>
+<div class="highlight-asm"><pre>	.cstring
+LC0:
+	.ascii "%d\n\0"
+	.text
+.globl _main
+_main:
+	pushq	%rbp
+	movl	$0, -4(%rbp)
+	movl	$1, -8(%rbp)
+	jmp	L2
+L1:
+	movl	-8(%rbp), %eax
+	addl	%eax, -4(%rbp)
+	incl	-8(%rbp)
+L2:
+	cmpl	$15, -8(%rbp)
+	jle	L1
+	movl	-4(%rbp), %esi
+	leaq	LC0(%rip), %rdi
+	call	_printf
+	popq 	%rbp
+	movl 	$0, %eax
+	ret
+</pre>
+</div>
+<p>main 関数を，自然言語で読めば，</p>
+<ol class="arabic simple">
+<li>%rbp を 8ビット下方にずらせ</li>
+<li>0 を， -4(%rbp) にコピーしろ</li>
+<li>1 を， -8(%rbp) にコピーしろ</li>
+<li><em>ラベル L2</em> にジャンプしろ</li>
+<li><strong>ラベル L1</strong>:</li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li>%eax の内容を， -8(%rbp) にコピーしろ</li>
+<li>-4(%rbp) の内容を， %eax に加えろ</li>
+<li>1 を， -8(%rbp) に加えろ</li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><strong>ラベル L2</strong>:</li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li>15 と -8(%rbp) を比較しろ</li>
+<li>もし，比較した結果が低いまたは同じなら， <em>ラベル L1</em> にジャンプしろ</li>
+<li>-4(%rbp) の内容を， %esi にコピーしろ</li>
+<li>LC0(%rip) の内容を， %rdi にコピーしろ</li>
+<li>printf 関数を呼びだせ</li>
+<li>%rbp を 8ビット上方にずらせ</li>
+<li>0 を， %eax にコピーしろ</li>
+<li>戻れ</li>
+</ol>
+</div></blockquote>
+<p>となる．自然言語で書いたら，この命令はあまりに機械的過ぎて，
+意味がわからないだろう． (バイナリアンを除く)</p>
+<p>C言語では，その操作が抽象化されている．レジスタの操作を引数と呼んだり，スタックの操作を
+ローカル変数と呼び， 具体的な操作を隠蔽し，抽象的な概念を表現している．
+そのおかげで，アセンブリ言語に比べれば，ずいぶんとプログラミングが
+しやすいようだ．次のコードは， 1 から 15 までの和を求める
+コードだ．</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="k">const</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">15</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">sum</span> <span class="o">+=</span> <span class="n">i</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">printf</span> <span class="p">(</span><span class="s">&quot;%d</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">sum</span><span class="p">);</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>自然言語で読めば，</p>
+<ol class="arabic simple">
+<li>int である sum を用意し， 0 で初期化しろ</li>
+<li>int である i を用意し， 1 で初期化しろ</li>
+<li>sum の内容に， i を加えろ</li>
+<li>i の内容に， 1 を加えろ</li>
+<li>もし， i が，</li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li>15 以下であるならば， 3 に戻れ</li>
+<li>15 を超えているならば， 6 へ行け</li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li>sum の内容を印字しろ</li>
+</ol>
+<p>となる．</p>
+<p>C言語はかなり抽象化された言語だと思う．しかし，まだ抽象化が足らない部分がある．
+そう， C言語では，繰り返しに i という変数を使用して，条件式で
+分岐しなければならない．</p>
+<p>Python では，その操作が抽象化されている．繰り返しに，変数と条件式を使用する
+必要はない． for i in .. というようにして，簡単に書くことができる．</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">sum</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="p">):</span>
+    <span class="nb">sum</span> <span class="o">+=</span> <span class="n">i</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>自然言語で読めば，</p>
+<ol class="arabic simple">
+<li>sum を用意し， 0 で初期化しろ</li>
+<li>1 から 16 までの範囲の数値(ただし16は含まない)を用意し，それぞれの数値 i に対して，次の操作を繰り返せ:</li>
+</ol>
+<blockquote>
+<div><ol class="arabic simple">
+<li>sum の内容に， i を加えろ</li>
+</ol>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li>sum の内容を印字しろ</li>
+</ol>
+<p>ずいぶんと列挙すべき内容が減った． Python はかなりレイヤーが高い言語だ．
+しかし，まだ抽象化が足らない部分がある．そう， Python でもまだ，一時変数を使用し，
+この変数に次々と値を加算することで合計を求めている．いわゆる，手続き型言語的なコードだ．
+この操作は，ある意味，アセンブリ言語から進歩してない部分といえる．一時変数と，
+レジスタ，なにが違うっていうのだ？</p>
+<p>Haskell では，さらに抽象化が進んでいる．もはや一時変数を書く必要はない．
+foldl を使用して，一時変数が関数の引数という形で抽象化されている．</p>
+<div class="highlight-hs"><div class="highlight"><pre><span class="nf">main</span> <span class="ow">=</span> <span class="n">print</span> <span class="o">$</span> <span class="n">foldl</span> <span class="p">(</span><span class="o">+</span><span class="p">)</span> <span class="mi">0</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="mi">15</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>自然言語で読めば，</p>
+<ol class="arabic simple">
+<li>0 を初期値として， 1 から 15 までの範囲の数値を，順々に足せ． (たとえば， (((0+1)+2)..+k) というふうに． )</li>
+<li>それを印字しろ</li>
+</ol>
+<p>となる．</p>
+<p>さて，ここまで，数々の抽象化を，段階を経てみてきた．
+ここまででなにか感じたことはないだろうか．
+ぼくは，このようにいろいろな言語を見ていると，抽象化がなされるにつれ，
+より命令を書かないようになっていると思う．命令というのは，つまり，
+機械に対するインストラクションのことだ．人間が機械に対して命令する代わりに，
+人間がしたいことだけを書けるようになっているというのだ．
+今回の例でいえば，人間がしたいことをは，15の和を求め，それを画面に印字することであって，
+どのレジスタに引数をいれるか考えたり， i をカウントしてループを抜ける条件を提案したり，
+sum というアキュムレータに次々と数値を足せと命令したりすることではないのだ．
+そういう余分な部分を剥ぎ取って，代わりに，人間がしたいことのみを書けるようになっている
+というのだ．関数型プログラミングは，今回の例でいえば，したいことだけを書くことができた．</p>
+<p>しかし，この記事の題にも見られる通り，この記事で言いたいのは，関数型プログラミングが
+最高だなんて宗教じみた主張ではないのだ．関数型プログラミングでも，けっきょく
+たくさんの命令を書かなくちゃいけないのは，関数型言語でプログラミングをしていれば
+わかることだ．ぼくは，プログラミングをせずに済むことこそが，求められている
+最高のプログラミング言語なんじゃないかと思う．ぼくは，さっき，機械に対して命令するという言葉
+を使ったけど，言うなれば，プログラミングとは機械に対して命令するということだ．
+だから，命令を書かずに済むというのは，プログラミングをせずに済むと言い換えても
+同じことだ．つまり，</p>
+<ul class="simple">
+<li>したいことが簡単にできて，</li>
+<li>命令を書かずに済む(プログラミングをする必要がない)言語</li>
+</ul>
+<p>がもっとも素晴らしいプログラミング言語のあるべき姿なのだ．</p>
+<p>そういう視点に立ったとき，じつは，それに近い言語が今まさに，この現代にあることに気づく．
+それは， CSS だ． CSS は，人間がしたいことをかなり柔軟に書くことができる．
+人間がしたいことというのは，ウェブデザインだ．それなのにも関わらず，プログラミングを
+する必要がない．命令を書かなくてもよい．ゆえに，デザインが崩れるなんてバグはあっても，
+無限ループするだとか，メモリリークするだとかいう致命的なバグに合うことはない．</p>
+<p>そういうわけで， CSS はなんてすばらしい言語なんだろう，と思った次第である．</p>
+</div>
+
+
+    </div>
+
+</body>
+</html>
