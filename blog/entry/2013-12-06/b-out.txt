@@ -1,0 +1,6 @@
+sizeof(X) = 1
+0xa
+F1_GET(x) = 0
+F2_GET(x) = 1
+F3_GET(x) = 0
+F4_GET(x) = 1

@@ -1,0 +1,5 @@
+sizeof(struct X) = 1
+x.f1 = 0
+x.f2 = 1
+x.f3 = 0
+x.f4 = 1
