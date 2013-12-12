@@ -1,0 +1,22 @@
+組み合わせ論理とλ-抽象に関するメモ
+================================================================================
+
+.. raw:: html
+
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+.. raw:: html
+
+    <blockquote class="twitter-tweet" lang="ja"><p>次のようにして得られるCL-項 λx.M をラムダ抽象という. 好きなCL-項 M に対して (λx.M)x を計算してみて.&#10;(1) λx.x≡I,&#10;(2) λx.M≡KM (x が M に現れないとき),&#10;(3) λx.UV≡S(λx.U)(λx.V).</p>&mdash; 論理学たん (@ronrigakutan) <a href="https://twitter.com/ronrigakutan/statuses/410997699173822465">2013, 12月 12</a></blockquote>
+
+λxy.xyy
+= λx.S(λy.xy)I
+= λx.S(S(Kx)I)I
+= S(λx.S(S(Kx)I))(KI)
+= S(S(KS)(λx.S(Kx)I))(KI)
+= S(S(KS)(S(λx.S(Kx))(KI)))(KI)
+= S(S(KS)(S(S(KS)(λx.Kx))(KI)))(KI)
+= S(S(KS)(S(S(KS)(S(KK)I))(KI)))(KI)
+
+のようにして λxy.xyy をコンビネータに変換できる．
