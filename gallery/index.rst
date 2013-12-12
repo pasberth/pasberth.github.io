@@ -26,3 +26,7 @@ illustrations
    * .. image:: feepas/thumbnail.png
         :alt: フィームとパスベルス
         :target: feepas/index.html
+
+   * .. image:: dragongirl/thumbnail.png
+        :alt: ドラゴンガール
+        :target: dragongirl/index.html
