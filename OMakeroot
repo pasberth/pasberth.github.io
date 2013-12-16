@@ -9,4 +9,4 @@ open build/C
 open build/OCaml
 
 .PHONY: all
-.SUBDIRS: . gallery blog $(glob blog/entry/*)
+.SUBDIRS: . gallery blog $(foreach $(fun x => $(dirname $(x))), $(find -name OMakefile))
