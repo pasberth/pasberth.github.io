@@ -1,0 +1,8 @@
+$(BUILDDIR)/slide/css: ../vendor/reveal.js/css
+  cp -r ../vendor/reveal.js/css $(BUILDDIR)/slide/css
+
+$(BUILDDIR)/slide/lib: ../vendor/reveal.js/lib
+  cp -r ../vendor/reveal.js/lib $(BUILDDIR)/slide/lib
+
+$(BUILDDIR)/slide/js: ../vendor/reveal.js/js
+  cp -r ../vendor/reveal.js/js $(BUILDDIR)/slide/js
