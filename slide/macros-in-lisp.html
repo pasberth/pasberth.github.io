@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+<title>Lispのマクロ</title>
+
+<meta name="description" content="Lispのマクロ">    
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<link rel="stylesheet" href="css/reveal.min.css">
+  <link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+
+<!-- For syntax highlighting -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+
+<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+<script>
+  document.write( '<link rel="stylesheet" href="css/print/' +
+    ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + 
+    '.css" type="text/css" media="print">' );
+</script>
+
+<!--[if lt IE 9]>
+<script src="lib/js/html5shiv.js"></script>
+<![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+
+<section>
+<h1>Lispのマクロ</h1>
+
+<p>
+<h4></h4>
+</p>
+</section>  
+
+
+<section id="概要" class="level1">
+<h1>概要</h1>
+<p>このスライドはLispの基本を確認するとともにLispのマクロを簡単に紹介するものである． 対象読者は，Lispでプログラムを書いたことはあまりないが，Lispに興味がある人． このスライドでは，とくに言語を指定せず，単にLispと言ったら，Common Lisp，Scheme， Clojureを指す．また主な言語としてScheme(R7RS)を使用する．</p>
+</section>
+<section id="簡単な準備" class="level1">
+<h1>簡単な準備</h1>
+<ol type="1">
+<li>文法</li>
+<li>データ</li>
+<li>同図像性</li>
+<li>評価</li>
+</ol>
+</section>
+<section id="空白" class="level1">
+<h1>空白</h1>
+<p>空白(<em>whitespace</em>)はスペースと改行である．空白は，可読性を改善するために使われ， そしてトークンどうしを分離するために欠かせいないものとして使われるが，ほかの意味は けしてない．ここでトークンとは，識別子や数などの，それ以上分解できない字句単位である． たとえば，後述するドット対(``(M.N)&quot;のように``.&quot;で繋ぐ対)においては， ``(&quot;と``.&quot;と``)&quot;はそれぞれ別のトークンである．空白はどの2つのトークンのあいだの いくつ出現してもよいが，1つのトークンの途中に出現してはならない．空白は文字列の途中にいくつ 出現してもよく，そこでは空白は無視されない．</p>
+</section>
+<section id="注釈" class="level1">
+<h1>注釈</h1>
+<p>注釈(<em>comment</em>)は行末を除いて不可視な文字列である．注釈の行末は空白と 同じように扱われる．行注釈は;から始め行末まで続く．ブロック注釈は#|…|#で括る． S式注釈は#;をS式の先頭につける</p>
+<pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="co">; 行注釈</span>
+#|
+    ブロック注釈
+|#
+#<span class="co">; (S式注釈)</span></code></pre>
+</section>
+<section id="s式" class="level1">
+<h1>S式</h1>
+<ol type="1">
+<li>原子(<em>atom</em>)はS式である．</li>
+<li>MとNがS式ならば，(M.N)はS式である．この形のS式をドット対(<em>dotted pair</em>)という． Mをcar部といい，Nをcdr部という．</li>
+<li>M_1と，…と，M_nがS式ならば，(M_1…M_n)はS式である．この形のS式をリスト(<em>list</em>)という．</li>
+<li>MがS式で，Cがマクロ文字ならば，CMはS式である．</li>
+</ol>
+<pre class="sourceCode scheme"><code class="sourceCode scheme">x           <span class="co">; atomの例</span>
+(x . x)     <span class="co">; dotted pairの例</span>
+(x y z)     <span class="co">; listの例</span>
+&#39;x          <span class="co">; マクロ文字の例</span></code></pre>
+</section>
+<section id="原子" class="level1">
+<h1>原子</h1>
+<p>原子には，nil，シンボル，真偽値，数値，文字列などがある． nilは()と書く．シンボルはたとえばlambdaと書く．真偽値は #tおよび#fと書く．数値はたとえば42と書く．文字列はたとえば &quot;answer&quot;と書く．</p>
+<pre class="sourceCode scheme"><code class="sourceCode scheme">()          <span class="co">; nil</span>
+x           <span class="co">; シンボル</span>
+<span class="dv">#f</span>          <span class="co">; 真偽値</span>
+<span class="dv">42</span>          <span class="co">; 数値</span>
+<span class="st">&quot;answer&quot;</span>    <span class="co">; 文字列</span></code></pre>
+</section>
+<section id="リスト" class="level1">
+<h1>リスト</h1>
+<p>簡単のため，(M_1…M_n)という形を(M_1.(….(M_n.())))の省略だという ことにする．たとえば(x y z)は(x.(y.(z.())))の省略である． (M_1…M_n)という形のS式をリストという．</p>
+<pre class="sourceCode scheme"><code class="sourceCode scheme">(x y z)     <span class="co">; リスト</span></code></pre>
+</section>
+<section id="マクロ文字" class="level1">
+<h1>マクロ文字</h1>
+<p>簡単のため，'Mという形を(quote M)の省略だということにする． そのほかのマクロ文字は，(文字によって定義は異なるが，) 必ず，マクロ文字を使わない形のS式に変形できる．</p>
+</section>
+<section id="データ" class="level1">
+<h1>データ</h1>
+<ol type="1">
+<li>原子はデータである．</li>
+<li>ドット対はデータである．</li>
+<li>手続きオブジェクトはデータである．</li>
+<li>継続オブジェクトはデータである．</li>
+<li>etc</li>
+</ol>
+</section>
+<section id="s式はデータである" class="level1">
+<h1>S式はデータである</h1>
+<p>S式はデータである．S式が原子の形をしている場合は，データの定義によりS式はデータである． S式がドット対の形をしている場合は，データの定義によりS式はデータである． S式がリストの形をしている場合は，ドット対の省略形なのでS式はデータである． S式がマクロ文字の形をしている場合は，マクロ文字を使わない形をしたS式の省略形なので S式はデータである．以上ですべての場合は尽くされた．</p>
+</section>
+<section id="同図像性" class="level1">
+<h1>同図像性</h1>
+<p>LispプログラムはS式として書かれる．S式はデータなので，したがってLispプログラムは データとして書かれる．このように，プログラムがデータとして書かれる言語は，同図像性を持つ という．</p>
+</section>
+<section id="評価" class="level1">
+<h1>評価</h1>
+<p>あるデータVをLispプログラムとして実行し，VからあるデータWへと形が変わることを，V⟹Wと書き， ``VがWへと評価される&quot;と読む．WをVの値という．</p>
+<pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">let</span> ((x <span class="dv">42</span>)) x)    <span class="co">; ⟹ 42</span></code></pre>
+</section>
+<section id="評価規則" class="level1">
+<h1>評価規則</h1>
+<ul>
+<li>V⟹V (ただしMがシンボルを除く原子の場合)</li>
+<li>x⟹V (ただしxがシンボルで，その評価時点で可視な束縛xにVが格納されている場合)</li>
+<li>(quote V)⟹V</li>
+<li>eval⟹FとなるFが存在し，V⟹Wならば(F V)⟹W．</li>
+</ul>
+</section>
+<section id="原子の評価" class="level1">
+<h1>原子の評価</h1>
+<p>シンボルを除き，原子は評価されるとそれ自身を返す． M⟹M．ただしMはnil，真偽値，数値，文字列，関数オブジェクト，または継続オブジェクト．</p>
+<pre class="sourceCode scheme"><code class="sourceCode scheme">()          <span class="co">; ⟹ ()</span>
+<span class="dv">#f</span>          <span class="co">; ⟹ #f</span>
+<span class="dv">42</span>          <span class="co">; ⟹ 42</span>
+<span class="st">&quot;answer&quot;</span>    <span class="co">; ⟹ &quot;answer&quot;</span></code></pre>
+</section>
+<section id="シンボルの評価" class="level1">
+<h1>シンボルの評価</h1>
+<p>シンボルの評価には環境(<em>environment</em>)が必要である．その地点で有効な環境とは， プログラムの中のある地点で有効なすべての可視な束縛からなる集合をいう．束縛とは，要するに， ある記憶領域に束縛された変数のことである．たとえば，ある変数xとその変数に格納された値42 を(x:42)と書く．いま，有効な可視な束縛がそれしかないとすると，環境は{(x:42)}と書く． {(x:42)}のもとで，x⟹42である．{}のもとで，x⟹エラーである．</p>
+<pre class="sourceCode scheme"><code class="sourceCode scheme">x           <span class="co">; ⟹ v (ただし (x:v)∈環境)</span>
+x           <span class="co">; ⟹ エラー (ただし (x:v)∉環境)</span></code></pre>
+</section>
+<section id="リストの評価" class="level1">
+<h1>リストの評価</h1>
+<p>リストの評価は，大きく分けて3種類ある．まず，特殊形式(<em>special form</em>) と呼ばれるもので，これは，car部が，lambdaやletといったシンボルである場合に適用される． 次に，関数適用．これは，car部が，シンボルで，なおかつその名前の変数に手続きが束縛されている場合 に適用される．最後に，マクロ呼び出し．これは，car部が，マクロとして定義された名前である 場合に適用される．</p>
+</section>
+<section id="quote" class="level1">
+<h1>quote</h1>
+<p>特殊形式quoteは，与えられた引数をそのまま返す． (quote V) ⟹ V．Vが評価されないことに注意せよ．</p>
+<pre class="sourceCode scheme"><code class="sourceCode scheme">&#39;x          <span class="co">; ⟹ x</span></code></pre>
+</section>
+<section id="lambda" class="level1">
+<h1>lambda</h1>
+<p>特殊形式lambdaは手続きオブジェクトをつくる． (lambda (x_1…x_n) M)のように書く． x_1…x_nはそれぞれ仮引数をあらわすシンボルである． (lambda (x_1…x_n) M)⟹手続きオブジェクト．</p>
+<pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">lambda</span> (x) x)  <span class="co">; ⟹ 手続きオブジェクト</span></code></pre>
+</section>
+<section id="関数適用" class="level1">
+<h1>関数適用</h1>
+<p>Vがマクロの名前でもなく特殊形式でもないならば，(V V_1…V_n)という形のリストは，評価されると関数適用とみなされる． V_1…V_nを引数として，Vを呼び出すということである．V⟹WかつV_1⟹W_1かつ…V_n⟹W_nかつ (W W_1…W_n)⟹Uならば(V V_1…V_n)⟹U． V_k⟹W_kは引数はすべて評価されるということをあらわしている． たとえば，(f x)の場合，V_1≡xだが，fにはxというシンボルが渡されるわけではなく， x⟹WならばWが渡される．ここでは例を見て理解してほしい．</p>
+<pre class="sourceCode scheme"><code class="sourceCode scheme">((<span class="kw">lambda</span> (x) x) <span class="dv">42</span>)     <span class="co">; ⟹ 42</span></code></pre>
+</section>
+<section id="eval" class="level1">
+<h1>eval</h1>
+<p>quoteとは反対に，評価されないデータを評価する関数がevalである． eval⟹FとなるFが存在し，V⟹Wならば(F V)⟹W． 評価されないS式は，通常は存在しないので，quoteしたものをeval関数に与えることになる． 通常，evalは引数として評価するS式を1つとるが，R7RSでは，evalは評価するS式と 環境の2つをとることに注意せよ．</p>
+<pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">eval</span> &#39;x (<span class="kw">interaction-environment</span>))     <span class="co">; = x</span>
+<span class="co">; (eval x) とすると，``x を評価したもの&quot;を評価してしまうので注意せよ．</span></code></pre>
+</section>
+<section id="cons" class="level1">
+<h1>cons</h1>
+<p>ドット対は(M.N)のように書くが，ドット対をデータ(V.W)として扱うにはどうすれば よいのだろうか．ひとつの案はquoteを使い(quote (x.y))のようにすることであるが， これではxとyはシンボルであって変数ではない(評価されない)ことになってしまう． 評価したい場合はcons関数を使い，(cons x y)とする． cons⟹FとなるFが存在し，(F V W)⟹(V.W)</p>
+<pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">cons</span> &#39;x &#39;y)     <span class="co">; ⟹ (x.y)</span></code></pre>
+</section>
+<section id="バッククォートとカンマ" class="level1">
+<h1>バッククォートとカンマ</h1>
+<p>マクロ文字`とマクロ文字,は対応して使われる． ,は`のなかでしか使うことができない． `Mの展開形を次のように帰納的に定義する:</p>
+<ol type="1">
+<li>Mが原子なら `M≡'M</li>
+<li>NがS式で，Mが,Nの形をしているなら `M≡N</li>
+<li>Mが(N.R)の形をしているなら `M≡(cons `N `R)</li>
+</ol>
+<p>たとえば `(x ,y z)≡`(x.(,y.(z.())))≡ (cons `x `(,y.(z.())))≡(cons 'x (cons `,y `(z.())))≡ (cons 'x (cons y (cons `z `())))≡(cons 'x (cons y (cons 'z '())))</p>
+</section>
+<section id="準備まとめ" class="level1">
+<h1>準備まとめ</h1>
+<ul>
+<li>空白，注釈は無視される</li>
+<li>文法はS式．原子，ドット対，リスト，マクロ文字．</li>
+<li>同図像性(S式はデータである)</li>
+<li>評価規則．原子の評価，シンボルの評価，リストの評価．quote，lambda，eval，cons， バッククォートとカンマ</li>
+</ul>
+</section>
+<section id="マクロ" class="level1">
+<h1>マクロ</h1>
+<p>マクロとはLispのコードを返す関数である．マクロとはただの関数であると考えたほうがいい． 特殊な機能だと考えるのは混乱するだけである． 返すのがたまたまLispのコードであるというだけである． たとえば，関数Fは，Lispのコードを受け取ってLispのコードを返す函数である． であらば，(eval (F 'M_1…'M_n))のように書けば，それはもはやマクロである．</p>
+</section>
+<section id="マクロ適用" class="level1">
+<h1>マクロ適用</h1>
+<p>とはいえ，いちいち戻り値であるLispのコードを評価するためにevalを書くのは面倒だし， quoteを書くのもやはり面倒である．簡単のため，FがLispのコードを受け取って Lispのコードを返す関数の名前だとすると，F*を次のように書けるということにする． (eval (F 'M_1…'M_n))≡(F* M_1…M_n)</p>
+</section>
+<section id="マクロ定義" class="level1">
+<h1>マクロ定義</h1>
+<p>特殊形式defmacroは，(defmacro x (y_1…y_n) M)のように書く． xはマクロの名前をあらわすシンボルである． y_1…y_nはそれぞれ仮引数をあらわすシンボルである． MはS式である．</p>
+</section>
+<section id="例示は理解の試金石" class="level1">
+<h1>例示は理解の試金石</h1>
+<section id="インクリメントを定義する" class="level2">
+<h2>インクリメントを定義する</h2>
+<p>例はCommon Lispで書かれていることに注意せよ．</p>
+<pre class="sourceCode lisp"><code>(defmacro ++ (var) `(setf ,var (1+ ,var)))
+(setq i 0)
+(++ i)</code></pre>
+</section>
+<section id="簡約1" class="level2">
+<h2>簡約1</h2>
+<p>マクロは関数のｼﾝﾀｯｸｽｼｭｶﾞ-だと考える</p>
+<pre class="sourceCode lisp"><code>(defun ++ (var) `(setf ,var (1+ ,var)))
+(setq i 0)
+(eval (++ &#39;i))</code></pre>
+</section>
+<section id="簡約2" class="level2">
+<h2>簡約2</h2>
+<p>インライン展開してみる</p>
+<pre class="sourceCode lisp"><code>(setq i 0)
+(eval &#39;(setf i (1+ i)))</code></pre>
+</section>
+<section id="簡約3" class="level2">
+<h2>簡約3</h2>
+<p>evalとquoteをどちらもはずす</p>
+<pre class="sourceCode lisp"><code>(setq i 0)
+(setf i (1+ i))</code></pre>
+</section>
+<section id="定義の解説1" class="level2">
+<h2>定義の解説1</h2>
+<p>`(setf ,var (1+ ,var)) は (cons 'setf (cons var (cons (cons '1+ (cons var nil)) nil))) と同じである．要は (setf <em>var</em> (+1 <em>var</em>)) という形のデータをつくるということである． ただし <em>var</em> は引数に置換される．</p>
+<pre class="sourceCode lisp"><code>(defmacro ++ (var) `(setf ,var (1+ ,var)))</code></pre>
+</section>
+<section id="定義の解説2" class="level2">
+<h2>定義の解説2</h2>
+<p>もし++マクロが関数だとすると， (++ i) は (eval (++ 'i)) のように理解するのがはやい． つまり， ++ に 'i を与えて，その戻り値 (setf i (1+ i)) を eval するということである．</p>
+<pre class="sourceCode lisp"><code>(setq i 0)
+(++ i)</code></pre>
+</section>
+</section>
+<section id="マクロと同図像性" class="level1">
+<h1>マクロと同図像性</h1>
+<p>Lispがマクロのような強力な機能をもつのは，ひとえに同図像性のおかげであろう． つまり，Lispでは，Lispのソースコード自体を第一級の対象(データ)として扱えるのである． Lispでは，ソースコードを，関数の引数として渡したり，戻り値として返したりできるのである．</p>
+</section>
+<section id="マクロとs式" class="level1">
+<h1>マクロとS式</h1>
+<p>しばしば，Lispのマクロが強力なのはS式のおかげだといわれるが，じっさいはそうではない． S式は構文規則を定めるものであってデータではない．重要なのは同図像性であって，構文ではない． どんな構文であろうと，けっきょくはそれがリストとして扱えるかどうかが重要なのだ．たとえば， 今回扱ったS式は一般的な定義を拡張してリストとマクロ文字を定義に含めた． そのおかげで関数適用を(f.(x.(y.(z.()))))のように書かなくてよくなったし， (quote x)を'xと書けるようになった．たとえば，加えて，中置記法{M :N R}は(N M R)の省略だ ということにしても，マクロが強力なのは変わらない． <strong>S式は重要ではない</strong> ．</p>
+</section>
+<section id="各方言のマクロ" class="level1">
+<h1>各方言のマクロ</h1>
+<p>いままでは，Lisp一般の話をしてきた．これからは各方言に搭載されている マクロをザッと見ていく．</p>
+<ol type="1">
+<li>Common Lisp</li>
+<li>Scheme</li>
+<li>Clojure</li>
+</ol>
+</section>
+<section id="common-lispのマクロ" class="level1">
+<h1>Common Lispのマクロ</h1>
+<ol type="1">
+<li>キーワード</li>
+<li>不健全</li>
+<li>gemsym</li>
+<li>コンパイル時に評価される</li>
+<li>再帰できない</li>
+<li>リードマクロ</li>
+</ol>
+</section>
+<section id="defmacro" class="level1">
+<h1>defmacro</h1>
+<p>Common Lisp のマクロは， defmacro を使って書く．</p>
+<pre class="sourceCode lisp"><code>(defmacro ++ (var) `(setf ,var (1+ ,var)))
+(setq i 0)
+(++ i)  ; ⟹ 1</code></pre>
+</section>
+<section id="不健全" class="level1">
+<h1>不健全</h1>
+<section id="後置デクリメント" class="level2">
+<h2>後置デクリメント</h2>
+<p>Scheme にいわせれば， Common Lisp のマクロは不健全だという． その理由は，変数に関する名前解決のルールにある． たとえば，マクロ内である計算結果をもち回したいので， 一時的な変数にいれたいとする．そのため tmp と名付けることにする．</p>
+<pre class="sourceCode lisp"><code>(defmacro post++ (var)
+  `(let ((tmp ,var))
+    (setf ,var (1+ ,var))
+    tmp))
+(setq i 0)
+(post++ i)  ; ⟹ 0</code></pre>
+</section>
+<section id="tmpという変数名は" class="level2">
+<h2>tmpという変数名は？</h2>
+<p>しかし，運悪くtmpという名前の変数名を使っていると，結果が期待したものにはならない．</p>
+<pre class="sourceCode lisp"><code>(setq tmp 0)
+(post++ tmp)  ; ⟹ 1</code></pre>
+</section>
+<section id="展開された形の比較" class="level2">
+<h2>展開された形の比較</h2>
+<pre class="sourceCode lisp"><code>(setq i 0)
+(let ((tmp i))
+  (setf i (1+ i))
+  tmp) ; ⟹ 0
+(setq tmp 0)
+(let ((tmp tmp))
+  (setf tmp (1+ tmp))
+  tmp) ; ⟹ 1</code></pre>
+</section>
+</section>
+<section id="gensym" class="level1">
+<h1>gensym</h1>
+<section id="安全な後置デクリメント" class="level2">
+<h2>安全な後置デクリメント</h2>
+<p>不健全であると考えると，一時的な値をなにか変数にいれることができない ように思える．なぜならば，どんな名前を選んでもそれが使われてしまってはバグが避けられない からである．しかし，一時的な値に名前をつけることは必要であろう． そこで， Common Lisp には gensym という関数がある．これは，プログラム内に登場する いかなるシンボルともかぶらないシンボルを返すものである．</p>
+<pre class="sourceCode lisp"><code>(defmacro post++ (var)
+  (let ((tmp (gensym)))
+    `(let ((,tmp ,var))
+      (setf ,var (1+ ,var))
+      ,tmp)))
+(setq tmp 0)
+(post++ tmp)    ; ⟹ 0</code></pre>
+</section>
+<section id="gensym-の返す値" class="level2">
+<h2>gensym の返す値</h2>
+<pre class="sourceCode lisp"><code>(gensym)    ; ⟹ #:G2814</code></pre>
+</section>
+<section id="展開された形" class="level2">
+<h2>展開された形</h2>
+<pre class="sourceCode lisp"><code>(setq tmp 0)
+(let ((G2814 tmp))
+  (setf tmp (1+ tmp))
+  G2814) ; ⟹ 0</code></pre>
+</section>
+<section id="運が悪かったら" class="level2">
+<h2>運が悪かったら？</h2>
+<p>gensymが運悪く仕様済みのシンボルを返してしまったらバグるのでは？　という疑問を 感じるかもしれない．安心してほしい．それはない．</p>
+</section>
+</section>
+<section id="コンパイル時に評価される" class="level1">
+<h1>コンパイル時に評価される</h1>
+<p>Common Lispのマクロはコンパイル時に評価される． 一部の方々は，この響きだけでゾクゾクと悦びを感じるのではなかろうか． 安心してほしい．もちろんコンパイル時計算もできる．レイトレーシングだって，おそらく 可能だろう．</p>
+</section>
+<section id="再帰できない" class="level1">
+<h1>再帰できない</h1>
+<p>マクロがコンパイル時に評価されることのいちばんやっかいな点は再帰できないことである． たとえば，次のようなマクロを(f 42)と呼び出すと停止しない． ifが評価されるのは実行時で，fが評価されるのはコンパイル時だから， (if t then (f …)) のようにしても， (f …) の評価は発生してしまうのである．ちなみに， C++ の template でもよく似た問題が発生する． さらにやっかいなことに，コンパイルせずインタプリタとして起動すると実行できてしまう． インタプリタだと，(f …)の評価が発生しないからである．</p>
+<pre class="sourceCode lisp"><code>(defmacro f (x)
+  `(if t ,x (f ,x)))</code></pre>
+</section>
+<section id="リードマクロ" class="level1">
+<h1>リードマクロ</h1>
+<p>マクロ文字'や`みたいなものをユーザが定義することもできる． たとえば，1引数の関数を書くのにいちいちlambdaというキーワードや仮引数を書くのは めんどうだから， %it というコードをみつけたら (lambda (it) it) のように展開してくれたら便利 かもしれない．</p>
+<pre class="sourceCode lisp"><code>(set-macro-character #\%
+  #&#39;(lambda (stream char)
+    (list &#39;lambda &#39;(it) (read stream t nil t))))
+(funcall %it 42) ; ⟹ 42</code></pre>
+</section>
+<section id="schemeのマクロ" class="level1">
+<h1>Schemeのマクロ</h1>
+<ol type="1">
+<li>define-syntaxとsyntax-rules</li>
+<li>健全</li>
+<li>syntax-case</li>
+<li>新しい束縛は追加できない</li>
+</ol>
+</section>
+<section id="define-syntaxとsyntax-rules" class="level1">
+<h1>define-syntaxとsyntax-rules</h1>
+<p>Scheme のマクロは， define-syntax と syntax-rules を使う</p>
+<pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> ++</span>
+  (<span class="kw">syntax-rules</span> ()
+    ( (++ var)
+      (set! var (<span class="kw">+</span> var <span class="dv">1</span>)))))
+(<span class="kw">define</span><span class="fu"> i </span><span class="dv">0</span>)
+(++ i) <span class="co">; ⟹ 1</span></code></pre>
+</section>
+<section id="健全" class="level1">
+<h1>健全</h1>
+<p>Common Lispのマクロと違い，Schemeのマクロは，マクロが返すリストが 新しい束縛をつくる場合は，自動で安全な名前にリネームされる． たとえば，この例のtmpは，じっさいにはtmpではなく，なにかユーザが使わないような 名前になっている．</p>
+<pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> post++</span>
+  (<span class="kw">syntax-rules</span> ()
+    ( (++ var)
+      (<span class="kw">let</span> ((tmp var))
+        (set! var (<span class="kw">+</span> var <span class="dv">1</span>))
+        tmp))))
+(<span class="kw">define</span><span class="fu"> tmp </span><span class="dv">0</span>)
+(post++ tmp) <span class="co">; ⟹ 0</span></code></pre>
+</section>
+<section id="syntax-case" class="level1">
+<h1>syntax-case</h1>
+<p>R6RS では syntax-case というキーワードもあったけど，R7RSではなくなっている． R6RSは扱わないので，触れるだけにする．</p>
+</section>
+<section id="新しい束縛は追加できない" class="level1">
+<h1>新しい束縛は追加できない</h1>
+<p>前の前の節で，(let ((tmp …))…)のようにしても変数名がリネームされると 言ったけど，逆に，tmpをローカル変数として追加したりすることはできない．</p>
+</section>
+<section id="clojureのマクロ" class="level1">
+<h1>Clojureのマクロ</h1>
+<ol type="1">
+<li>defmacro</li>
+<li>変数補足は発生しない</li>
+<li>auto-gensym</li>
+<li>変数補足を利用できる</li>
+<li>ディスパッチマクロ</li>
+</ol>
+</section>
+<section id="defmacro-1" class="level1">
+<h1>defmacro</h1>
+<p>Clojure のマクロは， defmacro を使って書く． ちなみに Clojure は変数の再代入を許していないので，インクリメントを ただ値を返すだけにする．これではインクリメントである意味がないけど， 例なので許してほしい．また， Clojure ではマクロ文字,の代わりに マクロ文字~を使う．</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defmacro</span><span class="fu"> ++ </span>[var] `(<span class="kw">+</span> <span class="kw">~var</span> <span class="dv">1</span>))
+(<span class="kw">def</span><span class="fu"> i </span><span class="dv">0</span>)
+(++ i)  <span class="co">; ⟹ 1</span></code></pre>
+</section>
+<section id="変数補足は発生しない" class="level1">
+<h1>変数補足は発生しない</h1>
+<p>たとえば次のように書くと，危険だということでコンパイルエラーになる． リネームされるというわけではないけど，思わぬバグは発生しにくくなっている．</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defmacro</span><span class="fu"> post++ </span>[var]
+  `(<span class="kw">let</span> [tmp <span class="kw">~var]</span>
+    (<span class="kw">+</span> <span class="kw">~var</span> <span class="dv">1</span>)
+    tmp))
+(<span class="kw">def</span><span class="fu"> tmp </span><span class="dv">0</span>)
+(post++ tmp)</code></pre>
+</section>
+<section id="auto-gensym" class="level1">
+<h1>auto-gensym</h1>
+<p>変数名のあとに # を書くと， gensym で置き換えられる</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defmacro</span><span class="fu"> post++ </span>[var]
+  `(<span class="kw">let</span> [tmp# <span class="kw">~var]</span>
+    (<span class="kw">+</span> <span class="kw">~var</span> <span class="dv">1</span>)
+    tmp#))
+(<span class="kw">def</span><span class="fu"> tmp </span><span class="dv">0</span>)
+(post++ tmp)  <span class="co">; ⟹ 0</span></code></pre>
+</section>
+<section id="変数補足を利用できる" class="level1">
+<h1>変数補足を利用できる</h1>
+<p>アナフォリックマクロみたいなものを書きたい場合，シンボルに ~' とつける． これはマクロ文字~とマクロ文字'の組み合わせではなく，独立したマクロ文字であることに注意</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defmacro</span><span class="fu"> aif </span>[x y z]
+  `(<span class="kw">let</span> [<span class="kw">~&#39;it</span> <span class="kw">~x]</span>
+    (<span class="kw">if</span> <span class="kw">~&#39;it</span> <span class="kw">~y</span> <span class="kw">~z)))</span>
+(aif &#39;(x y z) it nil)   <span class="co">; ⟹ &#39;(x y z)</span></code></pre>
+</section>
+<section id="ディスパッチマクロ" class="level1">
+<h1>ディスパッチマクロ</h1>
+<p>リードマクロに似たディスパッチマクロというものがある． これは必ず # から始める必要があるけど基本的にはリードマクロと同じようなものである．</p>
+</section>
+<section id="マクロの利用例" class="level1">
+<h1>マクロの利用例</h1>
+<p>マクロの利用例を紹介する．</p>
+<ol type="1">
+<li>構文をつくる</li>
+<li>コンテキストをつくる</li>
+<li>毎回入力するのが面倒なものを省略する</li>
+<li>コンパイル時計算</li>
+<li>アナフォリックマクロ</li>
+<li>言語をつくる</li>
+</ol>
+</section>
+<section id="構文をつくる" class="level1">
+<h1>構文をつくる</h1>
+<p>おそらくいちばん頻度の高い利用方法がこれで，一般的なLisp方言は， 過半数の構文をライブラリとして実装している． たとえば，Clojureにはdefとfnという構文がある．(def x y)は，yという値にxという名前をつける． 一方，fnは(fn [x] x)のように書いて無名関数をつくる．すると自然に，関数に名前をつける場合は， (def f (fn [x] x))のように書くことになる．しかし，このようなコードは頻出する． あるいは，defのほうかに，関数をつくる構文があると便利かもしれない．そういう場合，マクロを 使って，defnをdefとfnを組み合わせたものとして定義できる．</p>
+<pre class="sourceCode clojure"><code class="sourceCode clojure">(<span class="kw">defmacro</span><span class="fu"> our-defn </span>[<span class="kw">name</span> &amp; spec]
+  `(<span class="kw">def</span><span class="fu"> </span><span class="kw">~name</span> (<span class="kw">fn</span> <span class="kw">~@spec)))</span>
+(our-defn f [x] x)</code></pre>
+</section>
+<section id="コンテキストをつくる" class="level1">
+<h1>コンテキストをつくる</h1>
+<p>次に利用する頻度が高いのがたぶんこれであろう． たとえば，letは新しいコンテキストをつくってローカル変数を導入する． しかし，もしかしたら，ユーザが新しいローカル変数を導入する構文を つくりたいかもしれない．例としてはforeachなどがある． foreachは (foreach item iter body)のように書くとitemをローカル変数として導入したい． そういう場合，マクロを使えば実現できるだろう．</p>
+</section>
+<section id="省略する" class="level1">
+<h1>省略する</h1>
+<p>プログラムを書いているとき，あなたはおそらく毎回同じようなコードを書くことに 悩まされるはずである．それがある種のルーチンに分離できるものであればいいが， 現実はそうはいかない．たとえば，JavaScriptを書いていて，functionと毎回書くのが面倒だと いうのは誰もが感じることだろう．そういう場合，マクロを使えば，functionの代わりに fnというキーワードに変更できる．たとえば，Common Lispではlambdaというキーワードがあるけど， lambdaは長すぎるからlaにしたいとしよう．それもマクロなら簡単に実現できる．</p>
+<pre class="sourceCode lisp"><code>(defmacro la (x y)
+  `(lambda ,x ,y))
+(la (x) x) ; ⟹ #&lt;FUNCTION :LAMBDA (X) X&gt;</code></pre>
+</section>
+<section id="コンパイル時計算" class="level1">
+<h1>コンパイル時計算</h1>
+<p>ふつうの実装では，マクロの展開はコンパイル時におこなう． マクロは実行時と同じだけの計算できる．したがって，マクロでコンパイル時計算をおこなうことも もちろん可能だ．ほとんどのケースでは必要ないだろうが， もしかしたら，コンパイル時に，定数を計算して定数に展開したいことがあるかも しれない．そういう場合，マクロを使うと言う選択肢もある．</p>
+</section>
+<section id="アナフォリックマクロ" class="level1">
+<h1>アナフォリックマクロ</h1>
+<p>たとえば， if の条件式で評価された価を then 節で使いたいとか， while の条件式で評価された価を本体で使いたいということはよくあることだ． if it = expr…のようにして変数を書く手もあるが，よくあるケースなので it を省略できるように しておけば便利そうである．マクロは新しい変数が存在するように展開することもできるので， このようなものも実装できる．</p>
+</section>
+<section id="言語をつくる" class="level1">
+<h1>言語をつくる</h1>
+<p>そう，Lispの本当の力…それは，その言語自体をその言語言語で拡張できることだ． 構文やコンテキストなんてものはささやかなものだ．本当の力は，S式で書かれたまったく別の言語を見たとき 完全に理解できる．普通の人は，型システムをマクロで実装しようなんて思わないだろう． しかし，条件さえ整えば，動的言語であるLispに強力な型システムを積むことすらできる． ほかの言語のように，値の型がまちがっていたらエラーにするなんていう動的検査ではない． 本当に静的な検査をやってのけてしまうのだ．実例は， Clojure では core.typed， Scheme では typed/racket などがある．興味があれば，調べてみてほしい．</p>
+</section>
+<section id="終わりに" class="level1">
+<h1>終わりに</h1>
+<p>いかがだっただろうか．Lispのマクロの力をすこしは感じ取って頂けたのではないだろうか． ともあれここまで読んでくれてありがとう! もしあなたにその気があれば，ぜひ Lispのうえに(<em>on lisp</em>)静的型付き言語を実装してみてほしい．そして高らかにLispを disるのだ!</p>
+</section>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: false,
+
+  // available themes are in /css/theme
+      theme: Reveal.getQueryHash().theme || 'simple', 
+  
+  // default/cube/page/concave/zoom/linear/fade/none
+      transition: Reveal.getQueryHash().transition || 'default',
+  
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+    { src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+    // { src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+  });
+
+</script>
+
+</body>
+</html>
