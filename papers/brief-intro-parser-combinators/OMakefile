@@ -6,3 +6,5 @@ brief-intro-parser-combinators.pdf: brief-intro-parser-combinators.tex
 $(BUILDDIR)/papers/brief-intro-parser-combinators.pdf: brief-intro-parser-combinators.pdf
   mkdir -p $(BUILDDIR)/papers
   cp brief-intro-parser-combinators.pdf $(BUILDDIR)/papers/brief-intro-parser-combinators.pdf
+
+$(BUILDDIR): $(BUILDDIR)/papers/brief-intro-parser-combinators.pdf

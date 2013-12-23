@@ -1,2 +1,0 @@
-$(BUILDDIR)/slide/macros-in-lisp.html: index.rst
-  pandoc -V theme\:simple --section-divs -t html5 -s --template ../../vendor/pandoc-reveal/template-revealjs.html -o $(BUILDDIR)/slide/macros-in-lisp.html index.rst

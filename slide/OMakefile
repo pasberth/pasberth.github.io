@@ -1,8 +1,14 @@
+$(BUILDDIR)/slide: $(BUILDDIR)/slide/css $(BUILDDIR)/slide/lib $(BUILDDIR)/slide/js
+  mkdir -p $(BUILDDIR)/slide
+
 $(BUILDDIR)/slide/css: ../vendor/reveal.js/css
+  mkdir -p $(BUILDDIR)/slide
   cp -r ../vendor/reveal.js/css $(BUILDDIR)/slide/css
 
 $(BUILDDIR)/slide/lib: ../vendor/reveal.js/lib
+  mkdir -p $(BUILDDIR)/slide
   cp -r ../vendor/reveal.js/lib $(BUILDDIR)/slide/lib
 
 $(BUILDDIR)/slide/js: ../vendor/reveal.js/js
+  mkdir -p $(BUILDDIR)/slide
   cp -r ../vendor/reveal.js/js $(BUILDDIR)/slide/js

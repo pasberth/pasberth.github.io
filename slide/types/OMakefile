@@ -1,0 +1,4 @@
+$(BUILDDIR)/slide/types.html: $(BUILDDIR)/slide source.rst
+  pandoc -V theme\:simple --section-divs -t html5 -s --template ../../vendor/pandoc-reveal/template-revealjs.html -o $(BUILDDIR)/slide/types.html source.rst
+
+$(BUILDDIR): $(BUILDDIR)/slide/types.html
