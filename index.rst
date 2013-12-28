@@ -3,6 +3,7 @@ pasberth.github.io
 
 .. rst-class:: list navigation
 
+   * `README <README.html>`_
    * `Papers <papers/index.html>`_
    * `Slide <slide/index.html>`_
    * `Gallery <gallery/index.html>`_
