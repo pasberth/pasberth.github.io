@@ -5,7 +5,7 @@ Source Code
 --------------------------------------------------------------------------------
 
 Source codes of the site are distributed on
-`GitHub <https://github.com/pasberth/pasberth.github.io>`_.
+`GitHub <https://github.com/pasberth/pasberth.github.io/tree/default>`_.
 
 LICENSE
 --------------------------------------------------------------------------------
