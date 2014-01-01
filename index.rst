@@ -8,4 +8,5 @@ pasberth.github.io
    * `Slide <slide/index.html>`_
    * `Gallery <gallery/index.html>`_
    * `Blog <blog/index.html>`_
+   * `Diary <diary/index.html>`_
    * `GitHub <https://github.com/pasberth>`_
