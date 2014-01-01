@@ -8,5 +8,8 @@ BUILDDIR = $(dir $(BUILDDIR))
 open build/C
 open build/OCaml
 
+USE_OCAMLFIND = true
+OCAMLFINDFLAGS = -syntax camlp4o -package js_of_ocaml.syntax
+
 .PHONY: all
 .SUBDIRS: . gallery blog $(foreach $(fun x => $(dirname $(x))), $(find -name OMakefile))

@@ -1,5 +1,5 @@
 OCAMLPACKS[] =
-  menhir
+  menhirLib
 
 OCAMLYACC = menhir
 
