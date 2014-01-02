@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    
+      <title>OCaml から MySQL を使用する</title>
+    
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+</head>
+<body>
+
+    <div class="body">
+        
+  <div class="section" id="ocaml-mysql">
+<h1>OCaml から MySQL を使用する<a class="headerlink" href="#ocaml-mysql" title="Permalink to this headline">¶</a></h1>
+<p>OCaml から MySQL を使ってみた．</p>
+<p><a class="reference external" href="http://ocaml-mysql.forge.ocamlcore.org">ocaml-mysql</a> を使えばよい．</p>
+<p>インストール:</p>
+<div class="highlight-sh"><div class="highlight"><pre>opam install ocaml-mysql
+</pre></div>
+</div>
+<p>試しに書いたコード:</p>
+<div class="highlight-ocaml"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">open</span> <span class="nc">Mysql</span>
+
+<span class="k">let</span> <span class="n">user</span> <span class="o">=</span> <span class="c">(* Replace this comment with login user. *)</span>
+<span class="k">let</span> <span class="n">pwd</span> <span class="o">=</span> <span class="c">(* Replace this comment with login password. *)</span>
+
+<span class="k">let</span> <span class="n">localdb</span> <span class="o">=</span>
+  <span class="o">{</span>
+    <span class="n">dbhost</span>      <span class="o">=</span> <span class="nc">Some</span><span class="o">(</span><span class="s2">&quot;localhost&quot;</span><span class="o">);</span>
+    <span class="n">dbname</span>      <span class="o">=</span> <span class="nc">Some</span><span class="o">(</span><span class="s2">&quot;ocaml_mysql_test_db&quot;</span><span class="o">);</span>
+    <span class="n">dbport</span>      <span class="o">=</span> <span class="nc">None</span><span class="o">;</span>
+    <span class="n">dbpwd</span>       <span class="o">=</span> <span class="nc">Some</span><span class="o">(</span><span class="n">pwd</span><span class="o">);</span>
+    <span class="n">dbuser</span>      <span class="o">=</span> <span class="nc">Some</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+    <span class="n">dbsocket</span>    <span class="o">=</span> <span class="nc">None</span><span class="o">;</span>
+  <span class="o">}</span>
+
+<span class="k">let</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">connect</span> <span class="n">localdb</span>
+<span class="k">let</span> <span class="n">exec1</span> <span class="o">=</span> <span class="n">exec</span> <span class="n">connection</span>
+
+
+<span class="k">let</span> <span class="bp">()</span> <span class="o">=</span> <span class="k">begin</span>
+  <span class="n">ping</span> <span class="n">connection</span><span class="o">;</span>
+  <span class="n">exec1</span> <span class="s2">&quot;CREATE TABLE ocaml_mysql_test_table (ocaml_mysql_test_column TEXT);&quot;</span><span class="o">;</span>
+  <span class="n">exec1</span> <span class="s2">&quot;INSERT INTO ocaml_mysql_test_table (ocaml_mysql_test_column) VALUES (</span><span class="se">\&quot;</span><span class="s2">test data 1</span><span class="se">\&quot;</span><span class="s2">);&quot;</span><span class="o">;</span>
+  <span class="n">exec1</span> <span class="s2">&quot;INSERT INTO ocaml_mysql_test_table (ocaml_mysql_test_column) VALUES (</span><span class="se">\&quot;</span><span class="s2">test data 2</span><span class="se">\&quot;</span><span class="s2">);&quot;</span><span class="o">;</span>
+  <span class="n">exec1</span> <span class="s2">&quot;INSERT INTO ocaml_mysql_test_table (ocaml_mysql_test_column) VALUES (</span><span class="se">\&quot;</span><span class="s2">test data 3</span><span class="se">\&quot;</span><span class="s2">);&quot;</span><span class="o">;</span>
+  <span class="k">let</span> <span class="n">res</span> <span class="o">=</span> <span class="n">exec1</span> <span class="s2">&quot;SELECT ocaml_mysql_test_column FROM ocaml_mysql_test_table;&quot;</span> <span class="k">in</span>
+  <span class="nn">Mysql</span><span class="p">.</span><span class="n">iter</span>
+        <span class="n">res</span>
+        <span class="o">(</span><span class="nn">Array</span><span class="p">.</span><span class="n">iter</span> <span class="o">(</span><span class="k">function</span>
+            <span class="o">|</span> <span class="nc">None</span> <span class="o">-&gt;</span>
+                <span class="n">print_endline</span> <span class="s2">&quot;None&quot;</span><span class="o">;</span>
+            <span class="o">|</span> <span class="nc">Some</span><span class="o">(</span><span class="n">line</span><span class="o">)</span> <span class="o">-&gt;</span>
+                <span class="n">print_string</span> <span class="s2">&quot;got: &quot;</span><span class="o">;</span>
+                <span class="n">print_endline</span> <span class="n">line</span><span class="o">));</span>
+  <span class="n">disconnect</span> <span class="n">connection</span><span class="o">;</span>
+<span class="k">end</span>
+</pre></div>
+</td></tr></table></div>
+<p>コンパイル:</p>
+<div class="highlight-sh"><div class="highlight"><pre>ocamlfind ocamlc -package mysql -linkpkg mysql_test.ml
+</pre></div>
+</div>
+<p>当然ですが MySQL サーバも起動して， サーバ側でデータベースや
+ユーザもつくってあげないといけません．</p>
+</div>
+
+
+    </div>
+
+</body>
+</html>
