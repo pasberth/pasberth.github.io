@@ -14,6 +14,6 @@ pasberth.github.io/read
    -
    *リーダブルコード――より良いコードを書くためのシンプルで実践的なテクニック*
    -
-   Dustin Boswell, Trevor Foucher　著
+   Dustin Boswell, Trevor Foucher 著
    -
-   角 征典　訳
+   角 征典 訳
