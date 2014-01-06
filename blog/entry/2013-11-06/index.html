@@ -25,12 +25,9 @@
 {x::Int,y::String} のように書いたとすれば， これは Int 型の x と
 String 型の y を持つような型のことになる．</p>
 <p>そこで，次のような関数を考えてみる．</p>
-<img class="texfigure" height="16" src="../../../_images/subt1.png" width="126" />
 <p>r#x というのは， r のメンバ x にアクセスするという意味だ．</p>
 <p>そこでこの関数に，</p>
-<img class="texfigure" height="16" src="../../../_images/subt2.png" width="224" />
 <p>のような引数を適用したとしよう．しかし次のような項は型付けできない．</p>
-<img class="texfigure" height="16" src="../../../_images/subt3.png" width="374" />
 <p>ラムダが引数の型として <tt class="docutils literal"><span class="pre">{x:Nat}</span></tt> を要求しているのに対して，
 実際の引数は <tt class="docutils literal"><span class="pre">{x:Nat,y:Nat}</span></tt> という型を持つ．もし型エラーになる
 理由がわからないのであれば， <tt class="docutils literal"><span class="pre">{x:Nat}</span></tt> を Int， <tt class="docutils literal"><span class="pre">{x:Nat,y:Nat}</span></tt> を
@@ -45,9 +42,7 @@ String などとは違い， <tt class="docutils literal"><span class="pre">{x:N
 <h2>部分型関係<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>形式的な議論はしない．厳密な定義は型システム入門を読んでみてほしい．
 要約すると，たとえば，</p>
-<img class="texfigure" height="16" src="../../../_images/subtyping1.png" width="117" />
 <p>は</p>
-<img class="texfigure" height="16" src="../../../_images/subtyping2.png" width="62" />
 <p>の部分型である，というような関係をいう．
 メンバの数が多いほうが部分型なのだ．部分型は．オブジェクト指向言語に慣れ親しんだ
 人には，サブクラスと言った方がわかりやすいかもしれない．スーパークラスのほうが
@@ -57,19 +52,15 @@ String などとは違い， <tt class="docutils literal"><span class="pre">{x:N
 簡単に言うと， S は T にアップキャストできるというわけだ．( T は S にダウンキャスト
 できない ． )</p>
 <p>この関係を</p>
-<img class="texfigure" height="12" src="../../../_images/subtyperel.png" width="46" />
 <p>のように書く．たとえば</p>
-<img class="texfigure" height="16" src="../../../_images/subtyperelexample.png" width="206" />
 <p>である．</p>
 <p>関数の引数や関数の戻り値に部分型を使うとき，どのように操作したら安全かを
 指定する必要がある．これは次のように書くのがいちばんわかりやすい．</p>
-<img class="texfigure" height="36" src="../../../_images/subtypearr.png" width="333" />
 <p>まず左の前提(横線より上の左側)について．これは関数の引数に関する制約を言ってる．
 もし T_1 が S_1 の部分型なら， S_1→S_2 は T_1→T_2 の部分型である．
 S_1→S_2 は， T_1→T_2 にアップキャストできると言ってる．</p>
 <p>例示は理解の試金石だ．具体例で考えよう．
 次のように置き換えてみると，わかりやすいと思う．</p>
-<img class="texfigure" height="38" src="../../../_images/subtypearrex1.png" width="409" />
 <p>この規則が言ってるのは， <tt class="docutils literal"><span class="pre">{x:Nat}</span></tt> を受け取る関数は，
 <tt class="docutils literal"><span class="pre">{x:Nat,y:Nat}</span></tt> も受け取ることができる，ということだ．</p>
 <p>「もし T_1 が S_1 の部分型なら， S_1→S_2 は T_1→T_2 の部分型である」
@@ -78,7 +69,6 @@ S_1→S_2 は， T_1→T_2 にアップキャストできると言ってる．</
 <p>次の右側の前提について．これは関数の戻り値に関する制約を言ってる．
 もし S_2 が T_2 の部分型なら， S_1→S_2 は T_1→T_2 の部分型である．</p>
 <p>次のように置き換えてみると，わかりやすいと思う．</p>
-<img class="texfigure" height="38" src="../../../_images/subtypearrex2.png" width="409" />
 <p>この規則が言ってるのは， <tt class="docutils literal"><span class="pre">{x:Nat,y:Nat}</span></tt> を返す関数は，
 <tt class="docutils literal"><span class="pre">{x:Nat}</span></tt> を返す関数とみなすこともできる (キャストできる)，
 ということだ．</p>

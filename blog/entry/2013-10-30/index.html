@@ -26,10 +26,8 @@ T の具体例はとくに制限していない (Int でも Stringでもよい)�
 の型は T→T&#8217; だから， 左の x の T の具体例は T→T&#8217; ということになる．
 したがって，左の x は (T→T&#8217;)→T&#8217; という型を持つ．しかし，右の x は T→T&#8217; だ．
 左の x と右の x が違う型を持ってしまった．</p>
-<img alt="App1" class="texfigure" height="37" src="../../../_images/app1.png" width="401" />
 <p>型を合わせるため，右の x を (T→T&#8217;)→T&#8217; だということにする．そうすると
 今度は左の x は ((T→T&#8217;)→T&#8217;)→T&#8217; ということになってしまう．</p>
-<img alt="App2" class="texfigure" height="37" src="../../../_images/app2.png" width="450" />
 <p>この議論が無限に繰り返されてしまうわけだ．
 簡単に要約すると，たとえば， <tt class="docutils literal"><span class="pre">(λx.xx)</span></tt> のようなラムダに型をつけることは
 できないということだ．実際， GHCi で <tt class="code highlight haskell docutils literal"><span class="punctuation"><span class="pre">(</span></span><span class="name function"><span class="pre">\</span></span><span class="name"><span class="pre">x</span></span> <span class="operator word"><span class="pre">-&gt;</span></span> <span class="name"><span class="pre">x</span></span> <span class="name"><span class="pre">x</span></span><span class="punctuation"><span class="pre">)</span></span></tt> のようにすると
@@ -80,11 +78,9 @@ T の具体例はとくに制限していない (Int でも Stringでもよい)�
 </div>
 <p>さて，本筋としてはこれで Yコンビネータを型付けできるかどうかだ．
 実際にやってみよう． まず，こういう推論規則があると考える．</p>
-<img alt="Rec" class="texfigure" height="98" src="../../../_images/rec.png" width="364" />
 <p>f:Y→Y かつ x:(μX.X→Y) だということにすると次の
 ようにして λf.(λx.f(xx))(λx.f(xx)) に (Y→Y)→Y という
 型をつけることができる</p>
-<img alt="TypedY" class="texfigure" height="322" src="../../../_images/y.png" width="397" />
 <div class="highlight-ocaml"><div class="highlight"><pre><span class="k">let</span> <span class="n">y</span> <span class="o">:</span> <span class="o">(</span><span class="k">&#39;</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">a</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">a</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">f</span> <span class="o">-&gt;</span>
   <span class="k">let</span> <span class="n">j</span> <span class="o">:</span> <span class="o">(</span><span class="k">&#39;</span><span class="n">b</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">c</span> <span class="k">as</span> <span class="k">&#39;</span><span class="n">b</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">&#39;</span><span class="n">c</span> <span class="o">=</span> <span class="k">fun</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">f</span> <span class="o">(</span><span class="n">x</span> <span class="n">x</span><span class="o">)</span> <span class="k">in</span>
   <span class="n">j</span> <span class="n">j</span>
