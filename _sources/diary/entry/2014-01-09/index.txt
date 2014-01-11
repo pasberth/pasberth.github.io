@@ -10,6 +10,7 @@
 読みたい:
 
 * `hadoop-29808502 <http://www.slideshare.net/tokibito/hadoop-29808502>`_
+* `okasaki.pdf <http://www.cs.cmu.edu/~rwh/theses/okasaki.pdf>`_
 
 意味がわかりません＾＾；
 
