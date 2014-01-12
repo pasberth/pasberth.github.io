@@ -29,8 +29,10 @@
 という関数は提供したいが， list.t 自体は提供したくない．そういった場合，
 どうすればよいだろうか．</p>
 <p>そこで，まず， list.t を x， head や tail を持つパッケージを T だということにして，</p>
+<img class="texfigure" height="12" src="../../../_images/exists.png" width="33" />
 <p>と書く．T を満たす x が存在する，と読む． いまや head のシグネチャは
 <tt class="code highlight ocaml docutils literal"><span class="name"><span class="pre">head</span></span> <span class="operator"><span class="pre">:</span></span> <span class="keyword"><span class="pre">'</span></span><span class="name"><span class="pre">a</span></span> <span class="name"><span class="pre">x</span></span> <span class="operator"><span class="pre">-&gt;</span></span> <span class="keyword"><span class="pre">'</span></span><span class="name"><span class="pre">a</span></span></tt> ということになる．T を具体的に書けば</p>
+<img class="texfigure" height="108" src="../../../_images/exists1.png" width="194" />
 <p>のようになる．ついでに， nil や cons も最初からあるということに
 しておいた． x はなんだかわからないけど，とにかく存在する型だ．
 forall のようにすべての型をそこに置換してよいわけではない．
@@ -56,6 +58,7 @@ x の部分に置換してよい型は高々ひとつだろう． head はその
 <div class="section" id="id3">
 <h2>存在型オブジェクト<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <p>型システム入門によれば，存在型を用いてオブジェクト指向的なデータ抽象ができるらしい．</p>
+<img class="texfigure" height="126" src="../../../_images/obj.png" width="96" />
 </div>
 <div class="section" id="id4">
 <h2>全称型で存在型をつくる<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>

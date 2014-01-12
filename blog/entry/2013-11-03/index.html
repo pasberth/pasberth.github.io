@@ -39,12 +39,16 @@
 <p>型再構築の話をする前に，型代入の話をする．型変数とか，型代入って一体なんだろう？　型システム
 入門ではとても形式的に定義されているようだけど，ここでは直感的な例で説明をする．</p>
 <p>たとえば，</p>
+<img class="texfigure" height="15" src="../../../_images/aimplya.png" width="65" />
 <p>のような f があったとする． f は， Nat→Nat にも， String→String にもなれる．
 α→α の α を Nat に置き換え， Nat→Nat を得る操作を代入という．
 α というような代入できる型のことを型変数という．</p>
 <p>この例で，代入という操作 σ を</p>
+<img class="texfigure" height="16" src="../../../_images/subst.png" width="98" />
 <p>のように書く．それから，代入 σ を</p>
+<img class="texfigure" height="15" src="../../../_images/aimplya.png" width="65" />
 <p>に適用することを，</p>
+<img class="texfigure" height="16" src="../../../_images/applysubst.png" width="133" />
 <p>のように書く．</p>
 <p>代入 σ を f に適用すると f:Nat→Nat が得られる．</p>
 </div>
@@ -53,15 +57,19 @@
 <p>項の型に型変数が含まれているが，そのままでは型付けできないときがある．
 しかし，そのような場合でも，うまく代入すれば，整合性がとれる場合がある．
 たとえば，</p>
+<img class="texfigure" height="16" src="../../../_images/untypedlambda.png" width="129" />
 <p>のようなラムダが書いてあったとする．このままでは，型が合わない．
 しかし， α を α→α に， β を α に置き換えれば，うまく型が合う．
 項 t にそのような代入 σ が存在するとき， σ と σ を t に適用した型を合わせたペア
 (σ, σt) を解という．解はひとつではないかもしれない．たとえば，この項の解には
 次のようなものが考えられる．</p>
-<ul class="simple">
-<li></li>
-<li></li>
-<li></li>
+<ul>
+<li><img class="first texfigure" height="16" src="../../../_images/typedlambda1.png" width="341" />
+</li>
+<li><img class="first texfigure" height="35" src="../../../_images/typedlambda2.png" width="525" />
+</li>
+<li><img class="first texfigure" height="16" src="../../../_images/typedlambda3.png" width="447" />
+</li>
 </ul>
 </div>
 <div class="section" id="id4">
@@ -76,15 +84,20 @@ Haskell でもよく見る ambiguous とかいうやつだ．
 から，この T を主要型という．</p>
 <p>単一化は，主要型を見つけ出す方法のことをいう．</p>
 <p>たとえば，</p>
+<img class="texfigure" height="16" src="../../../_images/untypedlambda.png" width="129" />
 <p>は，解として</p>
-<ul class="simple">
-<li></li>
-<li></li>
-<li></li>
+<ul>
+<li><img class="first texfigure" height="16" src="../../../_images/typedlambda1.png" width="341" />
+</li>
+<li><img class="first texfigure" height="35" src="../../../_images/typedlambda2.png" width="525" />
+</li>
+<li><img class="first texfigure" height="16" src="../../../_images/typedlambda3.png" width="447" />
+</li>
 </ul>
 <p>が考えられる．そこで，これを単一化すると，</p>
-<ul class="simple">
-<li></li>
+<ul>
+<li><img class="first texfigure" height="16" src="../../../_images/typedlambda1.png" width="341" />
+</li>
 </ul>
 <p>が選ばれる．</p>
 </div>
@@ -92,13 +105,17 @@ Haskell でもよく見る ambiguous とかいうやつだ．
 <h2>型再構築<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <p><a class="reference internal" href="#ans"><em>解</em></a> で α とか β を型としているラムダも，型代入すれば型を合わせられると言った．
 たとえば，</p>
+<img class="texfigure" height="16" src="../../../_images/untypedlambda.png" width="129" />
 <p>は，このままでは型が合わない．そこで，</p>
+<img class="texfigure" height="16" src="../../../_images/typedlambda1.png" width="341" />
 <p>このようにすればよい．
 しかし，もはや α とか β は書いてある意味がない．
 α や β は任意の型だからだ．そこで，これを省略することとする．</p>
+<img class="texfigure" height="16" src="../../../_images/untypedlambda1.png" width="83" />
 <p>これで型を明示しなくなった．しかも，α とか β が，
 書いていないが本当はそこに書いてあるのだということにすれば，
 前述したことと同じことをすれば</p>
+<img class="texfigure" height="16" src="../../../_images/typedlambda1.png" width="341" />
 <p>のように型をつけられるはずだ．</p>
 <p>解はあるが，主要型はないとき (解釈が曖昧なとき)　は，
 単一化ができないということでエラーにする．</p>
