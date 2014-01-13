@@ -30,3 +30,7 @@ illustrations
    * .. image:: dragongirl/thumbnail.png
         :alt: ドラゴンガール
         :target: dragongirl/index.html
+
+   * .. image:: kurukuru/thumbnail.gif
+        :alt: くるくる〜
+        :target: kurukuru/index.html
