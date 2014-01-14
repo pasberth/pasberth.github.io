@@ -6,7 +6,5 @@
 参考文献
 --------------------------------------------------------------------------------
 
-* `初心者が学ぶのに最適な5つのプログラミング言語
-    <http://www.lifehacker.jp/2014/01/140112best_programming_languages.html>`_
-* `初心者がプログラミングを学ぶときに通るべき道にあえて選択肢をおかず、全て1択で提示してみた
-    <http://www.lifehacker.jp/2014/01/140112best_programming_languages.html>`_
+* `初心者が学ぶのに最適な5つのプログラミング言語 <http://www.lifehacker.jp/2014/01/140112best_programming_languages.html>`_
+* `初心者がプログラミングを学ぶときに通るべき道にあえて選択肢をおかず、全て1択で提示してみた <http://www.lifehacker.jp/2014/01/140112best_programming_languages.html>`_
