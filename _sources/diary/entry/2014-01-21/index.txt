@@ -10,7 +10,7 @@
 
 興味深い:
 
-* `チュートリアル 2014/Jan/8 OS周りのセキュリティ対策<http://www.slideshare.net/suzaki/os-30235081>`_
+* `チュートリアル 2014/Jan/8 OS周りのセキュリティ対策 <http://www.slideshare.net/suzaki/os-30235081>`_
 * `ROPgadget - Gadgets finder and auto-roper <http://shell-storm.org/project/ROPgadget/>`_
 * `ROPEME – ROP Exploit Made Easy <http://www.vnsecurity.net/2010/08/ropeme-rop-exploit-made-easy/>`_
 
