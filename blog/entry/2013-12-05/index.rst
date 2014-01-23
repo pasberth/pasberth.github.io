@@ -6,7 +6,6 @@
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-
 どうやっても絵がうまくならない．いろいろ描いても，一向に向上する気配がない．その原因は，
 とどのつまり，絵を描いてる総量が絶対的に少ないのだ．ぼくが絵を描くのは，多くても1ヶ月に1度
 くらいだ．たとえば，1ヶ月に1度，100行のコードを書いたからといって，プログラミングを身につけ
