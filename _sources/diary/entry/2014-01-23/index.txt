@@ -22,3 +22,12 @@
 
 .. figure:: a.png
     :width: 600px
+
+興味深い:
+
+* `tr2007002_packrat.pdf <http://www.vpri.org/pdf/tr2007002_packrat.pdf>`_
+* `n3843.pdf <http://open-std.org/jtc1/sc22/wg21/docs/papers/2014/n3843.pdf>`_
+* `パターン認識と機械学習 上 <http://www.amazon.co.jp/gp/product/4621061224?ie=UTF8&camp=1207&creative=8411&creativeASIN=4621061224&linkCode=shr&tag=chosser-22>`_
+* `The 67th Yokohama kernel reading party  <http://www.youtube.com/watch?v=0-vWT-t0UHg>`_
+* `malloc の旅 <http://www.slideshare.net/kosaki55tea/glibc-malloc>`_
+* `RAML <http://raml.org/>`_
