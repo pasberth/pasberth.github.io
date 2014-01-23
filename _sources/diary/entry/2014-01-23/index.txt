@@ -1,0 +1,24 @@
+2014-01-22
+================================================================================
+
+.. raw:: html
+
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+進捗ダメです．
+
+.. raw:: html
+
+    <blockquote class="twitter-tweet" lang="ja"><p>塗ってもいいのよ線画 <a href="http://t.co/x2OCjGiG5M">http://t.co/x2OCjGiG5M</a></p>&mdash; あいこ (@Aiko3dayo) <a href="https://twitter.com/Aiko3dayo/statuses/426314968556765185">2014, 1月 23</a></blockquote>
+
+というわけで塗った．
+
+.. raw:: html
+
+    <blockquote class="twitter-tweet" lang="ja"><p><a href="https://twitter.com/Aiko3dayo">@Aiko3dayo</a> <a href="http://t.co/vTEyRgxGVC">http://t.co/vTEyRgxGVC</a> 塗ってみました</p>&mdash; パスベルス (@pasberth) <a href="https://twitter.com/pasberth/statuses/426337271638278144">2014, 1月 23</a></blockquote>
+
+絵を1枚描いた．
+
+.. figure:: a.png
+    :width: 600px
