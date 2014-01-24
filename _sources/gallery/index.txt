@@ -34,3 +34,7 @@ illustrations
    * .. image:: kurukuru/thumbnail.gif
         :alt: くるくる〜
         :target: kurukuru/index.html
+
+   * .. image:: ludovika/thumbnail.png
+        :alt: ルドヴィカ・ファン・ベートヴェン
+        :target: ludovika/index.html
