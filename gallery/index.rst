@@ -36,5 +36,5 @@ illustrations
         :target: kurukuru/index.html
 
    * .. image:: ludovika/thumbnail.png
-        :alt: ルドヴィカ・ファン・ベートヴェン
+        :alt: ルドヴィカ・ファン・ベートーヴェン
         :target: ludovika/index.html
