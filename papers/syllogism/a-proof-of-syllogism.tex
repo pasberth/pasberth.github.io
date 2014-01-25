@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage{../sty/proof}
+
+\title{A proof of syllogism}
+\author{Pasberth}
+\date{January 25, 2014}
+
+\begin{document}
+
+\maketitle
+
+\infer
+{
+  (\beta \rightarrow \gamma)
+  \rightarrow (\alpha \rightarrow \beta)
+  \rightarrow \alpha
+  \rightarrow \gamma
+}
+{
+  \infer
+  {
+    (\alpha \rightarrow \beta)
+    \rightarrow \alpha
+    \rightarrow \gamma
+  }
+  {
+    \infer
+    {
+      \alpha \rightarrow \gamma
+    }
+    {
+      \infer
+      {
+        \gamma
+      }
+      {
+        \infer
+        {
+          \beta
+        }
+        {
+          \alpha \rightarrow \beta
+          &
+          \alpha
+        }
+        &
+        \beta \rightarrow \gamma
+      }
+    }
+  }
+}
+
+\end{document}
