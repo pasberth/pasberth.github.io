@@ -1,0 +1,10 @@
+a-proof-of-pleq2lem.pdf: a-proof-of-pleq2lem.tex
+  latex a-proof-of-pleq2lem.tex
+  latex a-proof-of-pleq2lem.tex
+  dvipdf a-proof-of-pleq2lem.dvi
+
+$(BUILDDIR)/papers/a-proof-of-pleq2lem.pdf: a-proof-of-pleq2lem.pdf
+  mkdir -p $(BUILDDIR)/papers
+  cp a-proof-of-pleq2lem.pdf $(BUILDDIR)/papers/a-proof-of-pleq2lem.pdf
+
+$(BUILDDIR): $(BUILDDIR)/papers/a-proof-of-pleq2lem.pdf
