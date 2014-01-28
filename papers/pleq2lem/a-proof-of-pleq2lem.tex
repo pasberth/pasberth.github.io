@@ -430,8 +430,33 @@ First, I prepare the following rules of inference, for the proof.
 } \\
 {\it Qed}. \\
 \\
+
 {\it Theorem}. $$(\alpha \lor \neg \alpha) \vdash ((\alpha \rightarrow \beta) \rightarrow \alpha) \rightarrow \alpha$$
 {\it Proof}. \\
+\infer
+{
+  \neg \alpha \vdash ((\alpha \rightarrow \beta) \rightarrow \alpha) \rightarrow \alpha
+}
+{
+  \infer
+  {
+    \neg \alpha, (\alpha \rightarrow \beta) \rightarrow \alpha \vdash \alpha
+  }
+  {
+    (\alpha \rightarrow \beta) \rightarrow \alpha \vdash (\alpha \rightarrow \beta) \rightarrow \alpha
+    &
+    \infer
+    {
+      \neg \alpha \vdash \alpha \rightarrow \beta
+    }
+    {
+      \vdash \neg \alpha \rightarrow \alpha \rightarrow \beta
+      &
+      \neg \alpha \vdash \neg \alpha
+    }
+  }
+} \\
+\\
 \infer
 {
   \alpha \lor \neg \alpha \vdash ((\alpha \rightarrow \beta) \rightarrow \alpha) \rightarrow \alpha
@@ -454,29 +479,7 @@ First, I prepare the following rules of inference, for the proof.
     \neg \alpha \vdash ((\alpha \rightarrow \beta) \rightarrow \alpha) \rightarrow \alpha
   }
   {
-    \infer
-    {
-      \neg \alpha \vdash ((\alpha \rightarrow \beta) \rightarrow \alpha) \rightarrow \alpha
-    }
-    {
-      \infer
-      {
-        \neg \alpha, (\alpha \rightarrow \beta) \rightarrow \alpha \vdash \alpha
-      }
-      {
-        (\alpha \rightarrow \beta) \rightarrow \alpha \vdash (\alpha \rightarrow \beta) \rightarrow \alpha
-        &
-        \infer
-        {
-          \neg \alpha \vdash \alpha \rightarrow \beta
-        }
-        {
-          \vdash \neg \alpha \rightarrow \alpha \rightarrow \beta
-          &
-          \neg \alpha \vdash \neg \alpha
-        }
-      }
-    }
+    {\bf from\ above}
   }
 } \\
 {\it Qed}.
