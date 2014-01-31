@@ -38,3 +38,11 @@ illustrations
    * .. image:: ludovika/thumbnail.png
         :alt: ルドヴィカ・ファン・ベートーヴェン
         :target: ludovika/index.html
+
+   * .. image:: mephi/thumbnail.png
+        :alt: メフィストフェレス
+        :target: mephi/index.html
+
+   * .. image:: yuri/thumbnail.png
+        :alt: 百合
+        :target: yuri/index.html
