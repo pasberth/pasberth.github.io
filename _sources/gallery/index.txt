@@ -46,3 +46,7 @@ illustrations
    * .. image:: yuri/thumbnail.png
         :alt: 百合
         :target: yuri/index.html
+
+   * .. image:: yuri2/thumbnail.png
+        :alt: 百合2
+        :target: yuri2/index.html
