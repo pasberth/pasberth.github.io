@@ -48,3 +48,10 @@ pasberth.github.io/read
 --------------------------------------------------------------------------------
 
 * `意外と知られていない構造化プログラミング、あるいは構造化プログラミングはデータも手続きと一緒に抽象化する、あるいはストロヴストルップのオブジェクト指向プログラミング史観 <http://www.tatapa.org/~takuo/structured_programming/structured_programming.html>`_
+
+2014-02-12
+--------------------------------------------------------------------------------
+
+* `GHC/Type families <http://www.haskell.org/haskellwiki/GHC/Type_families>`_
+* `7.7. Type families <http://www.haskell.org/ghc/docs/latest/html/users_guide/type-families.html>`_
+* `Type Families <http://faithandbrave.hateblo.jp/entry/20120106/1325832431>`_
