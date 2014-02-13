@@ -49,6 +49,38 @@ pasberth.github.io/read
 
 * `意外と知られていない構造化プログラミング、あるいは構造化プログラミングはデータも手続きと一緒に抽象化する、あるいはストロヴストルップのオブジェクト指向プログラミング史観 <http://www.tatapa.org/~takuo/structured_programming/structured_programming.html>`_
 
+2014-02-03
+--------------------------------------------------------------------------------
+
+* *マグダラで眠れII*
+  -
+  支倉 凍砂 著
+  -
+  鍋島 テツヒロ イラスト
+
+2014-02-08
+--------------------------------------------------------------------------------
+
+* `百年の言語 --- The Hundred-Year Language <http://practical-scheme.net/trans/hundred-j.html>`_
+
+2014-02-09
+--------------------------------------------------------------------------------
+
+* `Haskellでのimportの使い方 <http://melpon.org/blog/haskell-import-qualified>`_
+
+2014-02-10
+--------------------------------------------------------------------------------
+
+* `Move pattern matching into CPS <http://manticore-wiki.cs.uchicago.edu/index.php/Move_pattern_matching_into_CPS>`_
+
+2014-02-11
+--------------------------------------------------------------------------------
+
+* `なんでも継続 <http://practical-scheme.net/docs/cont-j.html>`_
+* `継続の起源  <http://blog.practical-scheme.net/shiro?20120122-origin-of-continuations>`_
+* `SchemeとActor理論  <http://kreisel.fam.cx/webmaster/clog/img/www.ice.nuie.nagoya-u.ac.jp/~h003149b/lang/actor/actor.html>`_
+* `並列オブジェクト指向 <http://www.cs.is.noda.tus.ac.jp/~mune/oop.bak/node9.html>`_
+
 2014-02-12
 --------------------------------------------------------------------------------
 
