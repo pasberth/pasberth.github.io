@@ -87,3 +87,8 @@ pasberth.github.io/read
 * `GHC/Type families <http://www.haskell.org/haskellwiki/GHC/Type_families>`_
 * `7.7. Type families <http://www.haskell.org/ghc/docs/latest/html/users_guide/type-families.html>`_
 * `Type Families <http://faithandbrave.hateblo.jp/entry/20120106/1325832431>`_
+
+2014-02-15
+--------------------------------------------------------------------------------
+
+* `ガンダムビルドファイターズと「子どもにガンプラを売る意味」 <http://d.hatena.ne.jp/p_shirokuma/20140209>`_
