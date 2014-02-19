@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    
+      <title>余帰納型</title>
+    
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+</head>
+<body>
+
+    <div class="body">
+        
+  <div class="section" id="id1">
+<h1>余帰納型<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>帰納型(Inductive type) というものがあるが、
+余帰納型(CoInductive type) というものもあるらしい。
+正直、帰納型も、余帰納型も、あまりよく理解できていないので、
+ブログにするのは躊躇っていたのだけど、余帰納型という言葉を知らない人もいるだろうから、
+ひとまず今のぼくの理解をブログにしておく。</p>
+<p>数学で帰納法を習うだろうけども、帰納型というのは
+そういう意味で帰納的な型なのだ。
+Coq を勉強した方なら、たぶん一度は使ったことはあると思う、
+Inductive で宣言するアレだ。</p>
+<p>簡単にいえば、帰納というのは、 Haskell の data で
+宣言するようなものに近いといえる。 Haskell では、たとえばリストを、</p>
+<div class="highlight-haskell"><div class="highlight"><pre><span class="kr">data</span> <span class="kt">List</span> <span class="n">a</span> <span class="ow">=</span> <span class="kt">Nil</span> <span class="o">|</span> <span class="kt">Cons</span> <span class="n">a</span> <span class="p">(</span><span class="kt">List</span> <span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>のようにして宣言できる。これは、</p>
+<ol class="arabic simple">
+<li>nil はリストである</li>
+<li>l がリストならば、 cons x l はリストである</li>
+</ol>
+<p>というような定義をしている。</p>
+<p>このように、帰納的な定義をするから
+帰納型というわけだ。</p>
+<p>なんだ、簡単じゃんと思うなかれ。
+data と、Coq などの帰納型で重要な違いがひとつある。
+それは、帰納型においては、無限の構造(たとえば無限リスト)
+をつくることは許されないということだ。つまり、有限の長さを
+持たないとコンパイラに弾かれるというわけだ。</p>
+<p>どうして弾かれるのかというと、無限の構造というのは、
+Haskell なら遅延評価だからたまたま停止するが、
+けっきょくのところ、停止する保証がない構造だから。
+無限リストを許してしまうと、たとえば、
+map 関数にリストを渡したとして、この map 関数が無限に
+再帰しないで停止する保証は、すくなくとも型の情報には含まれていない。</p>
+<p>しかし、無限リストはたぶん便利だろう。
+そこで、帰納型ではない方法で、無限の構造を定義できたら便利だ。</p>
+<p>そういうときに、余帰納型を使う。
+余帰納型は、無限の構造に型付けする型で、
+余帰納型を使えば、無限の構造を扱っても必ず停止することが保証できる。</p>
+<p>Haskeller は、たぶん Ruby とかの動的言語や、 Java のような
+静的型付き言語に対して、「どうして
+型で区別しないのだろう？」と思うことがしばしばあるだろう。
+たとえば、  println みたいな入出力をともなう関数に、 IO で
+タグ付けしないのは、 Haskeller からすればとても不自然だ。
+Haskeller は、純粋な関数と、 IO をともなう関数を型で区別したがる。
+それは大事なことだ。同じように、もっと強力な型システムを持つ言語
+(Coqなど)から見ると、 Haskell の型はだいぶゆるい。どうして有限リストと
+無限リストを型で区別しないのだろう？　どうして再帰をともなう関数と
+そうでない関数を型で区別しないのだろう？　…など。
+帰納型と余帰納型はそういうふうに、有限の構造と無限の構造を型レベルで
+区別できるものだ(と思う)。</p>
+</div>
+
+
+    </div>
+
+</body>
+</html>
