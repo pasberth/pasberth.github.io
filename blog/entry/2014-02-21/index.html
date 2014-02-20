@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    
+      <title>遅延評価</title>
+    
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/main.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+</head>
+<body>
+
+    <div class="body">
+        
+  <div class="section" id="id1">
+<h1>遅延評価<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>遅延評価は、 Haskell などで採用されている評価戦略のことだ。
+遅延評価と先行評価について、すこし気になったので調べたことをまとめる。</p>
+<div class="section" id="id2">
+<h2>正格関数<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>正格関数とは、引数が ⊥ であるとき、戻り値も ⊥ となるような関数のことだ。つまり、ある関数
+f が f ⊥ = ⊥ を満たす場合、かつそのときに限り、 f は正格であるという  <a class="footnote-reference" href="#a" id="id3">[1]</a> <a class="footnote-reference" href="#b" id="id4">[2]</a> 。</p>
+</div>
+<div class="section" id="id5">
+<h2>正格言語と非正格言語<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>正格関数の定義によれば、先行評価を採用する多くの言語では、すべての関数は
+正格関数であるように見える。たとえば、 Ruby で、 ⊥ = fail および、すべての
+例外は ⊥ であると定義する。ただし、 fail は例外を発生させるメソッドだ。
+そこで、次のようにメソッドを呼び出したとする。</p>
+<div class="highlight-ruby"><div class="highlight"><pre><span class="n">f</span><span class="p">(</span><span class="nb">fail</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>このとき、 f がどんなメソッドにあるかに関わらず、結果は常に例外となる。
+したがって、すべてのメソッドは f ⊥ = ⊥ を満たすので、
+すべてのメソッドは正格関数であるといえる。</p>
+<p>遅延評価を採用する、 Haskell では、すべての関数が正格であるわけではない。
+Haskell では、 ⊥ = undefined である。
+まず、正格な関数が存在することを確かめてみる。</p>
+<div class="highlight-haskell"><div class="highlight"><pre><span class="nf">id</span> <span class="n">undefined</span>
+</pre></div>
+</div>
+<p>id ⊥ = ⊥ なので、 id は正格である。
+次に、正格でない関数が存在することを確かめてみる。</p>
+<div class="highlight-haskell"><div class="highlight"><pre><span class="kr">let</span> <span class="n">f</span> <span class="n">x</span> <span class="ow">=</span> <span class="mi">42</span> <span class="kr">in</span> <span class="n">f</span> <span class="n">undefined</span>
+</pre></div>
+</div>
+<p>これで f ⊥ = 42 となるので、この関数は
+正格ではないとえる。</p>
+<p>正格言語や、非正格言語という用語には、厳密な定義があるわけではないようだけれども、
+ある言語の関数がすべて正格であるならば、その言語は正格言語であるといい、ある言語に
+非正格な関数が存在するならば、その言語は非正格言語であると定義することもあるようだ <a class="footnote-reference" href="#a" id="id6">[1]</a> 。</p>
+<p>正格評価や、非正格評価というのは、たぶん、ある評価戦略ですべての関数が正格関数となるので
+あらば正格評価といい、非正格な関数が存在できるならば非正格評価というのであろう。</p>
+</div>
+<div class="section" id="id7">
+<h2>β簡約<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>1ステップのβ簡約とは、たとえば、 (λx.M)N→[N/x]M というように、
+項を評価することで得られる最小の関係をいう。
+ある種の項には、β簡約をする複数の経路が存在することがある。
+たとえば、 id(id M) という項を考えてみよう。
+ただし、 id = λx.x である。この項は、β簡約を繰り返すと最終的に
+M という形になるが、その経路はひとつではない。以下の2つが考えられる:</p>
+<ol class="arabic">
+<li><div class="first line-block">
+<div class="line">id(id M)     ≡ (λx.x)(id M)</div>
+<div class="line">→ [id M/x]x  ≡ id M          ≡ (λx.x)M</div>
+<div class="line">→ [M/x]x     ≡ M</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">id(id M)     ≡ id((λx.x)M)</div>
+<div class="line">→ id([M/x]x) ≡ id(M)           ≡ (λx.x)M</div>
+<div class="line">→ [M/x]x     ≡ M</div>
+</div>
+</li>
+</ol>
+<ol class="arabic simple">
+<li>では、 id(id M) の外側の id を先に簡約し、</li>
+</ol>
+<p>(2) では、 id(id M) の内側の (id M) を先に簡約している。
+(1) のように評価する戦略を遅延評価といい、
+(2) のように評価する戦略を先行評価という。</p>
+<p>この例では、遅延評価と先行評価の違いにあまりありがたみが感じられない
+ので、 const を使って簡約してみよう。
+const (id M) (id N) を考える。
+ただし const = λxy.x である。</p>
+<ol class="arabic">
+<li><div class="first line-block">
+<div class="line">const (id M) (id N)    ≡ (λxy.x) (id M) (id N)</div>
+<div class="line">→ ([id M/x]λy.x)(id N) ≡ (λy.id M)(id N)</div>
+<div class="line">→ [id N/y](id M)       ≡ id M                      ≡ (λx.x)M</div>
+<div class="line">→ [M/x]x               ≡ M</div>
+</div>
+</li>
+<li><div class="first line-block">
+<div class="line">const (id M) (id N)    ≡ const ((λx.x)M) (id N)</div>
+<div class="line">→ const ([M/x]x) (id N) ≡ const M (id N) ≡ const M ((λx.x)N)</div>
+<div class="line">→ const M ([N/x]x)     ≡ const M N ≡ (λxy.x) M N</div>
+<div class="line">→ ([M/x]λy.x)N            ≡ (λy.M) N</div>
+<div class="line">→ [N/y]M                   ≡ M</div>
+</div>
+</li>
+</ol>
+<ol class="arabic simple">
+<li>が遅延評価で、 (2) が先行評価だ。</li>
+</ol>
+<p>(2) が (1) に比べて→の数が多く、簡約にかかるステップ数が多いことに
+気づいただろうか？　遅延評価は、このように、不要な引数の評価を
+減らすことができる。この例では、 const の第二引数がたまたま (id N) という
+簡単な評価だったけれども、もしもっと大きな式であらば、その効果は絶大だろう。</p>
+<p>このように、先行評価と遅延評価は、β簡約の経路の違いのことをいうのだ。</p>
+</div>
+<div class="section" id="id8">
+<h2>名前呼び出しと必要呼び出し<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>さっきまで、遅延評価という言葉を使っていたが、厳密ではないので
+改めようと思う。さきほどまで扱っていた簡約は名前呼び出しのことだ。
+たとえば、値の組を表す (M, N) という項が存在すると考えて、
+引数を2つに複製する λx.(x,x) という項を考えてみる。
+この項を (id M) に適用した形 (λx.(x,x))(id M) を、名前呼び出しの規則に従って
+簡約すると、</p>
+<div class="line-block">
+<div class="line">(λx.(x,x))(id M)</div>
+<div class="line">→ [id M/x](x,x)</div>
+<div class="line">→ (id M, id M) ≡ ((λx.x)M, id M)</div>
+<div class="line">→ ([M/x]x, id M) ≡ (M, id M) ≡ (M, (λx.x)M)</div>
+<div class="line">→ (M, [M/x]x) ≡ (M, M)</div>
+</div>
+<p>のようになる。なんと、 (id M) の評価を遅延したばっかりに、
+その評価が2度おこなわれている。このように、名前が参照される
+たびに評価される遅延評価を名前渡しという。</p>
+<p>しかし、これはムダに思える。そこで、同じ項ならば、最初の評価のときに
+結果をメモ化して、次回からはそれを返せば効率がよさそうだ。
+そのような評価戦略を必要呼び出しという。
+また、このような簡約は木構造にできず、接点が繋がる
+グラフのようになるので、グラフ簡約という <a class="footnote-reference" href="#b" id="id9">[2]</a> 。</p>
+</div>
+<div class="section" id="id10">
+<h2>正規形<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<p>これまで触れてこなかったが、β簡約は、それ以上簡約できなくなるまで
+簡約しなければならない。値であって、それ以上簡約できない項のことをβ-正規形という。</p>
+<p>たとえば、 42 だとか &#8220;answer&#8221; だとかいう値は正規形だ。</p>
+<p>正規形でない項は、正規形になるまで簡約しなければならないが、
+たまにいつまで簡約しても正規形にならない項が存在する。
+たとえば、 (λx.xx)(λx.xx) がそうだ。
+この項を実際に簡約してみると、</p>
+<div class="line-block">
+<div class="line">(λx.xx)(λx.xx)</div>
+<div class="line">→(α) (λy.[y/x]xx)(λx.xx) ≡ (λy.yy)(λx.xx)</div>
+<div class="line">→     [(λx.xx)/y]yy ≡ (λx.xx)(λx.xx)</div>
+<div class="line">→(α) (λy.[y/x]xx)(λx.xx) ≡ (λy.yy)(λx.xx)</div>
+<div class="line">→     [(λx.xx)/y]yy ≡ (λx.xx)(λx.xx)</div>
+<div class="line">→ … 以下同じ</div>
+</div>
+<p>のようにして、いくら簡約しても正規形にならないことがわかる。</p>
+<p>これがプログラミング言語における無限ループだ。</p>
+<p>なにを正規形とみなすかは、定義によるようだ。
+たとえば、無限リストを正規形とみなすことで、無限リストを
+評価しても簡約が停止する。このような定義を頭部正規形などという。
+Haskell は 弱頭部正規形 を採用している <a class="footnote-reference" href="#b" id="id11">[2]</a> 。</p>
+<p>じつは、今まで、無限リストがつくれるのは遅延評価だからだと思っていたのだけど、
+どうやら違うみたいだ。 Haskell で無限リストがつくれるのは、無限の構造が
+正規形として認められ、評価されても停止するからであって、遅延評価はあまり関係が
+ないらしい <a class="footnote-reference" href="#b" id="id12">[2]</a> 。</p>
+<p><a href="#id23"><span class="problematic" id="id24">`第8回　遅延評価の仕組み （2/3） &lt;http://itpro.nikkeibp.co.jp/article/COLUMN/20070305/263828/?ST=ittrend&amp;P=2`_</span></a>
+によれば、</p>
+<blockquote>
+<div><p>ではtake 5 $! [10..]という式を使って、実際にどうなるかを試して見ましょう。takeはリストからn個の先頭部分（initial segment）を取得する関数です。演算子$!は値を正規形に変えてから関数を適用するので、もし弱頭部正規形までで簡約を止めないのであれば無限の長さのリストを生成することになります。そうなれば、答えはいつまでたっても返ってこないでしょう。</p>
+<div class="highlight-haskell"><div class="highlight"><pre><span class="kt">Prelude</span><span class="o">&gt;</span> <span class="n">take</span> <span class="mi">5</span> <span class="o">$!</span> <span class="p">[</span><span class="mi">10</span><span class="o">..</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>というらしいのだけども、どういうことなのか
+いまいちわからなかった…。</p>
+<p>ぼくが ($!) がどのように評価するのかよく理解していないのが原因だ。
+たとえば、</p>
+<div class="highlight-haskell"><div class="highlight"><pre><span class="kr">let</span> <span class="n">_123</span> <span class="ow">=</span> <span class="mi">1</span> <span class="kt">:</span> <span class="mi">2</span> <span class="kt">:</span> <span class="mi">3</span> <span class="kt">:</span> <span class="kt">[]</span>
+<span class="nf">const</span> <span class="mi">42</span> <span class="o">$!</span> <span class="n">_123</span>
+</pre></div>
+</div>
+<p>のようにしたら、 _123 はどこまで評価されるのか。</p>
+<p>_123 を包んでいるサンクが潰れるだけであって、
+2 : 3 : [] という部分は依然として遅延されているんじゃないのか？</p>
+<p>もしそうだとすれば、 take 5 $! [10..] という例では、
+依然として遅延評価の影響で無限リストになっているはずだ。</p>
+</div>
+<div class="section" id="id13">
+<h2>ステップ数<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<p>名前呼び出しだと、先行評価より評価にかかるステップ数が短くなる場合もあれば、
+多くなる場合もある。必要呼び出しだと、先行評価より評価にかかるステップ数は短くなる。
+したがって、もし1ステップが同程度の時間で完了すれば、必要呼び出し戦略で評価される
+プログラムは、先行評価で評価される同じプログラムよりも高速になる。</p>
+</div>
+<div class="section" id="id14">
+<h2>問題点<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<p>しかしながら、現実はそううまくはいかない。
+サンク(Thunk)と呼ばれる評価を遅延するためのオブジェクトをつくる分、メモリ領域をたくさん使い、
+またそのオブジェクトを操作したり、あとでガベージコレクトするのに時間がかかるため、
+一般に遅延評価のプログラムは先行評価に比べて遅い <a class="footnote-reference" href="#c" id="id15">[3]</a> 。</p>
+<p>遅延評価は、スタックを食いつぶしたり、オーバーヘッドやメモリリークを
+ともなうことがあるため、 Haskeller も、意識的にサンクを壊す、関数やモナドを
+Lazy 版ではなく Strict 版を使うなどを意識する必要がある <a class="footnote-reference" href="#d" id="id16">[4]</a> 。</p>
+</div>
+<div class="section" id="id17">
+<h2>遅延評価があって嬉しいこと<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<p>遅延評価があれば、いくつかのデータ構造や関数が非常に簡潔に定義できる
+ことがある。たとえば、遅延評価によって無限リストなどの無限の構造を表現できることがある <a class="footnote-reference" href="#e" id="id18">[5]</a> 。</p>
+<p>関数の場合、たとえば、 repeat が自然に定義できる。</p>
+<p>Haskell では、至るところで遅延評価のおかげで自然に定義できるものがあり、
+そういったものが定義できるのが嬉しい。</p>
+<p>遅延評価のおかげで、 たとえば (&amp;&amp;) や (||) などを自然に関数として定義できる。
+when は、 Lisp だと普通マクロとして定義されるが、
+Haskell では関数として定義されている。 (||) などの関数は、
+先行評価な言語でも定義できそうだけども、普通他の言語で (||) というオペレータは
+左辺が true ならは右辺が評価されないので、先行評価な言語で (||) を定義すると
+右辺が評価されないことを期待したコードを書いてバグらせてしまうかもしれない
+(実際、ぼくは Idris の (||) がどんな場合でも左右が常に評価される
+仕様を知らずにコードを書いてバグをつくった)。
+when がマクロではなく関数として実装できる理由は、遅延評価というよりは
+IO モナドがあるからであるけども、 when False undefined のようにしても
+動くという点で嬉しい</p>
+</div>
+<div class="section" id="id19">
+<h2>遅延評価があって嫌なこと<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<p>問題点の項で指摘されたことは、おおむね遅延評価があると嫌なことだろう。
+つまり、パフォーマンス上の問題となることがあるってこと。</p>
+</div>
+<div class="section" id="id20">
+<h2>他の言語における遅延評価<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
+<p>Haskell 以外の言語で遅延評価はあるのだろうか。
+1例として、 Idris はかなり Haskell に似た構文やセマンティクスを持つけども、
+評価戦略はデフォルトでは先行評価で、必要に応じて遅延評価にできるようになってる。</p>
+</div>
+<div class="section" id="id21">
+<h2>参考文献<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h2>
+<table class="docutils footnote" frame="void" id="a" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[1]</td><td><em>(<a class="fn-backref" href="#id3">1</a>, <a class="fn-backref" href="#id6">2</a>)</em> <a class="reference external" href="http://ja.wikibooks.org/wiki/Haskell/Denotational_semantics#.E6.AD.A3.E6.A0.BC.E3.81.A8.E9.9D.9E.E6.AD.A3.E6.A0.BC.E3.81.AE.E6.84.8F.E5.91.B3">正格と非正格の意味 - Haskell/Denotational semantics</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="b" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[2]</td><td><em>(<a class="fn-backref" href="#id4">1</a>, <a class="fn-backref" href="#id9">2</a>, <a class="fn-backref" href="#id11">3</a>, <a class="fn-backref" href="#id12">4</a>)</em> <a class="reference external" href="http://itpro.nikkeibp.co.jp/article/COLUMN/20070305/263828/?ST=ittrend">本物のプログラマはHaskellを使う 第8回　遅延評価の仕組み</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="c" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id15">[3]</a></td><td><a class="reference external" href="http://itpro.nikkeibp.co.jp/article/COLUMN/20070403/267180/?ST=ittrend">本物のプログラマはHaskellを使う 第9回　Haskellはなぜ遅いと思われているのか</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="d" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id16">[4]</a></td><td><a class="reference external" href="http://d.hatena.ne.jp/mkotha/20110509/1304947182">Stricter Haskell</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="e" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id18">[5]</a></td><td><a class="reference external" href="http://www.sato.kuis.kyoto-u.ac.jp/~igarashi/class/isle4-05w/text/eopl014.html">いろいろな引数渡しの方式 — 値呼び・参照呼び・名前呼び・必要呼び</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+    </div>
+
+</body>
+</html>
