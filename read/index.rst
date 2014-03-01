@@ -92,3 +92,38 @@ pasberth.github.io/read
 --------------------------------------------------------------------------------
 
 * `ガンダムビルドファイターズと「子どもにガンプラを売る意味」 <http://d.hatena.ne.jp/p_shirokuma/20140209>`_
+
+2014-02-17
+--------------------------------------------------------------------------------
+
+* `λρ-calculus <http://komoriyuichi.web.fc2.com/symposium/lambda-rho5.pdf>`_
+* `λμ計算のモデルについて <https://www.jstage.jst.go.jp/article/jssst/20/3/20_285/_pdf>`_
+
+
+2014-02-19
+--------------------------------------------------------------------------------
+
+* `π-calculus 超入門 <http://web.yl.is.s.u-tokyo.ac.jp/kobalab/kadai99/picalc.html>`_
+
+2014-02-20
+--------------------------------------------------------------------------------
+
+* `正格と非正格の意味 - Haskell/Denotational semantics <http://ja.wikibooks.org/wiki/Haskell/Denotational_semantics#.E6.AD.A3.E6.A0.BC.E3.81.A8.E9.9D.9E.E6.AD.A3.E6.A0.BC.E3.81.AE.E6.84.8F.E5.91.B3>`_
+* `本物のプログラマはHaskellを使う 第8回　遅延評価の仕組み <http://itpro.nikkeibp.co.jp/article/COLUMN/20070305/263828/?ST=ittrend>`_
+* `本物のプログラマはHaskellを使う 第9回　Haskellはなぜ遅いと思われているのか <http://itpro.nikkeibp.co.jp/article/COLUMN/20070403/267180/?ST=ittrend>`_
+* `Stricter Haskell <http://d.hatena.ne.jp/mkotha/20110509/1304947182>`_
+
+2014-02-26
+--------------------------------------------------------------------------------
+
+* `砂漠の巨人　上 <http://minadukinaduki.web.fc2.com/sara1.htm>`_
+
+2014-02-28
+--------------------------------------------------------------------------------
+
+* `砂漠の巨人　中 <http://minadukinaduki.web.fc2.com/sara4.htm>`_
+
+2014-03-01
+--------------------------------------------------------------------------------
+
+* `砂漠の巨人　下 <http://minadukinaduki.web.fc2.com/sara6.htm>`_
