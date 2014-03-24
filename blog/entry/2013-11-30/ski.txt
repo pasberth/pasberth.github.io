@@ -1,9 +1,0 @@
-S := \xyz.xz(yz)
-K := \xy.x
-I := SKK
-T := K
-F := KI
-NOT := S(SI(KF))(KT)
-OR := SI(KT)
-AND := SS(K(KF))
-

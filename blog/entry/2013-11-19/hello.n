@@ -1,4 +1,0 @@
-using System.Console;
-
-WriteLine(cond (true) ? ("true!") : ("false!"));
-WriteLine(cond (false) ? ("true!") : ("false!"))

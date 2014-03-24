@@ -1,5 +1,0 @@
-macro @cond (x, y, z)
-syntax ("cond", "(", x, ")", "?", "(", y, ")", ":", "(", z, ")")
-{
-    <[ if ( $x ) { $y ; } else { $z ; } ]>
-}
