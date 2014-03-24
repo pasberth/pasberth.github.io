@@ -1,0 +1,118 @@
+= pasberth.github.io/read
+:stylesheet: css/main.css
+:docinfo1:
+
+== 2014-01-01
+
+* http://ocsigen.org/tutorial/intro[Introduction]
+* http://ocsigen.org/tutorial/application[Writing a client/server Eliom application]
+* http://ocsigen.org/tutorial/interaction[Implementing Web Interaction Using Eliom]
+
+== 2014-01-02
+
+* http://mzp.hatenablog.com/entry/2013/06/08/003029[2013-06-08 OCamlで作ったWebアプリをHerokuで動かす方法(2) 〜Ocsigen/Eliom編〜]
+* http://ocsigen.org/tutorial/macaque[Type safe database requests using Macaque]
+* _おおかみこどもの雨と雪_
+  -
+  細田 守 著
+
+== 2014-01-03
+
+* _リーダブルコード――より良いコードを書くためのシンプルで実践的なテクニック_
+  -
+  Dustin Boswell, Trevor Foucher 著
+  -
+  角 征典 訳
+
+== 2014-01-11
+
+* _ストラウストラップのプログラミング入門_
+  -
+  Bjarne Stroustrup 著
+  -
+  επιστημη 監修
+  -
+  遠藤 美代子 (株式会社クイープ) 訳
+
+== 2014-01-17
+
+* _英語リーディング教本―基本からわかる_
+  -
+  薬袋 善郎 著
+
+== 2014-01-20
+
+* http://www.tatapa.org/~takuo/structured_programming/structured_programming.html[意外と知られていない構造化プログラミング、あるいは構造化プログラミングはデータも手続きと一緒に抽象化する、あるいはストロヴストルップのオブジェクト指向プログラミング史観]
+
+== 2014-02-03
+
+* _マグダラで眠れII_
+  -
+  支倉 凍砂 著
+  -
+  鍋島 テツヒロ イラスト
+
+== 2014-02-08
+
+* http://practical-scheme.net/trans/hundred-j.html[百年の言語 --- The Hundred-Year Language]
+
+== 2014-02-09
+
+* http://melpon.org/blog/haskell-import-qualified[Haskellでのimportの使い方]
+
+== 2014-02-10
+
+* http://manticore-wiki.cs.uchicago.edu/index.php/Move_pattern_matching_into_CPS[Move pattern matching into CPS]
+
+== 2014-02-11
+
+* http://practical-scheme.net/docs/cont-j.html[なんでも継続]
+* http://blog.practical-scheme.net/shiro?20120122-origin-of-continuations[継続の起源]
+* http://kreisel.fam.cx/webmaster/clog/img/www.ice.nuie.nagoya-u.ac.jp/~h003149b/lang/actor/actor.html[SchemeとActor理論]
+* http://www.cs.is.noda.tus.ac.jp/~mune/oop.bak/node9.html[並列オブジェクト指向]
+
+== 2014-02-12
+
+* http://www.haskell.org/haskellwiki/GHC/Type_families[GHC/Type families]
+* http://www.haskell.org/ghc/docs/latest/html/users_guide/type-families.html[7.7. Type families]
+* http://faithandbrave.hateblo.jp/entry/20120106/1325832431[Type Families]
+
+== 2014-02-15
+
+* http://d.hatena.ne.jp/p_shirokuma/20140209[ガンダムビルドファイターズと「子どもにガンプラを売る意味」]
+
+== 2014-02-17
+
+* http://komoriyuichi.web.fc2.com/symposium/lambda-rho5.pdf[λρ-calculus]
+* https://www.jstage.jst.go.jp/article/jssst/20/3/20_285/_pdf[λμ計算のモデルについて]
+
+== 2014-02-19
+
+* http://web.yl.is.s.u-tokyo.ac.jp/kobalab/kadai99/picalc.html[π-calculus 超入門]
+
+== 2014-02-20
+
+* http://ja.wikibooks.org/wiki/Haskell/Denotational_semantics#.E6.AD.A3.E6.A0.BC.E3.81.A8.E9.9D.9E.E6.AD.A3.E6.A0.BC.E3.81.AE.E6.84.8F.E5.91.B3[正格と非正格の意味 - Haskell/Denotational semantics]
+* http://itpro.nikkeibp.co.jp/article/COLUMN/20070305/263828/?ST=ittrend[本物のプログラマはHaskellを使う 第8回　遅延評価の仕組み]
+* http://itpro.nikkeibp.co.jp/article/COLUMN/20070403/267180/?ST=ittrend[本物のプログラマはHaskellを使う 第9回　Haskellはなぜ遅いと思われているのか]
+* http://d.hatena.ne.jp/mkotha/20110509/1304947182[Stricter Haskell]
+
+== 2014-02-26
+
+* http://minadukinaduki.web.fc2.com/sara1.htm[砂漠の巨人　上]
+
+== 2014-02-28
+
+* http://minadukinaduki.web.fc2.com/sara4.htm[砂漠の巨人　中]
+
+== 2014-03-01
+
+* http://minadukinaduki.web.fc2.com/sara6.htm[砂漠の巨人　下]
+
+== 2014-03-06
+
+* http://minadukinaduki.web.fc2.com/sara9.htm[砂漠の巨人　終]
+
+== 2014-03-07
+
+* http://mayuragicenter.yu-yake.com/hpot.html[ふたりのハードプロブレム]
