@@ -1,0 +1,57 @@
+= pasberth.github.io/diary
+:stylesheet: css/main.css
+:docinfo1:
+:toc:
+
+== 2014-01-01
+
+Eliom のチュートリアルを一通り読んだ．コピペして試した．
+
+. http://ocsigen.org/tutorial/intro[Introduction]
+. http://ocsigen.org/tutorial/application[Writing a client/server Eliom application]
+. http://ocsigen.org/tutorial/interaction[Implementing Web Interaction Using Eliom]
+
+英語が読めなくて完全に苦痛だった．
+すこしは勉強しているので，1割くらいの英文は読めた．
+単語が完全にわからなかった．英文法は7割くらいわかったけど単語がまったくわからない．
+単語を勉強する必要あり．
+
+http://www.ookamikodomo.jp/index.html[おおかみこどもの雨と雪] を視聴した．13回目．
+
+どんな小さなことも記録しようと心に決め，このダイアリをつくった．
+今日は1日め．来年は進捗カレンダーをつくれるように頑張る．
+
+== 2014-01-02
+
+おおかみこどもの雨と雪の原作小説を読んだ．
+とても読みやすい小説だった．映像版を先に見たからかもしれない．
+ただ，語り部の視点が何度もころころと変わるのと，主語の省略が気にかかった．
+その物語は，主に，花と，雪と，雨の視点で描かれるのだけど，場面ごとに誰の主観で書かれた
+文章なのかが変わった．混乱する事はなく，むしろかなりうまく切り替えられていると感じたが，
+「ぼくならこうは書かないな」と思った．主語の省略は，たびたびぼくに混乱をもたらした．
+ぼくは段落を変えた直後に主語を省略してはいけないと思う．段落が変わったにも関わらず，
+主語が省略されていると，誰の視点なのかわからなくなってしまうと感じた．
+
+いとこ(小学3年生)に絵本と言って Land of Lisp をあげた．
+すこし遅れたものの，元日だからだ．
+
+みんながいい本だと言っていたので，リーダブルコードと，
+最新コンパイラ構成技法(タイガーブック)と，
+ストラウストラップのプログラミング入門を買った．積読がまた3つ増えた．
+リーダブルコードは比較的すぐ読めそうなので読もうと思う．
+
+// FIXME: ...
+// :doc:`/blog/entry/2014-01-02/index` を書き，そのブログに書いてある事をした．
+
+http://mzp.hatenablog.com/entry/2013/06/08/003029[2013-06-08 OCamlで作ったWebアプリをHerokuで動かす方法(2) 〜Ocsigen/Eliom編〜]
+と http://ocsigen.org/tutorial/macaque[Type safe database requests using Macaque] を
+読んだ． Macaque という OCaml 製の O/R Mapper (って言うのか?) があるらしい．
+どうやら内包表記っぽく SQL にアクセスできるようだ．
+じっさい SQL は集合指向なんて言われる事もあるし内包表記はかなりわかりやすい．
+
+Eliom で書かれた https://github.com/heroku-buildpack-ocaml/sample-todo-app[heroku-buildpack-ocaml/sample-todo-app]
+を clone して動かそうと思ったけど動かなかった．考えてみれば，環境変数とかデータベースとか用意して
+ないし当たり前だ．どんな環境変数やデータベースを用意すれば動かせるのかわからなかったので，試すのは
+諦めた．その代わりザッとコードを眺めた．
+
+それから日付が変わった．いまは 2014年1月3日0時4分だ．今日はもう寝ようと思う．
