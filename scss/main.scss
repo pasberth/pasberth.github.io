@@ -57,7 +57,7 @@ div#footer > #footer-text, #footer-copyright {
   text-align: center;
 }
 
-@mixin list() {
+@mixin list {
 
   ul li {
     transition: opacity 0.5s ease-in-out;
@@ -75,7 +75,7 @@ div#footer > #footer-text, #footer-copyright {
   }
 }
 
-@mixin navigation() {
+@mixin navigation {
 
   ul {
     @include horizontal-list;
