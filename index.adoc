@@ -4,5 +4,6 @@
 :docinfo1:
 
 [.list.navigation]
-* http://pasberth.github.io/readme[README]
-* http://pasberth.github.io/read[Read]
+* link:readme[README]
+* link:read[Read]
+* link:diary[Diary]

@@ -1,6 +1,7 @@
 = pasberth.github.io/read
 :stylesheet: css/main.css
 :docinfo1:
+:toc:
 
 == 2014-01-01
 
