@@ -1,0 +1,12 @@
+= pasberth.github.io/README
+:stylesheet: css/main.css
+:docinfo1:
+
+== Source Code
+
+Source codes of the site are distributed on
+https://github.com/pasberth/pasberth.github.io/tree/default[GitHub].
+
+== LICENSE
+
+include::LICENSE[]
