@@ -1,3 +1,5 @@
+ASCIIDOCTOR=asciidoctor -a revision=`git rev-parse default`
+
 pasberth.github.io: \
 	pasberth.github.io/index.html \
 	pasberth.github.io/readme \
@@ -5,19 +7,19 @@ pasberth.github.io: \
 	pasberth.github.io/diary
 
 pasberth.github.io/index.html: css/main.css index.adoc docinfo.html docinfo-footer.html index-docinfo.html
-	asciidoctor index.adoc -o pasberth.github.io/index.html
+	$(ASCIIDOCTOR) -a githubroute=blob -a path=index.adoc index.adoc -o pasberth.github.io/index.html
 
 pasberth.github.io/readme: css/main.css README.adoc docinfo.html docinfo-footer.html
 	mkdir -p  pasberth.github.io/readme
-	asciidoctor README.adoc -o pasberth.github.io/readme/index.html
+	$(ASCIIDOCTOR) -a githubroute=blob -a path=README.adoc README.adoc -o pasberth.github.io/readme/index.html
 
 pasberth.github.io/read: css/main.css read.adoc docinfo.html docinfo-footer.html
 	mkdir -p  pasberth.github.io/read
-	asciidoctor read.adoc -o pasberth.github.io/read/index.html
+	$(ASCIIDOCTOR) -a githubroute=blob -a path=read.adoc read.adoc -o pasberth.github.io/read/index.html
 
 pasberth.github.io/diary: css/main.css diary.adoc docinfo.html docinfo-footer.html
 	mkdir -p  pasberth.github.io/diary
-	asciidoctor diary.adoc -o pasberth.github.io/diary/index.html
+	$(ASCIIDOCTOR) -a githubroute=blob -a path=diary.adoc diary.adoc -o pasberth.github.io/diary/index.html
 
 css/main.css: scss/main.scss
 	sass --unix-newlines \
