@@ -1,4 +1,4 @@
-@import "compass/typography/links/hover-link";
+@import "compass/typography/links";
 
 $base-text-color: #505050;
 $link-text-color: #4183c4;
@@ -11,8 +11,8 @@ body {
 }
 
 a {
-  color: $link-text-color;
   @include hover-link;
+  @include link-colors($link-text-color);
 }
 
 pre, code {
