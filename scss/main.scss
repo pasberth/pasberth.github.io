@@ -90,4 +90,5 @@ div#footer > #footer-text, #footer-copyright {
 
 div.list { @include list; }
 div.navigation { @include navigation; }
+div#toc #toctitle { display: none; }
 div#toc { @include list; @include navigation; }
