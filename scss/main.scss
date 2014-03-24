@@ -1,7 +1,9 @@
 @import "compass/typography/links";
+@import "compass/typography/lists";
 
 $base-text-color: #505050;
 $link-text-color: #4183c4;
+$article-size: 640px;
 
 body {
   color: $base-text-color;
@@ -25,7 +27,7 @@ div.sect1 {
 }
 
 body.article {
-  width: 640px;
+  width: $article-size;
   margin: 1em auto 0;
   padding: 0;
 }
@@ -76,19 +78,13 @@ div#footer > #footer-text, #footer-copyright {
 @mixin navigation() {
 
   ul {
-    margin: 0 auto 1em;
-    padding: 0;
-    list-style-type: none;
-    overflow: hidden;
+    @include horizontal-list;
   }
 
   ul li {
-    width: 156px;
-    margin: 0;
-    padding: 2px;
-    float: left;
+    width: $article-size / 4;
     text-align: center;
-    font-family: "Gill Sans"
+    font-family: "Gill Sans";
   }
 }
 
