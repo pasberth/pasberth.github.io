@@ -4,18 +4,18 @@ pasberth.github.io: \
 	pasberth.github.io/read \
 	pasberth.github.io/diary
 
-pasberth.github.io/index.html: css/main.css index.adoc
+pasberth.github.io/index.html: css/main.css index.adoc docinfo.html docinfo-footer.html index-docinfo.html
 	asciidoctor index.adoc -o pasberth.github.io/index.html
 
-pasberth.github.io/readme: css/main.css README.adoc
+pasberth.github.io/readme: css/main.css README.adoc docinfo.html docinfo-footer.html
 	mkdir -p  pasberth.github.io/readme
 	asciidoctor README.adoc -o pasberth.github.io/readme/index.html
 
-pasberth.github.io/read: css/main.css read.adoc
+pasberth.github.io/read: css/main.css read.adoc docinfo.html docinfo-footer.html
 	mkdir -p  pasberth.github.io/read
 	asciidoctor read.adoc -o pasberth.github.io/read/index.html
 
-pasberth.github.io/diary: css/main.css diary.adoc
+pasberth.github.io/diary: css/main.css diary.adoc docinfo.html docinfo-footer.html
 	mkdir -p  pasberth.github.io/diary
 	asciidoctor diary.adoc -o pasberth.github.io/diary/index.html
 
