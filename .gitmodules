@@ -7,3 +7,6 @@
 [submodule "vendor/pandoc-reveal"]
 	path = vendor/pandoc-reveal
 	url = https://gist.github.com/5017084.git
+[submodule "vendor/pasberth.github.io_old-sphinx"]
+	path = vendor/pasberth.github.io_old-sphinx
+	url = git@github.com:pasberth/pasberth.github.io.git
