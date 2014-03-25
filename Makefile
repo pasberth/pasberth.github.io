@@ -1,26 +1,27 @@
 ASCIIDOCTOR=asciidoctor -a revision=`git rev-parse default`
 
 pasberth.github.io: \
-	pasberth.github.io/index.html \
-	pasberth.github.io/readme/index.html \
-	pasberth.github.io/read/index.html \
-	pasberth.github.io/diary/index.html \
+	$(addsuffix .html, $(subst src, pasberth.github.io, $(basename $(shell find src -name index.adoc)))) \
 	pasberth.github.io/.nojekyll
 
-pasberth.github.io/index.html: css/main.css index.adoc
-	$(ASCIIDOCTOR) index.adoc -o pasberth.github.io/index.html
+pasberth.github.io/index.html: src/index.adoc css/main.css src/docinfo.html src/docinfo-footer.html
+	$(ASCIIDOCTOR) src/index.adoc -o $@
 
-pasberth.github.io/readme/index.html: css/main.css README.adoc docinfo.html docinfo-footer.html
-	mkdir -p  pasberth.github.io/readme
-	$(ASCIIDOCTOR) README.adoc -o pasberth.github.io/readme/index.html
+pasberth.github.io/%/index.html: src/%/index.adoc css/main.css src/%/docinfo.html src/%/docinfo-footer.html
+	mkdir -p `dirname $@`
+	$(ASCIIDOCTOR) $(patsubst pasberth.github.io/%/index.html, src/%/index.adoc, $@) -o $@
 
-pasberth.github.io/read/index.html: css/main.css read.adoc docinfo.html docinfo-footer.html
-	mkdir -p  pasberth.github.io/read
-	$(ASCIIDOCTOR) read.adoc -o pasberth.github.io/read/index.html
+src/docinfo.html: docinfo/docinfo.html
+	cp $^ $@
 
-pasberth.github.io/diary/index.html: css/main.css diary.adoc docinfo.html docinfo-footer.html
-	mkdir -p  pasberth.github.io/diary
-	$(ASCIIDOCTOR) diary.adoc -o pasberth.github.io/diary/index.html
+src/%/docinfo.html: docinfo/docinfo.html
+	cp $^ $@
+
+src/docinfo-footer.html: docinfo/docinfo-footer.html
+	cp $^ $@
+
+src/%/docinfo-footer.html: docinfo/docinfo-footer.html
+	cp $^ $@
 
 pasberth.github.io/.nojekyll:
 	touch pasberth.github.io/.nojekyll
