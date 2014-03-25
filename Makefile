@@ -21,6 +21,7 @@ pasberth.github.io/.nojekyll:
 	touch pasberth.github.io/.nojekyll
 
 css/main.css: scss/main.scss
+	mkdir -p css
 	sass --unix-newlines \
 		--scss \
 		-I`ruby -rcompass -e 'puts Compass.base_directory'`/frameworks/compass/stylesheets/ \
