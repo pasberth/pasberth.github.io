@@ -1,5 +1,4 @@
 = pasberth.github.io
-:stylesheet: css/main.css
 :!last-update-label:
 
 [.list.navigation]

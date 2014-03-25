@@ -1,6 +1,4 @@
 = pasberth.github.io/README
-:stylesheet: css/main.css
-:docinfo1:
 
 == Source Code
 
