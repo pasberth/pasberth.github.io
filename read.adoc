@@ -110,10 +110,50 @@
 
 * http://minadukinaduki.web.fc2.com/sara6.htm[砂漠の巨人　下]
 
+== 2014-03-02
+
+* http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Syntax Quick Reference]
+* http://asciidoc.org/[AsciiDoc]
+
+== 2014-03-04
+
+* http://www.microugly.com/inkscape-quickguide/[a Quick Guide to Inkscape]
+
+== 2014-03-05
+
+* http://icomoon.io/[IcoMoon]
+
 == 2014-03-06
 
+* https://www.mashape.com/warting/online-font-converter#!documentation[Online font converter]
 * http://minadukinaduki.web.fc2.com/sara9.htm[砂漠の巨人　終]
 
 == 2014-03-07
 
 * http://mayuragicenter.yu-yake.com/hpot.html[ふたりのハードプロブレム]
+* http://whats.be/3792[1日を1秒で描いたショートムービー。これが子供からみた戦争の姿]
+
+== 2014-03-12
+
+* http://www.eps1.comlink.ne.jp/~mayus/milkhist.html[牛乳の歴史]
+
+== 2014-03-15
+
+* http://ncode.syosetu.com/n9824bv/[真っ白な檻の中で、永遠に夏の夢を見ていたい。]
+
+== 2014-03-20
+
+* http://bleis-tift.hatenablog.com/entry/value-restriction[値制限]
+
+== 2014-03-21
+
+* http://hacklang.org/[Hack]
+* http://sat10.web.fc2.com/[俺とヒーローと魔法少女]
+* http://www.slideshare.net/gintenlabo/boostflyweight-5180097[Boost.Flyweight]
+* https://speakerdeck.com/iofg2100/c-plus-plus-shi-dian-karafalserubyshao-jie[C++視点からのRuby紹介]
+
+== 2014-03-24
+
+* http://qiita.com/szktty/items/05cb2b754c88fbacc274[OCaml の記号あれこれ]
+* http://d.hatena.ne.jp/osiire/20090510/1241957550[多相バリアントを使いこなそう(1)]
+* http://d.hatena.ne.jp/osiire/20090516[多相バリアントを使いこなそう(4)]
