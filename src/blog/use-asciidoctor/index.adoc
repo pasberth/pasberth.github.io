@@ -1,3 +1,63 @@
-= AsciiDoctorを使おう！
+= Asciidoctorを使おう！
+:source-highlighter: pygments
 
-hello!
+== Asciidoctor?
+
+Asciidoctor とは軽量マークアップ言語のひとつで、
+HTML に変換できます。 Markdown, reStructuredText と似たような
+用途で使うことができます。
+
+処理系として http://asciidoc.org/[AsciiDoc] <<1>> や
+http://asciidoctor.org/[Asciidoctor] <<2>> などがあります。
+http://asciidoctor.org/docs/user-manual/#asciidoctor-vs-asciidoc[AsciiDoc と Asciidoctor の比較]
+<<3>> もありますが、よくわからない場合は、 AsciiDoc は Python で実装されて実装されていて、
+Asciidoctor は Ruby で実装されているということで、宗教的な理由で
+使う方を選ぶとよいでしょう。なお、このブログは AsciiDoc は扱わず、
+処理系として Asciidoctor を使うことを前提としています。
+
+このブログは主に Asciidoctor の布教を目的としています。
+このブログ自体も Asciidoctor でつくられています。
+フフフ…怖いか？　実際に Asciidoctor を使うときは、
+http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Syntax Quick Reference] <<4>> や
+http://asciidoctor.org/docs/user-manual/[Asciidoctor User Manual] <<5>> をよく読むべきでしょう。
+
+== Installation
+
+
+asciidoctor は http://rubygems.org[RubyGems] にありますので、 +gem+ コマンドで
+インストールできます。
+
+[listing]
+gem install asciidoctor
+
+== Hello world
+
+まずは hello world を試してみましょう。
+
+[listing]
+.hello.adoc
+include::hello.adoc[]
+
+コンパイルするには、次のコマンドを入力します。
+
+[listing]
+asciidoctor hello.adoc
+
+これで、ひとまず ``hello world'' と表示する
+だけの HTML がつくられて、 +hello.html+ という名前で
+保存されるはずです。
+
+== AsciiDoc の概観
+
+まずは AsciiDoc Syntax Quick Reference <<3>>
+に載っている内容をザッと見てみましょう。くわしくはそのページを
+読んでください。
+
+== 参考文献
+
+[bibliography]
+- [[[1]]] http://asciidoc.org/[AsciiDoc]
+- [[[2]]] http://asciidoctor.org/[Asciidoctor]
+- [[[3]]] http://asciidoctor.org/docs/user-manual/#asciidoctor-vs-asciidoc[6. Appendix A: Comparison of Asciidoctor and AsciiDoc Features]
+- [[[4]]] http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Syntax Quick Reference]
+- [[[5]]] http://asciidoctor.org/docs/user-manual/[Asciidoctor User Manual]

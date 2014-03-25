@@ -1,4 +1,4 @@
 = pasberth.github.io/blog
 
 [.list.navigation]
-* link:use-asciidoctor[AsciiDoctorを使おう！]
+* link:use-asciidoctor[Asciidoctorを使おう！]
