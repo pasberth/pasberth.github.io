@@ -3,7 +3,7 @@
 == Source Code
 
 Source codes of the site are distributed on
-https://github.com/pasberth/pasberth.github.io/tree/default[GitHub].
+https://github.com/pasberth/pasberth.github.io[GitHub].
 
 == LICENSE
 
