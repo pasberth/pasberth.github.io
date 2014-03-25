@@ -7,7 +7,7 @@ pasberth.github.io: \
 	pasberth.github.io/diary/index.html \
 	pasberth.github.io/.nojekyll
 
-pasberth.github.io/index.html: css/main.css index.adoc docinfo.html docinfo-footer.html index-docinfo.html
+pasberth.github.io/index.html: css/main.css index.adoc
 	$(ASCIIDOCTOR) index.adoc -o pasberth.github.io/index.html
 
 pasberth.github.io/readme/index.html: css/main.css README.adoc docinfo.html docinfo-footer.html

@@ -1,7 +1,6 @@
 = pasberth.github.io
 :stylesheet: css/main.css
-:docinfo:
-:docinfo1:
+:!last-update-label:
 
 [.list.navigation]
 * link:readme[README]
