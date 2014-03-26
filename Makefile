@@ -4,18 +4,19 @@ ASCIIDOCTOR=asciidoctor -a stylesheet=css/main.css -a docinfo1 -a revision=`git 
 
 pasberth.github.io: \
 	$(addsuffix .html, $(subst src, pasberth.github.io, $(basename $(shell find src -name index.adoc)))) \
-	$(subst src, pasberth.github.io, $(shell git ls-files src)) \
+	$(patsubst src/%/static, pasberth.github.io/%/raw, $(shell find src -name static)) \
 	pasberth.github.io/.nojekyll
 
 pasberth.github.io/index.html: src/index.adoc css/main.css
 	$(ASCIIDOCTOR) src/index.adoc -o $@
 
-pasberth.github.io/%/index.html: src/%/index.adoc css/main.css src/%/docinfo.html src/%/docinfo-footer.html $$(shell find src/% -maxdepth 1 -not -type d)
+pasberth.github.io/%/index.html: src/%/index.adoc css/main.css src/%/docinfo.html src/%/docinfo-footer.html $$(shell find src/%/static -not -type d 2>/dev/null)
 	mkdir -p `dirname $@`
 	$(ASCIIDOCTOR) $(patsubst pasberth.github.io/%/index.html, src/%/index.adoc, $@) -o $@
 
-pasberth.github.io/%: src/%
-	cp $^ $@
+pasberth.github.io/%/raw: $$(shell find src/%/static -not -type d)
+	rm -rf $@
+	cp -R $(patsubst pasberth.github.io/%/raw, src/%/static, $@) $@
 
 src/%/docinfo.html: docinfo/docinfo.html
 	cp $^ $@

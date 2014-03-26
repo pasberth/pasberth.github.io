@@ -56,24 +56,24 @@ gem install asciidoctor
 
 まずは hello world を試してみましょう。
 
-.link:hello.adoc[]
+.link:raw/hello.adoc[hello.adoc]
 ----
-include::hello.adoc[]
+include::static/hello.adoc[]
 ----
 
 コンパイルするには、次のようなコマンドを入力します。
 
-.link:make-hello.sh[]
+.link:raw/make-hello.sh[make-hello.sh]
 ----
-include::make-hello.sh[]
+include::static/make-hello.sh[]
 ----
 
 このコードをコンパイルすると、次のような HTML になるはずです。
 
 [source,html]
-.link:hello.html[]
+.link:raw/hello.html[hello.html]
 ----
-include::hello.html[]
+include::static/hello.html[]
 ----
 
 これで、ひとまず ``hello world'' と表示する
@@ -93,21 +93,21 @@ http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#paragraphs
 
 .paragraph.adoc
 ----
-include::paragraph.adoc[]
+include::static/paragraph.adoc[]
 ----
 
 *リテラル* パラグラフの先頭の文字が空白の場合は、リテラルになります。
 
 .literal.adoc
 ----
-include::literal.adoc[]
+include::static/literal.adoc[]
 ----
 
 *改行* 行末に +++ という記号をおくとパラグラフ中で改行できます
 
 .linebreak.adoc
 ----
-include::linebreak.adoc[]
+include::static/linebreak.adoc[]
 ----
 
 斜体、太字、等幅のサンプルです。
@@ -159,20 +159,20 @@ CSS を使ってスタイルを拡張できるようになっています。
 
 インラインの場合は `[class]#text...#` のようにします。
 
-.link:custom-styling.adoc[]
+.link:raw/custom-styling.adoc[custom-styling.adoc]
 ----
-include::custom-styling.adoc[]
+include::static/custom-styling.adoc[]
 ----
 
-.link:custom-styling.css[]
+.link:raw/custom-styling.css[custom-styling.css]
 ----
-include::custom-styling.css[]
+include::static/custom-styling.css[]
 ----
 
 [source,html]
-.link:custom-styling.html[]
+.link:raw/custom-styling.html[custom-styling.html]
 ----
-include::custom-styling.html[]
+include::static/custom-styling.html[]
 ----
 
 == MathJax を使う
@@ -181,15 +181,15 @@ include::custom-styling.html[]
 MathJax が使えるようになりました。
 
 
-.link:mathjax.adoc[]
+.link:raw/mathjax.adoc[mathjax.adoc]
 ----
-include::mathjax.adoc[]
+include::static/mathjax.adoc[]
 ----
 
 [source,html]
-.link:mathjax.html[]
+.link:raw/mathjax.html[mathjax.html]
 ----
-include::mathjax.html[]
+include::static/mathjax.html[]
 ----
 
 == 参考文献
