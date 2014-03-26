@@ -1,5 +1,6 @@
 @import "compass/typography/links";
 @import "compass/typography/lists";
+@import "pygments-css";
 
 $base-text-color: #505050;
 $link-text-color: #4183c4;
@@ -100,15 +101,18 @@ div#toc #toctitle { display: none; }
 div#toc { @include list; @include navigation; }
 
 div.listingblock {
-  color: white;
-  background-color: $base-text-color;
   margin: 0 0 1.25em;
-  padding: 0.5em;
+  padding: 0;
 }
 
 div.listingblock .content {
   margin: 0;
-  padding: 0;
+  padding: 0.5em;
+
+  border: 1px solid silver;
+  border-radius: 0.25em 0.25em 0.25em 0.25em;
+  max-height: 5em;
+  overflow: auto;
 }
 
 div.listingblock .title {
@@ -118,7 +122,6 @@ div.listingblock .title {
   font-family: "Gill Sans";
   &:before {
     content: "$ cat ";
-    color: silver;
+    color: gray;
   }
 }
-div.trunk { overflow: auto; height: 5em; }

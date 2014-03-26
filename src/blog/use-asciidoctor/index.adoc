@@ -1,4 +1,6 @@
 = Asciidoctorを使おう！
+:source-highlighter: pygments
+:pygments-css:
 
 == Asciidoctor?
 
@@ -54,20 +56,22 @@ gem install asciidoctor
 
 まずは hello world を試してみましょう。
 
-.hello.adoc
+.link:hello.adoc[]
 ----
 include::hello.adoc[]
 ----
 
 コンパイルするには、次のようなコマンドを入力します。
 
-[listing]
-asciidoctor hello.adoc
+.link:make-hello.sh[]
+----
+include::make-hello.sh[]
+----
 
 このコードをコンパイルすると、次のような HTML になるはずです。
 
-.hello.html
-[.trunk]
+[source,html]
+.link:hello.html[]
 ----
 include::hello.html[]
 ----
