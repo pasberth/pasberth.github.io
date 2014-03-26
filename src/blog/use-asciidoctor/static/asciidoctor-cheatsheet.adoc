@@ -13,7 +13,7 @@ second paragraph.
 
 .view
 this is a paragraph.
-second line.
+second statement.
 
 second paragraph.
 
