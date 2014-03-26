@@ -159,15 +159,21 @@ CSS を使ってスタイルを拡張できるようになっています。
 
 インラインの場合は `[class]#text...#` のようにします。
 
-.custom-styling.adoc
+.link:custom-styling.adoc[]
 ----
 include::custom-styling.adoc[]
 ----
 
-このコードをコンパイルすると、次のような HTML になるはずです。
+.link:custom-styling.css[]
+----
+include::custom-styling.css[]
+----
 
-[listing]
-<span class="hoge fuga piyo">custom styling</span>
+[source,html]
+.link:custom-styling.html[]
+----
+include::custom-styling.html[]
+----
 
 == MathJax を使う
 
@@ -175,12 +181,16 @@ include::custom-styling.adoc[]
 MathJax が使えるようになりました。
 
 
-.mathjax.adoc
+.link:mathjax.adoc[]
 ----
 include::mathjax.adoc[]
 ----
 
-
+[source,html]
+.link:mathjax.html[]
+----
+include::mathjax.html[]
+----
 
 == 参考文献
 
