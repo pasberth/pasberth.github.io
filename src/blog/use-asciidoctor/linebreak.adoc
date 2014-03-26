@@ -1,0 +1,7 @@
+this is a line break example in a paragraph. +
+second line. +
+third line.
+
+ this is a line break example in a literal. +
+second line. +
+third line.
