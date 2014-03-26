@@ -27,7 +27,7 @@ src/%/docinfo-footer.html: docinfo/docinfo-footer.html
 pasberth.github.io/.nojekyll:
 	touch pasberth.github.io/.nojekyll
 
-css/main.css: scss/main.scss scss/_pygments-css.scss
+css/main.css: scss/main.scss
 	mkdir -p css
 	sass --unix-newlines \
 		--scss \
