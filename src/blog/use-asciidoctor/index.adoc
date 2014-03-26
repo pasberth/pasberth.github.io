@@ -66,8 +66,11 @@ asciidoctor hello.adoc
 
 このコードをコンパイルすると、次のような HTML になるはずです。
 
-[listing]
-<p>hello world</p>
+.hello.html
+[.trunk]
+----
+include::hello.html[]
+----
 
 これで、ひとまず ``hello world'' と表示する
 だけの HTML がつくられて、 +hello.html+ という名前で
