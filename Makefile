@@ -10,7 +10,7 @@ pasberth.github.io: \
 pasberth.github.io/index.html: src/index.adoc css/main.css
 	$(ASCIIDOCTOR) src/index.adoc -o $@
 
-pasberth.github.io/%/index.html: src/%/index.adoc css/main.css src/%/docinfo.html src/%/docinfo-footer.html $$(wildcard src/%/*)
+pasberth.github.io/%/index.html: src/%/index.adoc css/main.css src/%/docinfo.html src/%/docinfo-footer.html $$(shell find src/% -maxdepth 1 -not -type d)
 	mkdir -p `dirname $@`
 	$(ASCIIDOCTOR) $(patsubst pasberth.github.io/%/index.html, src/%/index.adoc, $@) -o $@
 
