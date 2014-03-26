@@ -2,6 +2,7 @@ ASCIIDOCTOR=asciidoctor -a stylesheet=css/main.css -a docinfo1 -a revision=`git 
 
 pasberth.github.io: \
 	$(addsuffix .html, $(subst src, pasberth.github.io, $(basename $(shell find src -name index.adoc)))) \
+	$(subst src, pasberth.github.io, $(shell git ls-files src)) \
 	pasberth.github.io/.nojekyll
 
 pasberth.github.io/index.html: src/index.adoc css/main.css
@@ -10,6 +11,9 @@ pasberth.github.io/index.html: src/index.adoc css/main.css
 pasberth.github.io/%/index.html: src/%/index.adoc css/main.css src/%/docinfo.html src/%/docinfo-footer.html
 	mkdir -p `dirname $@`
 	$(ASCIIDOCTOR) $(patsubst pasberth.github.io/%/index.html, src/%/index.adoc, $@) -o $@
+
+pasberth.github.io/%: src/%
+	cp $^ $@
 
 src/%/docinfo.html: docinfo/docinfo.html
 	cp $^ $@
