@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="generator" content="Asciidoctor 1.5.0.preview.1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Untitled</title>
+<title>asciidoctor-cheatsheet</title>
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary { display: block; }
@@ -380,9 +380,83 @@ span.icon > [class^="icon-"], span.icon > [class*=" icon-"] { cursor: default; }
 </head>
 <body class="article">
 <div id="header">
+<h1>asciidoctor-cheatsheet</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_paragraph">paragraph</a></li>
+<li><a href="#_literal">literal</a></li>
+<li><a href="#_line_break">line break</a></li>
+<li><a href="#_formatted_text_cheat_sheet">formatted text cheat sheet</a></li>
+</ul>
+</div>
 </div>
 <div id="content">
+<div class="sect1">
+<h2 id="_paragraph">paragraph</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">code</div>
+<div class="content">
+<pre>this is a paragraph.
+second statement.
+
+second paragraph.</pre>
+</div>
+</div>
 <div class="paragraph">
+<div class="title">view</div>
+<p>this is a paragraph.
+second line.</p>
+</div>
+<div class="paragraph">
+<p>second paragraph.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_literal">literal</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">code</div>
+<div class="content">
+<pre> this is a literal.
+second line.
+
+ second literal.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="title">view</div>
+<div class="content">
+<pre> this is a literal.
+second line.</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>second literal.</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_line_break">line break</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="title">code</div>
+<div class="content">
+<pre>this is a line break example in a paragraph. +
+second line. +
+third line.
+
+ this is a line break example in a literal. +
+second line. +
+third line.</pre>
+</div>
+</div>
+<div class="paragraph">
+<div class="title">view</div>
 <p>this is a line break example in a paragraph.<br>
 second line.<br>
 third line.</p>
@@ -395,9 +469,158 @@ third line.</pre>
 </div>
 </div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="_formatted_text_cheat_sheet">formatted text cheat sheet</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all" style="width: 100%;">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">code</th>
+<th class="tableblock halign-left valign-top">view</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_hoge_</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>hoge</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>__hoge__</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>hoge</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*hoge*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>hoge</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>**hoge**</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>hoge</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>+hoge+</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hoge</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>++hoge++</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hoge</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hoge^fuga^</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hoge<sup>fuga</sup></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hoge^^fuga^^</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hoge<sup>^fuga</sup>^</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hoge~fuga~</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hoge<sub>fuga</sub></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>hoge~~fuga~~</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hoge<sub>~fuga</sub>~</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*_hoge_*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><em>hoge</em></strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_*hoge*_</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>*hoge*</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>+*hoge*+</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong>hoge</strong></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*+hoge+*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>hoge</code></strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>+_hoge_+</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>hoge</em></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_+hoge+_</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>+hoge+</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>+*_hoge_*+</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><strong><em>hoge</em></strong></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_*+hoge+*_</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>*<code>hoge</code>*</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>+_*hoge*_+</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><em>*hoge*</em></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_+*hoge*+_</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>+<strong>hoge</strong>+</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*+_hoge_+*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code><em>hoge</em></code></strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*_+hoge+_*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><em>+hoge+</em></strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>___</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>_</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>***</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>*</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>+++</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>+</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>x^^^</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">x<sup>^</sup></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>x~~~</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">x<sub>~</sub></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>_\__</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>\_</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*\**</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>\</strong>*</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>+\++</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>\</code>+</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>x^\^^</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">x<sup>\</sup>^</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>x~\~~</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">x<sub>\</sub>~</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2014-03-26 14:43:33 JST
+Last updated 2014-03-26 17:20:09 JST
 </div>
 </div>
 </body>

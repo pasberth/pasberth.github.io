@@ -86,71 +86,26 @@ include::static/hello.html[]
 に載っている内容をザッと見てみましょう。くわしくはそのページを
 読んでください。
 
-http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#paragraphs
-の内容です。
+怠惰な人のために link:raw/asciidoctor-cheatsheet.html[asciidoctor-cheatsheet.html]
+をつくっておきました。
 
-*パラグラフ* 単にテキストを書くと、それはパラグラフになります。
-
-.paragraph.adoc
-----
-include::static/paragraph.adoc[]
-----
-
-*リテラル* パラグラフの先頭の文字が空白の場合は、リテラルになります。
-
-.literal.adoc
-----
-include::static/literal.adoc[]
-----
-
-*改行* 行末に +++ という記号をおくとパラグラフ中で改行できます
-
-.linebreak.adoc
-----
-include::static/linebreak.adoc[]
-----
-
-斜体、太字、等幅のサンプルです。
-ネストもできますが、アンダースコアの内側に
-アスタリスクやプラスサインを持ってくると
-期待したようにいかない場合があります。
-
-|===
-|AsciiDoc|View
-
-|`_hoge_`|_hoge_
-|`__hoge__`|__hoge__
-|`*hoge*`|*hoge*
-|`**hoge**`|**hoge**
-|`+hoge+`|+hoge+
-|`++hoge++`|++hoge++
-
-|`*_hoge_*`|*_hoge_*
-|`_*hoge*_`|_*hoge*_
-|`+*hoge*+`|+*hoge*+
-|`*+hoge+*`|*+hoge+*
-|`+_hoge_+`|+_hoge_+
-|`_+hoge+_`|_+hoge+_
-
-|`+*_hoge_*+`|+*_hoge_*+
-|`_*+hoge+*_`|_*+hoge+*_
-|`+_*hoge*_+`|+_*hoge*_+
-|`_+*hoge*+_`|_+*hoge*+_
-|`*+_hoge_+*`|*+_hoge_+*
-|`*_+hoge+_*`|*_+hoge+_*
-|===
-
+`hoge^fuga^` などと書くと hoge^fuga^
+のように表示されます。
 Markdown や reST を使っていて
 とにかく欲しい欲しいと思っていた
 添字です！　これがあるというだけで
 AsciiDoc を使う理由になりますわ＾〜
 
-|===
-|AsciiDoc|View
+.link:raw/asciidoctor-cheatsheet.adoc[asciidoctor-cheatsheet.adoc]
+--------
+include::static/asciidoctor-cheatsheet.adoc[]
+--------
 
-|`hoge^fuga^`|hoge^fuga^
-|`hoge~fuga~`|hoge~fuga~
-|===
+[source,html]
+.link:raw/asciidoctor-cheatsheet.html[asciidoctor-cheatsheet.html]
+----
+include::static/asciidoctor-cheatsheet.html[]
+----
 
 == CSS を使う
 
@@ -164,6 +119,7 @@ CSS を使ってスタイルを拡張できるようになっています。
 include::static/custom-styling.adoc[]
 ----
 
+[source,css]
 .link:raw/custom-styling.css[custom-styling.css]
 ----
 include::static/custom-styling.css[]

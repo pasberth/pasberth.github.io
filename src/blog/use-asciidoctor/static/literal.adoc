@@ -1,4 +1,0 @@
- this is a literal.
-second line.
-
- second literal.

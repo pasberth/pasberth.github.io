@@ -1,4 +1,0 @@
-this is a paragraph.
-second line.
-
-second paragraph.

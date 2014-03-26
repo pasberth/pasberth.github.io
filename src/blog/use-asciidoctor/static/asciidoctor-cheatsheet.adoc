@@ -1,0 +1,99 @@
+= asciidoctor-cheatsheet
+:toc:
+
+== paragraph
+
+.code
+----
+this is a paragraph.
+second statement.
+
+second paragraph.
+----
+
+.view
+this is a paragraph.
+second line.
+
+second paragraph.
+
+== literal
+
+.code
+----
+ this is a literal.
+second line.
+
+ second literal.
+----
+
+.view
+ this is a literal.
+second line.
+
+ second literal.
+
+== line break
+
+.code
+----
+this is a line break example in a paragraph. +
+second line. +
+third line.
+
+ this is a line break example in a literal. +
+second line. +
+third line.
+----
+
+.view
+this is a line break example in a paragraph. +
+second line. +
+third line.
+
+ this is a line break example in a literal. +
+second line. +
+third line.
+
+== formatted text cheat sheet
+
+|===
+|code|view
+
+|`_hoge_`|_hoge_
+|`__hoge__`|__hoge__
+|`*hoge*`|*hoge*
+|`**hoge**`|**hoge**
+|`+hoge+`|+hoge+
+|`++hoge++`|++hoge++
+|`hoge^fuga^`|hoge^fuga^
+|`hoge^^fuga^^`|hoge^^fuga^^
+|`hoge~fuga~`|hoge~fuga~
+|`hoge~~fuga~~`|hoge~~fuga~~
+
+|`*_hoge_*`|*_hoge_*
+|`_*hoge*_`|_*hoge*_
+|`+*hoge*+`|+*hoge*+
+|`*+hoge+*`|*+hoge+*
+|`+_hoge_+`|+_hoge_+
+|`_+hoge+_`|_+hoge+_
+
+|`+*_hoge_*+`|+*_hoge_*+
+|`_*+hoge+*_`|_*+hoge+*_
+|`+_*hoge*_+`|+_*hoge*_+
+|`_+*hoge*+_`|_+*hoge*+_
+|`*+_hoge_+*`|*+_hoge_+*
+|`*_+hoge+_*`|*_+hoge+_*
+
+|`___`|___
+|`***`|***
+|`+++`|+++
+|`x^^^`|x^^^
+|`x~~~`|x~~~
+
+|`_\__`|_\__
+|`*\**`|*\**
+|`+\++`|+\++
+|`x^\^^`|x^\^^
+|`x~\~~`|x~\~~
+|===
