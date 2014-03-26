@@ -1,0 +1,8 @@
+= highlighting-with-pygments-github
+:source-highlighter: pygments
+:pygments-style: github
+
+[source,ocaml]
+----
+let () = print_string "hello world"
+----

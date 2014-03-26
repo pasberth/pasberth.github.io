@@ -1,6 +1,6 @@
 = Asciidoctorを使おう！
 :source-highlighter: pygments
-:pygments-css:
+:pygments-style: github
 
 == Asciidoctor?
 
@@ -133,6 +133,73 @@ include::static/custom-styling.css[]
 include::static/custom-styling.html[]
 ----
 
+== シンタクスハイライタを使う
+
+Asciidoctor でシンタクスハイライタを有効にするには、
+`source-highlighter` というオプションに
+シンタクスハイライタのエンジンを指定します。
+くわしくは <<6>> に載っています。
+
+.link:raw/highlighting-with-pygments.adoc[highlighting-with-pygments.adoc]
+--------
+include::static/highlighting-with-pygments.adoc[]
+--------
+
+[source,html]
+.link:raw/highlighting-with-pygments.html[highlighting-with-pygments.html]
+--------
+include::static/highlighting-with-pygments.html[]
+--------
+
+.link:raw/highlighting-with-coderay.adoc[highlighting-with-coderay.adoc]
+--------
+include::static/highlighting-with-coderay.adoc[]
+--------
+
+[source,html]
+.link:raw/highlighting-with-coderay.html[highlighting-with-coderay.html]
+--------
+include::static/highlighting-with-coderay.html[]
+--------
+
+.link:raw/highlighting-with-highlightjs.adoc[highlighting-with-highlightjs.adoc]
+--------
+include::static/highlighting-with-highlightjs.adoc[]
+--------
+
+[source,html]
+.link:raw/highlighting-with-highlightjs.html[highlighting-with-highlightjs.html]
+--------
+include::static/highlighting-with-highlightjs.html[]
+--------
+
+.link:raw/highlighting-with-prettify.adoc[highlighting-with-prettify.adoc]
+--------
+include::static/highlighting-with-prettify.adoc[]
+--------
+
+[source,html]
+.link:raw/highlighting-with-prettify.html[highlighting-with-prettify.html]
+--------
+include::static/highlighting-with-prettify.html[]
+--------
+
+== Pygments の色を変える
+
+`pygmentize -L style` で利用可能なスタイルの一覧を知ることができます。
+そこで、好きなデザインを選んで、 `pygments-style` 属性として設定しましょう。
+
+.link:raw/highlighting-with-pygments-github.adoc[highlighting-with-pygments-github.adoc]
+--------
+include::static/highlighting-with-pygments-github.adoc[]
+--------
+
+[source,html]
+.link:raw/highlighting-with-pygments-github.html[highlighting-with-pygments-github.html]
+--------
+include::static/highlighting-with-pygments-github.html[]
+--------
+
 == MathJax を使う
 
 朗報です！　asciidoctor 1.5.preview.1 から、
@@ -158,3 +225,4 @@ include::static/mathjax.html[]
 - [[[3]]] http://asciidoctor.org/docs/user-manual/#asciidoctor-vs-asciidoc[6. Appendix A: Comparison of Asciidoctor and AsciiDoc Features]
 - [[[4]]] http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Syntax Quick Reference]
 - [[[5]]] http://asciidoctor.org/docs/user-manual/[Asciidoctor User Manual]
+- [[[6]]] http://asciidoctor.org/docs/user-manual/#syntax-highlighting[4.1. Syntax Highlighting]
