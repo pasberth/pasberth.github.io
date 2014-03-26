@@ -1,3 +1,5 @@
+.SECONDEXPANSION:
+
 ASCIIDOCTOR=asciidoctor -a stylesheet=css/main.css -a docinfo1 -a revision=`git rev-parse default`
 
 pasberth.github.io: \
@@ -8,7 +10,7 @@ pasberth.github.io: \
 pasberth.github.io/index.html: src/index.adoc css/main.css
 	$(ASCIIDOCTOR) src/index.adoc -o $@
 
-pasberth.github.io/%/index.html: src/%/index.adoc css/main.css src/%/docinfo.html src/%/docinfo-footer.html
+pasberth.github.io/%/index.html: src/%/index.adoc css/main.css src/%/docinfo.html src/%/docinfo-footer.html $$(wildcard src/%/*)
 	mkdir -p `dirname $@`
 	$(ASCIIDOCTOR) $(patsubst pasberth.github.io/%/index.html, src/%/index.adoc, $@) -o $@
 
