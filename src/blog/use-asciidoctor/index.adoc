@@ -97,22 +97,24 @@ Markdown や reST を使っていて
 AsciiDoc を使う理由になりますわ＾〜
 
 .link:raw/asciidoctor-cheatsheet.adoc[asciidoctor-cheatsheet.adoc]
---------
+----------------
 include::static/asciidoctor-cheatsheet.adoc[]
---------
+----------------
 
 [source,html]
 .link:raw/asciidoctor-cheatsheet.html[asciidoctor-cheatsheet.html]
-----
+----------------
 include::static/asciidoctor-cheatsheet.html[]
-----
+----------------
 
 == CSS を使う
 
 これはほんとに見事だと思う仕様です。 AsciiDoc は
 CSS を使ってスタイルを拡張できるようになっています。
 
-インラインの場合は `[class]#text...#` のようにします。
+インラインの場合は +[class~1~ class~2~ ... class~n~]\#text...#+ のようにします。
+ブロックの場合は +[.class~1~.class~2~...class~n~]+ のあとに
+パラグラフやリテラルなどを続けます。
 
 .link:raw/custom-styling.adoc[custom-styling.adoc]
 ----

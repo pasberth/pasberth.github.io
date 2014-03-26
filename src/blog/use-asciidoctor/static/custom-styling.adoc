@@ -5,3 +5,9 @@
 * [my-italic]#a my-italic text#.
 * [my-underline]#a my-underline text#.
 * [my-bold my-italic]#bold and italic#.
+
+[.my-fg-white.my-bg-black]
+paragraph
+
+[.my-fg-white.my-bg-black]
+ literal

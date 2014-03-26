@@ -1,7 +1,8 @@
 = asciidoctor-cheatsheet
 :toc:
+:icons: font
 
-== paragraph
+== Paragraph
 
 .code
 ----
@@ -17,7 +18,7 @@ second statement.
 
 second paragraph.
 
-== literal
+== Literal
 
 .code
 ----
@@ -25,6 +26,18 @@ second paragraph.
 second line.
 
  second literal.
+
+    block with offside-rule.
+    second line.
+
+
+[literal]
+block without offside-rule.
+second line.
+
+....
+this is the same as `literal`.
+....
 ----
 
 .view
@@ -33,7 +46,18 @@ second line.
 
  second literal.
 
-== line break
+    block with offside-rule.
+    second line.
+
+[literal]
+block without offside-rule.
+second line.
+
+....
+this is the same as `literal`.
+....
+
+== Line break
 
 .code
 ----
@@ -55,45 +79,112 @@ third line.
 second line. +
 third line.
 
-== formatted text cheat sheet
+== Listing
+
+.code
+--------
+[listing]
+this is a listing
+
+----
+this is the same as `listing`.
+----
+--------
+
+[listing]
+this is a listing
+
+----
+this is the same as `listing`.
+----
+
+
+== Admonition block
+
+[listing]
+.code
+----
+TIP: Pro tip...
+
+IMPORTANT: Don't forget...
+
+WARNING: Watch out for...
+
+CAUTION: Ensure that...
+----
+
+*view*
+
+TIP: Pro tip...
+
+IMPORTANT: Don't forget...
+
+WARNING: Watch out for...
+
+CAUTION: Ensure that...
+
+== Formatted text cheat sheet
 
 |===
 |code|view
 
 |`_hoge_`|_hoge_
-|`__hoge__`|__hoge__
 |`*hoge*`|*hoge*
-|`**hoge**`|**hoge**
 |`+hoge+`|+hoge+
-|`++hoge++`|++hoge++
+|+$$`hoge`$$+|`hoge`
 |`hoge^fuga^`|hoge^fuga^
-|`hoge^^fuga^^`|hoge^^fuga^^
 |`hoge~fuga~`|hoge~fuga~
-|`hoge~~fuga~~`|hoge~~fuga~~
+|+$$`hoge'$$+|`hoge'
+|+$$``hoge''$$+|``hoge''
 
-|`*_hoge_*`|*_hoge_*
-|`_*hoge*_`|_*hoge*_
-|`+*hoge*+`|+*hoge*+
-|`*+hoge+*`|*+hoge+*
-|`+_hoge_+`|+_hoge_+
-|`_+hoge+_`|_+hoge+_
-
-|`+*_hoge_*+`|+*_hoge_*+
-|`_*+hoge+*_`|_*+hoge+*_
-|`+_*hoge*_+`|+_*hoge*_+
-|`_+*hoge*+_`|_+*hoge*+_
-|`*+_hoge_+*`|*+_hoge_+*
-|`*_+hoge+_*`|*_+hoge+_*
+|+$$__hoge__$$+|__hoge__
+|+$$_*hoge*_$$+|_*hoge*_
+|+$$_+hoge+_$$+|_+hoge+_
+|+$$_`hoge`_$$+|_`hoge`_
+|+$$_^hoge^_$$+|_^hoge^_
+|+$$_~hoge~_$$+|_~hoge~_
+|+$$*_hoge_*$$+|*_hoge_*
+|+$$**hoge**$$+|**hoge**
+|+$$*+hoge+*$$+|*+hoge+*
+|+$$*`hoge`*$$+|*`hoge`*
+|+$$*^hoge^*$$+|*^hoge^*
+|+$$*~hoge~*$$+|*~hoge~*
+|+$$+_hoge_+$$+|+_hoge_+
+|+$$+*hoge*+$$+|+*hoge*+
+|+$$++hoge++$$+|++hoge++
+|+$$+`hoge`+$$+|+`hoge`+
+|+$$+^hoge^+$$+|+^hoge^+
+|+$$+~hoge~+$$+|+~hoge~+
+|+$$`_hoge_`$$+|`_hoge_`
+|+$$`*hoge*`$$+|`*hoge*`
+|+$$`+hoge+`$$+|`+hoge+`
+|+$$``hoge``$$+|``hoge``
+|+$$`^hoge^`$$+|`^hoge^`
+|+$$`~hoge~`$$+|`~hoge~`
+|+$$^_hoge_^$$+|^_hoge_^
+|+$$^*hoge*^$$+|^*hoge*^
+|+$$^+hoge+^$$+|^+hoge+^
+|+$$^`hoge`^$$+|^`hoge`^
+|+$$^^hoge^^$$+|^^hoge^^
+|+$$^~hoge~^$$+|^~hoge~^
+|+$$~_hoge_~$$+|~_hoge_~
+|+$$~*hoge*~$$+|~*hoge*~
+|+$$~+hoge+~$$+|~+hoge+~
+|+$$~`hoge`~$$+|~`hoge`~
+|+$$~^hoge^~$$+|~^hoge^~
+|+$$~~hoge~~$$+|~~hoge~~
 
 |`___`|___
 |`***`|***
 |`+++`|+++
+|+$$```$$+|```
 |`x^^^`|x^^^
 |`x~~~`|x~~~
 
 |`_\__`|_\__
 |`*\**`|*\**
 |`+\++`|+\++
+|+$$`\``$$+|`\``
 |`x^\^^`|x^\^^
 |`x~\~~`|x~\~~
 |===
