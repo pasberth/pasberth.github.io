@@ -20,6 +20,7 @@ a {
 pre {
   margin: 0;
   padding: 0;
+  overflow: auto;
 }
 
 pre, code {
@@ -101,7 +102,7 @@ div#toc { @include list; @include navigation; }
 div.listingblock {
   color: white;
   background-color: $base-text-color;
-  margin: 0;
+  margin: 0 0 1.25em;
   padding: 0.5em;
 }
 

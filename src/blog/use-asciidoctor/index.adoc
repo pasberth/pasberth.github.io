@@ -1,5 +1,4 @@
 = Asciidoctorを使おう！
-:source-highlighter: pygments
 
 == Asciidoctor?
 
@@ -21,8 +20,29 @@ Asciidoctor は Ruby で実装されているということで、宗教的な�
 http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Syntax Quick Reference] <<4>> や
 http://asciidoctor.org/docs/user-manual/[Asciidoctor User Manual] <<5>> をよく読むべきでしょう。
 
-== Installation
+== Asciidoctorの使いどころ
 
+Qiita やはてなブログでは Markdown を使って記事を書くことができますよね。
+また、 GitHub の README もよく Markdown を使って書かれます。
+あるいは、スライドが Markdown で書かれることもあります。
+
+残念ながら Qiita などでは原理的に Asciidoctor を使って記事を書くことは
+できないでしょう。それに仮に使えても、それが良い選択であることには
+ならないと思います。
+
+なぜなら、 Qiita で書く記事には必要とされないような
+たくさんの機能が Asciidoctor にはあるからです。
+もし Qiita で記事を書くときに Asciidoctor を使えても、
+その機能のほとんどは腐ってしまうでしょう。 Markdown で書くのが
+ちょうどいいと思います。
+
+では、 Asciidoctor はどういうときに使うのだろう？
+Asciidoctor は、ちょうど HTML を出力する LaTeX というような、
+LaTeX と Markdown の中間のようなツールだと思います。
+つまり、キレイなウェブページを書きたいけど、
+HTML は書きたくない。そういう場合に使うといいと思います。
+
+== Installation
 
 asciidoctor は http://rubygems.org[RubyGems] にありますので、 +gem+ コマンドで
 インストールできます。
@@ -34,14 +54,20 @@ gem install asciidoctor
 
 まずは hello world を試してみましょう。
 
-[listing]
 .hello.adoc
+----
 include::hello.adoc[]
+----
 
-コンパイルするには、次のコマンドを入力します。
+コンパイルするには、次のようなコマンドを入力します。
 
 [listing]
 asciidoctor hello.adoc
+
+このコードをコンパイルすると、次のような HTML になるはずです。
+
+[listing]
+<p>hello world</p>
 
 これで、ひとまず ``hello world'' と表示する
 だけの HTML がつくられて、 +hello.html+ という名前で
@@ -49,9 +75,105 @@ asciidoctor hello.adoc
 
 == AsciiDoc の概観
 
-まずは AsciiDoc Syntax Quick Reference <<3>>
+まずは AsciiDoc Syntax Quick Reference <<4>>
 に載っている内容をザッと見てみましょう。くわしくはそのページを
 読んでください。
+
+http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#paragraphs
+の内容です。
+
+*パラグラフ* 単にテキストを書くと、それはパラグラフになります。
+
+.paragraph.adoc
+----
+include::paragraph.adoc[]
+----
+
+*リテラル* パラグラフの先頭の文字が空白の場合は、リテラルになります。
+
+.literal.adoc
+----
+include::literal.adoc[]
+----
+
+*改行* 行末に +++ という記号をおくとパラグラフ中で改行できます
+
+.linebreak.adoc
+----
+include::linebreak.adoc[]
+----
+
+斜体、太字、等幅のサンプルです。
+ネストもできますが、アンダースコアの内側に
+アスタリスクやプラスサインを持ってくると
+期待したようにいかない場合があります。
+
+|===
+|AsciiDoc|View
+
+|`_hoge_`|_hoge_
+|`__hoge__`|__hoge__
+|`*hoge*`|*hoge*
+|`**hoge**`|**hoge**
+|`+hoge+`|+hoge+
+|`++hoge++`|++hoge++
+
+|`*_hoge_*`|*_hoge_*
+|`_*hoge*_`|_*hoge*_
+|`+*hoge*+`|+*hoge*+
+|`*+hoge+*`|*+hoge+*
+|`+_hoge_+`|+_hoge_+
+|`_+hoge+_`|_+hoge+_
+
+|`+*_hoge_*+`|+*_hoge_*+
+|`_*+hoge+*_`|_*+hoge+*_
+|`+_*hoge*_+`|+_*hoge*_+
+|`_+*hoge*+_`|_+*hoge*+_
+|`*+_hoge_+*`|*+_hoge_+*
+|`*_+hoge+_*`|*_+hoge+_*
+|===
+
+Markdown や reST を使っていて
+とにかく欲しい欲しいと思っていた
+添字です！　これがあるというだけで
+AsciiDoc を使う理由になりますわ＾〜
+
+|===
+|AsciiDoc|View
+
+|`hoge^fuga^`|hoge^fuga^
+|`hoge~fuga~`|hoge~fuga~
+|===
+
+== CSS を使う
+
+これはほんとに見事だと思う仕様です。 AsciiDoc は
+CSS を使ってスタイルを拡張できるようになっています。
+
+インラインの場合は `[class]#text...#` のようにします。
+
+.custom-styling.adoc
+----
+include::custom-styling.adoc[]
+----
+
+このコードをコンパイルすると、次のような HTML になるはずです。
+
+[listing]
+<span class="hoge fuga piyo">custom styling</span>
+
+== MathJax を使う
+
+朗報です！　asciidoctor 1.5.preview.1 から、
+MathJax が使えるようになりました。
+
+
+.mathjax.adoc
+----
+include::mathjax.adoc[]
+----
+
+
 
 == 参考文献
 
