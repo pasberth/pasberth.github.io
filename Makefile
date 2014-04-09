@@ -1,5 +1,6 @@
-DESTDIR=pasberth.github.io
+.SECONDEXPANSION:
 
+DESTDIR=pasberth.github.io
 PARADOCS=./paradocs/dist/build/paradocs/paradocs
 
 $(DESTDIR)/index.html: src/index.pdoc
@@ -17,6 +18,10 @@ $(DESTDIR)/blog/index.html: src/blog/index.pdoc
 $(DESTDIR)/blog/use-asciidoctor/index.html: src/blog/use-asciidoctor/index.pdoc
 	mkdir -p $(DESTDIR)/blog/use-asciidoctor
 	$(PARADOCS) src/blog/use-asciidoctor/index.pdoc > $(DESTDIR)/blog/use-asciidoctor/index.html
+
+$(DESTDIR)/%/raw: $$(shell find src/%/static -not -type d)
+	rm -rf $@
+	cp -R $(patsubst $(DESTDIR)/%/raw, src/%/static, $@) $@
 
 $(DESTDIR)/css/main.css: scss/main.scss
 	mkdir -p $(DESTDIR)/css
