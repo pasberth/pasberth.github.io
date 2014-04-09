@@ -1,0 +1,8 @@
+= highlighting-with-highlightjs
+:source-highlighter: highlightjs
+
+[source,haskell]
+----
+main :: IO ()
+main = putStrLn "hello world"
+----

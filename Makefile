@@ -10,6 +10,14 @@ $(DESTDIR)/read/index.html: src/read/index.pdoc
 	mkdir -p $(DESTDIR)/read
 	$(PARADOCS) src/read/index.pdoc > $(DESTDIR)/read/index.html
 
+$(DESTDIR)/blog/index.html: src/blog/index.pdoc
+	mkdir -p $(DESTDIR)/blog
+	$(PARADOCS) src/blog/index.pdoc > $(DESTDIR)/blog/index.html
+
+$(DESTDIR)/blog/use-asciidoctor/index.html: src/blog/use-asciidoctor/index.pdoc
+	mkdir -p $(DESTDIR)/blog/use-asciidoctor
+	$(PARADOCS) src/blog/use-asciidoctor/index.pdoc > $(DESTDIR)/blog/use-asciidoctor/index.html
+
 $(DESTDIR)/css/main.css: scss/main.scss
 	mkdir -p $(DESTDIR)/css
 	sass --unix-newlines \

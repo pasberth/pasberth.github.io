@@ -1,0 +1,7 @@
+= mathjax
+:math:
+
+[math]
+++++
+(\alpha \rightarrow \beta) \rightarrow (\not \beta \rightarrow \not \alpha)
+++++

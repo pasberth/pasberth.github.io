@@ -92,7 +92,6 @@ pre, code {
 }
 
 pre {
-  background-color: while !important;
   padding: 0.46em 0.76em;
   border: 1px solid silver;
   border-radius: 0.25em;
@@ -100,6 +99,39 @@ pre {
   overflow: auto;
 }
 
-.hljs {
-  background-color: while !important;
+.frame {
+  margin: 0;
+  padding: 0;
+  border: 1px solid silver;
+  border-radius: 0.25em;
 }
+
+.frame .title {
+  display: inline-block;
+  margin: 0;
+  padding: 0.25em 0.5em;
+  border-right: 1px solid silver;
+  border-bottom: 1px solid silver;
+  border-bottom-right-radius: 0.25em;
+}
+
+.frame .content {
+  margin: 0;
+  padding: 0 0.5em;
+}
+
+.code-frame {
+  max-height: 10em;
+  overflow: auto;
+}
+
+.code-frame .content pre {
+  padding: 0;
+  border-style: none;
+  max-height: none;
+}
+
+.hljs {
+  background-color: white !important;
+}
+
