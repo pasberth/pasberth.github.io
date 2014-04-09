@@ -1,0 +1,17 @@
+%include ../../paradocs/lib/stdhtml.pdoc
+
+%html
+%head
+%""<link rel="stylesheet" href="css/main.css">""
+%style
+%body
+
+= pasberth.github.io
+
+%rule block navigation
+  %extend block
+  %before %""<div class="list navigation">""
+  %after %"</div>"
+
+%navigation%ul
+- `read/index.html`Read`

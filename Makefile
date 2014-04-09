@@ -1,0 +1,19 @@
+DESTDIR=pasberth.github.io
+
+PARADOCS=./paradocs/dist/build/paradocs/paradocs
+
+$(DESTDIR)/index.html: src/index.pdoc
+	mkdir -p $(DESTDIR)
+	$(PARADOCS) src/index.pdoc > $(DESTDIR)/index.html
+
+$(DESTDIR)/read/index.html: src/read/index.pdoc
+	mkdir -p $(DESTDIR)/read
+	$(PARADOCS) src/read/index.pdoc > $(DESTDIR)/read/index.html
+
+$(DESTDIR)/css/main.css: scss/main.scss
+	mkdir -p $(DESTDIR)/css
+	sass --unix-newlines \
+		--scss \
+		-I`ruby -rcompass -e 'puts Compass.base_directory'`/frameworks/compass/stylesheets/ \
+		scss/main.scss \
+		$(DESTDIR)/css/main.css
