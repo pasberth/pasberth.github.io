@@ -14,10 +14,10 @@ Asciidoctor とは軽量マークアップ言語のひとつで、
 HTML に変換できます。 Markdown, reStructuredText と似たような
 用途で使うことができます。
 
-処理系として `http://asciidoc.org/`AsciiDoc` <<1>> や
-`http://asciidoctor.org/`Asciidoctor` <<2>> などがあります。
+処理系として `http://asciidoc.org/`AsciiDoc` `#1`[1]` や
+`http://asciidoctor.org/`Asciidoctor` `#2`[2]` などがあります。
 `http://asciidoctor.org/docs/user-manual/#asciidoctor-vs-asciidoc`AsciiDoc と Asciidoctor の比較`
-<<3>> もありますが、よくわからない場合は、 AsciiDoc は Python で実装されて実装されていて、
+`#3`[3]` もありますが、よくわからない場合は、 AsciiDoc は Python で実装されて実装されていて、
 Asciidoctor は Ruby で実装されているということで、宗教的な理由で
 使う方を選ぶとよいでしょう。なお、このブログは AsciiDoc は扱わず、
 処理系として Asciidoctor を使うことを前提としています。
@@ -25,8 +25,8 @@ Asciidoctor は Ruby で実装されているということで、宗教的な�
 このブログは主に Asciidoctor の布教を目的としています。
 %"<s>このブログ自体も Asciidoctor でつくられています。</s>"
 フフフ…怖いか？　実際に Asciidoctor を使うときは、
-`http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/`AsciiDoc Syntax Quick Reference` <<4>> や
-`http://asciidoctor.org/docs/user-manual/`Asciidoctor User Manual` <<5>> をよく読むべきでしょう。
+`http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/`AsciiDoc Syntax Quick Reference` `#2`[4]` や
+`http://asciidoctor.org/docs/user-manual/`Asciidoctor User Manual` `#2`[5]` をよく読むべきでしょう。
 
 == Asciidoctorの使いどころ
 
@@ -86,7 +86,7 @@ asciidoctor は `http://rubygems.org`RubyGems` にありますので、 +gem+ �
 
 == AsciiDoc の概観
 
-まずは AsciiDoc Syntax Quick Reference <<4>>
+まずは AsciiDoc Syntax Quick Reference `#4`[4]`
 に載っている内容をザッと見てみましょう。くわしくはそのページを
 読んでください。
 
@@ -139,7 +139,7 @@ CSS を使ってスタイルを拡張できるようになっています。
 Asciidoctor でシンタクスハイライタを有効にするには、
 +source-highlighter+ というオプションに
 シンタクスハイライタのエンジンを指定します。
-くわしくは <<6>> に載っています。
+くわしくは `#6`[6]` に載っています。
 
 %code-frame
 %title `raw/highlighting-with-pygments.adoc`highlighting-with-pygments.adoc`
@@ -212,10 +212,10 @@ MathJax が使えるようになりました。
 
 == 参考文献
 
-[bibliography]
-- [[[1]]] http://asciidoc.org/[AsciiDoc]
-- [[[2]]] http://asciidoctor.org/[Asciidoctor]
-- [[[3]]] http://asciidoctor.org/docs/user-manual/#asciidoctor-vs-asciidoc[6. Appendix A: Comparison of Asciidoctor and AsciiDoc Features]
-- [[[4]]] http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Syntax Quick Reference]
-- [[[5]]] http://asciidoctor.org/docs/user-manual/[Asciidoctor User Manual]
-- [[[6]]] http://asciidoctor.org/docs/user-manual/#syntax-highlighting[4.1. Syntax Highlighting]
+%ul
+- %""<a id="1"></a>[1]"" `http://asciidoc.org/`AsciiDoc`
+- %""<a id="2"></a>[2]"" `http://asciidoctor.org/`Asciidoctor`
+- %""<a id="3"></a>[3]"" `"http://asciidoctor.org/docs/user-manual/#asciidoctor-vs-asciidoc"`6. Appendix A: Comparison of Asciidoctor and AsciiDoc Features`
+- %""<a id="4"></a>[4]"" `"http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/"`AsciiDoc Syntax Quick Reference`
+- %""<a id="5"></a>[5]"" `"http://asciidoctor.org/docs/user-manual/"`Asciidoctor User Manual`
+- %""<a id="6"></a>[6]"" `"http://asciidoctor.org/docs/user-manual/#syntax-highlighting"`4.1. Syntax Highlighting`
