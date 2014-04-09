@@ -208,6 +208,7 @@ MathJax が使えるようになりました。
 
 %code-frame
 %title `raw/mathjax.html`mathjax.html`
+%content
 %read static/mathjax.html
 
 == 参考文献
