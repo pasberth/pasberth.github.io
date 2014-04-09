@@ -1,9 +1,0 @@
-= highlighting-with-prettify
-:source-highlighter: prettify
-
-[source,scala]
-----
-object Main extends App {
-  println("hello world")
-}
-----
