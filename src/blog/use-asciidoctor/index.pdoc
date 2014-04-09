@@ -1,0 +1,221 @@
+%include ../../../../paradocs/lib/stdhtml.pdoc
+
+%html
+%head
+%""<link rel="stylesheet" href="../../css/main.css">""
+%style
+%body
+
+= Asciidoctorを使おう！
+
+== Asciidoctor?
+
+Asciidoctor とは軽量マークアップ言語のひとつで、
+HTML に変換できます。 Markdown, reStructuredText と似たような
+用途で使うことができます。
+
+処理系として `http://asciidoc.org/`AsciiDoc` <<1>> や
+`http://asciidoctor.org/`Asciidoctor` <<2>> などがあります。
+`http://asciidoctor.org/docs/user-manual/#asciidoctor-vs-asciidoc`AsciiDoc と Asciidoctor の比較`
+<<3>> もありますが、よくわからない場合は、 AsciiDoc は Python で実装されて実装されていて、
+Asciidoctor は Ruby で実装されているということで、宗教的な理由で
+使う方を選ぶとよいでしょう。なお、このブログは AsciiDoc は扱わず、
+処理系として Asciidoctor を使うことを前提としています。
+
+このブログは主に Asciidoctor の布教を目的としています。
+%"<s>このブログ自体も Asciidoctor でつくられています。</s>"
+フフフ…怖いか？　実際に Asciidoctor を使うときは、
+`http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/`AsciiDoc Syntax Quick Reference` <<4>> や
+`http://asciidoctor.org/docs/user-manual/`Asciidoctor User Manual` <<5>> をよく読むべきでしょう。
+
+== Asciidoctorの使いどころ
+
+Qiita やはてなブログでは Markdown を使って記事を書くことができますよね。
+また、 GitHub の README もよく Markdown を使って書かれます。
+あるいは、スライドが Markdown で書かれることもあります。
+
+残念ながら Qiita などでは原理的に Asciidoctor を使って記事を書くことは
+できないでしょう。それに仮に使えても、それが良い選択であることには
+ならないと思います。
+
+なぜなら、 Qiita で書く記事には必要とされないような
+たくさんの機能が Asciidoctor にはあるからです。
+もし Qiita で記事を書くときに Asciidoctor を使えても、
+その機能のほとんどは腐ってしまうでしょう。 Markdown で書くのが
+ちょうどいいと思います。
+
+では、 Asciidoctor はどういうときに使うのだろう？
+Asciidoctor は、ちょうど HTML を出力する LaTeX というような、
+LaTeX と Markdown の中間のようなツールだと思います。
+つまり、キレイなウェブページを書きたいけど、
+HTML は書きたくない。そういう場合に使うといいと思います。
+
+== Installation
+
+asciidoctor は `http://rubygems.org`RubyGems` にありますので、 +gem+ コマンドで
+インストールできます。
+
+%pre"gem install asciidoctor"
+
+== Hello world
+
+まずは hello world を試してみましょう。
+
+%code-frame
+%title `raw/hello.adoc`hello.adoc`
+%content
+%read static/hello.adoc
+
+コンパイルするには、次のようなコマンドを入力します。
+
+%code-frame
+%title `raw/make-hello.sh`make-hello.sh`
+%content
+%read static/make-hello.sh
+
+このコードをコンパイルすると、次のような HTML になるはずです。
+
+%code-frame
+%title `raw/hello.html`hello.html`
+%content
+%read static/hello.html
+
+これで、ひとまず hello worl と表示する
+だけの HTML がつくられて、 +hello.html+ という名前で
+保存されるはずです。
+
+== AsciiDoc の概観
+
+まずは AsciiDoc Syntax Quick Reference <<4>>
+に載っている内容をザッと見てみましょう。くわしくはそのページを
+読んでください。
+
+怠惰な人のために `raw/asciidoctor-cheatsheet.html`asciidoctor-cheatsheet.html`
+をつくっておきました。
+
++"hoge^fuga^"+ などと書くと hoge^fuga^
+のように表示されます。
+Markdown や reST を使っていて
+とにかく欲しい欲しいと思っていた
+添字です！　これがあるというだけで
+AsciiDoc を使う理由になりますわ＾〜
+
+%code-frame
+%title `raw/asciidoctor-cheatsheet.adoc`asciidoctor-cheatsheet.adoc`
+%content
+%read static/asciidoctor-cheatsheet.adoc
+
+%code-frame
+%title `raw/asciidoctor-cheatsheet.html`asciidoctor-cheatsheet.html`
+%content
+%read static/asciidoctor-cheatsheet.html
+
+== CSS を使う
+
+これはほんとに見事だと思う仕様です。 AsciiDoc は
+CSS を使ってスタイルを拡張できるようになっています。
+
+インラインの場合は +[class~1~ class~2~ ... class~n~]#text...#+ のようにします。
+ブロックの場合は +[.class~1~.class~2~...class~n~]+ のあとに
+パラグラフやリテラルなどを続けます。
+
+%code-frame
+%title `raw/custom-styling.adoc`custom-styling.adoc`
+%content
+%read static/custom-styling.adoc
+
+%code-frame
+%title `raw/custom-styling.css`custom-styling.css`
+%content
+%read static/custom-styling.css
+
+%code-frame
+%title `raw/custom-styling.html`custom-styling.html`
+%content
+%read static/custom-styling.html
+
+== シンタクスハイライタを使う
+
+Asciidoctor でシンタクスハイライタを有効にするには、
++source-highlighter+ というオプションに
+シンタクスハイライタのエンジンを指定します。
+くわしくは <<6>> に載っています。
+
+%code-frame
+%title `raw/highlighting-with-pygments.adoc`highlighting-with-pygments.adoc`
+%content
+%read static/highlighting-with-pygments.adoc
+
+%code-frame
+%title `raw/highlighting-with-pygments.html`highlighting-with-pygments.html`
+%content
+%read static/highlighting-with-pygments.html
+
+%code-frame
+%title `raw/highlighting-with-coderay.adoc`highlighting-with-coderay.adoc`
+%content
+%read static/highlighting-with-coderay.adoc
+
+%code-frame
+%title `raw/highlighting-with-coderay.html`highlighting-with-coderay.html`
+%content
+%read static/highlighting-with-coderay.html
+
+%code-frame
+%title `raw/highlighting-with-highlightjs.adoc`highlighting-with-highlightjs.adoc`
+%content
+%read static/highlighting-with-highlightjs.adoc
+
+%code-frame
+%title `raw/highlighting-with-highlightjs.html`highlighting-with-highlightjs.html`
+%content
+%read static/highlighting-with-highlightjs.html
+
+%code-frame
+%title `raw/highlighting-with-prettify.adoc`highlighting-with-prettify.adoc`
+%content
+%read static/highlighting-with-prettify.adoc
+
+%code-frame
+%title `raw/highlighting-with-prettify.html`highlighting-with-prettify.html`
+%content
+%read static/highlighting-with-prettify.html
+
+== Pygments の色を変える
+
++pygmentize -L style+ で利用可能なスタイルの一覧を知ることができます。
+そこで、好きなデザインを選んで、 +pygments-style+ 属性として設定しましょう。
+
+%code-frame
+%title `raw/highlighting-with-pygments-github.adoc`highlighting-with-pygments-github.adoc`
+%content
+%read static/highlighting-with-pygments-github.adoc
+
+%code-frame
+%title `raw/highlighting-with-pygments-github.html`highlighting-with-pygments-github.html`
+%content
+%read static/highlighting-with-pygments-github.html
+
+== MathJax を使う
+
+朗報です！　asciidoctor 1.5.preview.1 から、
+MathJax が使えるようになりました。
+
+%code-frame
+%title `raw/mathjax.adoc`mathjax.adoc`
+%content
+%read static/mathjax.adoc
+
+%code-frame
+%title `raw/mathjax.html`mathjax.html`
+%read static/mathjax.html
+
+== 参考文献
+
+[bibliography]
+- [[[1]]] http://asciidoc.org/[AsciiDoc]
+- [[[2]]] http://asciidoctor.org/[Asciidoctor]
+- [[[3]]] http://asciidoctor.org/docs/user-manual/#asciidoctor-vs-asciidoc[6. Appendix A: Comparison of Asciidoctor and AsciiDoc Features]
+- [[[4]]] http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Syntax Quick Reference]
+- [[[5]]] http://asciidoctor.org/docs/user-manual/[Asciidoctor User Manual]
+- [[[6]]] http://asciidoctor.org/docs/user-manual/#syntax-highlighting[4.1. Syntax Highlighting]

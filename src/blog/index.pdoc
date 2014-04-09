@@ -1,0 +1,13 @@
+%include ../../../paradocs/lib/stdhtml.pdoc
+
+%html
+%head
+%""<link rel="stylesheet" href="../css/main.css">""
+%style
+%body
+
+= pasberth.github.io/blog
+
+%ul
+- `use\-asciidoctor/index.html`Asciidoctorを使おう！`
+

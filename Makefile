@@ -7,6 +7,10 @@ $(DESTDIR)/index.html: src/index.pdoc
 	mkdir -p $(DESTDIR)
 	$(PARADOCS) src/index.pdoc > $(DESTDIR)/index.html
 
+$(DESTDIR)/readme/index.html: src/readme/index.pdoc
+	mkdir -p $(DESTDIR)/readme
+	$(PARADOCS) src/readme/index.pdoc > $(DESTDIR)/readme/index.html
+
 $(DESTDIR)/read/index.html: src/read/index.pdoc
 	mkdir -p $(DESTDIR)/read
 	$(PARADOCS) src/read/index.pdoc > $(DESTDIR)/read/index.html
