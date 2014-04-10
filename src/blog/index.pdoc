@@ -11,3 +11,4 @@
 %ul
 - `use\-asciidoctor/index.html`Asciidoctorを使おう！`
 
+%include ../../pdoc/footer.pdoc

@@ -16,3 +16,5 @@
 %navigation%ul
 - `read/index.html`Read`
 - `blog/index.html`Blog`
+
+%include ../pdoc/footer.pdoc

@@ -191,3 +191,5 @@
 - `"http://qiita.com/szktty/items/05cb2b754c88fbacc274"`"OCaml の記号あれこれ"`
 - `"http://d.hatena.ne.jp/osiire/20090510/1241957550"`"多相バリアントを使いこなそう(1)"`
 - `"http://d.hatena.ne.jp/osiire/20090516"`"多相バリアントを使いこなそう(4)"`
+
+%include ../../pdoc/footer.pdoc

@@ -3,23 +3,31 @@
 DESTDIR=pasberth.github.io
 PARADOCS=./paradocs/dist/build/paradocs/paradocs
 
-$(DESTDIR)/index.html: src/index.pdoc
+$(DESTDIR): $(DESTDIR)/index.html \
+	$(DESTDIR)/readme/index.html \
+	$(DESTDIR)/read/index.html \
+	$(DESTDIR)/blog/index.html \
+	$(DESTDIR)/blog/use-asciidoctor/index.html \
+	$(patsubst src/%/static, $(DESTDIR)/%/raw, $(shell find src -name static)) \
+	$(DESTDIR)/css/main.css
+
+$(DESTDIR)/index.html: src/index.pdoc pdoc/footer.pdoc
 	mkdir -p $(DESTDIR)
 	$(PARADOCS) src/index.pdoc > $(DESTDIR)/index.html
 
-$(DESTDIR)/readme/index.html: src/readme/index.pdoc
+$(DESTDIR)/readme/index.html: src/readme/index.pdoc pdoc/footer.pdoc
 	mkdir -p $(DESTDIR)/readme
 	$(PARADOCS) src/readme/index.pdoc > $(DESTDIR)/readme/index.html
 
-$(DESTDIR)/read/index.html: src/read/index.pdoc
+$(DESTDIR)/read/index.html: src/read/index.pdoc pdoc/footer.pdoc
 	mkdir -p $(DESTDIR)/read
 	$(PARADOCS) src/read/index.pdoc > $(DESTDIR)/read/index.html
 
-$(DESTDIR)/blog/index.html: src/blog/index.pdoc
+$(DESTDIR)/blog/index.html: src/blog/index.pdoc pdoc/footer.pdoc
 	mkdir -p $(DESTDIR)/blog
 	$(PARADOCS) src/blog/index.pdoc > $(DESTDIR)/blog/index.html
 
-$(DESTDIR)/blog/use-asciidoctor/index.html: src/blog/use-asciidoctor/index.pdoc
+$(DESTDIR)/blog/use-asciidoctor/index.html: src/blog/use-asciidoctor/index.pdoc pdoc/footer.pdoc
 	mkdir -p $(DESTDIR)/blog/use-asciidoctor
 	$(PARADOCS) src/blog/use-asciidoctor/index.pdoc > $(DESTDIR)/blog/use-asciidoctor/index.html
 

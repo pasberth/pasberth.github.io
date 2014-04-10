@@ -220,3 +220,5 @@ MathJax が使えるようになりました。
 - %""<a id="4"></a>[4]"" `"http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/"`AsciiDoc Syntax Quick Reference`
 - %""<a id="5"></a>[5]"" `"http://asciidoctor.org/docs/user-manual/"`Asciidoctor User Manual`
 - %""<a id="6"></a>[6]"" `"http://asciidoctor.org/docs/user-manual/#syntax-highlighting"`4.1. Syntax Highlighting`
+
+%include ../../../pdoc/footer.pdoc
