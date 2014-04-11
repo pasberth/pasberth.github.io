@@ -23,32 +23,10 @@ Asciidoctor は Ruby で実装されているということで、宗教的な�
 処理系として Asciidoctor を使うことを前提としています。
 
 このブログは主に Asciidoctor の布教を目的としています。
-%"<s>このブログ自体も Asciidoctor でつくられています。</s>"
+%"<s>このブログ自体も Asciidoctor でつくられています。</s>" `#7`[7]`
 フフフ…怖いか？　実際に Asciidoctor を使うときは、
 `http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/`AsciiDoc Syntax Quick Reference` `#2`[4]` や
 `http://asciidoctor.org/docs/user-manual/`Asciidoctor User Manual` `#2`[5]` をよく読むべきでしょう。
-
-== Asciidoctorの使いどころ
-
-Qiita やはてなブログでは Markdown を使って記事を書くことができますよね。
-また、 GitHub の README もよく Markdown を使って書かれます。
-あるいは、スライドが Markdown で書かれることもあります。
-
-残念ながら Qiita などでは原理的に Asciidoctor を使って記事を書くことは
-できないでしょう。それに仮に使えても、それが良い選択であることには
-ならないと思います。
-
-なぜなら、 Qiita で書く記事には必要とされないような
-たくさんの機能が Asciidoctor にはあるからです。
-もし Qiita で記事を書くときに Asciidoctor を使えても、
-その機能のほとんどは腐ってしまうでしょう。 Markdown で書くのが
-ちょうどいいと思います。
-
-では、 Asciidoctor はどういうときに使うのだろう？
-Asciidoctor は、ちょうど HTML を出力する LaTeX というような、
-LaTeX と Markdown の中間のようなツールだと思います。
-つまり、キレイなウェブページを書きたいけど、
-HTML は書きたくない。そういう場合に使うといいと思います。
 
 == Installation
 
@@ -109,6 +87,56 @@ AsciiDoc を使う理由になりますわ＾〜
 %title `raw/asciidoctor-cheatsheet.html`asciidoctor-cheatsheet.html`
 %content
 %read static/asciidoctor-cheatsheet.html
+
+== 属性
+
+ちょっとだけ嬉しい機能は属性です。
++:attr: value+ のようにして属性を設定すると、
++{attr}+ のようにしてその内容を展開できます。
+ちょっとしたテンプレートみたいなことができるわけですね。
+
+属性を消したいときは +:!attr:+ と書きます。
+
+くわしくは `"http://asciidoctor.org/docs/user-manual/#attributes"`3. Attribute`
+`#9`[9]` をごらんください。
+
+また、 +stylesheet+ や +math+ など、
+いろいろな特殊な属性が用意されていて、それらは
+全体の出力に影響します。
+
+%code-frame
+%title `raw/attributes.adoc`attributes.adoc`
+%content
+%read static/attributes.adoc
+
+%code-frame
+%title `raw/attributes.html`attributes.html`
+%content
+%read static/attributes.html
+
+`"http://asciidoctor.org/docs/user-manual/#built-in-data-attributes"`3.3. Built-in data attributes`
+`#10`[10]`
+に、いろいろと組み込みで利用可能な属性が載っています。
+
+また、コンパイルするときに +"-a attr=value"+ という形式で
+属性を与えることもできます。
+
+%code-frame
+%title `raw/make-git-revision-attribute.sh`make-git-revision-attribute.sh`
+%content
+%read static/make-git-revision-attribute.sh
+
+%code-frame
+%title `raw/git-revision-attribute.adoc`git-revision-attribute.adoc`
+%content
+%read static/git-revision-attribute.adoc
+
+%code-frame
+%title `raw/git-revision-attribute.html`git-revision-attribute.html`
+%content
+%read static/git-revision-attribute.html
+
+
 
 == CSS を使う
 
@@ -211,6 +239,161 @@ MathJax が使えるようになりました。
 %content
 %read static/mathjax.html
 
+== +docinfo.html+ , +docinfo-footer.html+ について
+
+くわしくは `#8`[8]` に載っています。
+
++docinfo+ 属性を設定すると、 +<docname>-docinfo.html+ ,
++<docname>-footer.html+ という名前のファイルが読まれ、
+ファイルに含まれるようになります。
++<docname>-docinfo.html+ にはスタイルや JavaScript などの
+情報を書き、 +<docname>-footer.html+ にはフッタの
+情報を書きます。 しかしどういうわけか  +<docname>-footer.html+
+のほうは読み出されませんでした…これはバグかもしれない。
+
+%code-frame
+%title `raw/docinfo-example.adoc`docinfo-example.adoc`
+%content
+%read static/docinfo-example.adoc
+
+%code-frame
+%title `raw/docinfo-example-docinfo.html`docinfo-example-docinfo.html`
+%content
+%read static/docinfo-example-docinfo.html
+
+%code-frame
+%title `raw/docinfo-example-footer.html`docinfo-example-footer.html`
+%content
+%read static/docinfo-example-footer.html
+
+以上のファイルを用意して、コンパイルすれば、次の HTML になります。
+
+%code-frame
+%title `raw/docinfo-example.html`docinfo-example.html`
+%content
+%read static/docinfo-example.html
+
++docinfo1+ 属性を設定すると、 +docinfo.html+ ,
++docinfo-footer.html+ という名前のファイルが読まれ、
+ファイルに含まれるようになります。 +docinfo+ との違いは
+読まれるファイルの名前の違いです。 +docinfo1+ のほうには、
+いつくかのドキュメントで共通して使いたい情報を書くといいみたい
+です。
+
+%code-frame
+%title `raw/docinfo1-example.adoc`docinfo1-example.adoc`
+%content
+%read static/docinfo1-example.adoc
+
+%code-frame
+%title `raw/docinfo.html`docinfo.html`
+%content
+%read static/docinfo.html
+
+%code-frame
+%title `raw/docinfo-footer.html`docinfo-footer.html`
+%content
+%read static/docinfo-footer.html
+
+%code-frame
+%title `raw/docinfo1-example.html`docinfo1-example.html`
+%content
+%read static/docinfo1-example.html
+
+== Asciidoctor のハマりどころ
+
+Asciidoctor にもハマりどころがいくつかあります。
+
+=== そのいち
+
+たとえば次のようなファイルをつくって…
+
+%code-frame
+%title `raw/hyphens.adoc`hyphens.adoc`
+%content
+%read static/hyphens.adoc
+
+次のように include しようとすると…・
+
+%code-frame
+%title `raw/include-hyphens.adoc`raw/include-hyphens.adoc`
+%content
+%read static/include-hyphens.adoc
+
+こうなります。
+
+%code-frame
+%title `raw/include-hyphens.html`raw/include-hyphens.html`
+%content
+%read static/include-hyphens.html
+
+なんてこった！　つまり、ちょうどCプリプロセッサみたいに、
+そこにそのまま文字列として展開されて、
+
+%pre"""
+----
+this is a paragraph
+
+----
+this is a literal
+----
+
+this is a paragraph
+----
+"""
+
+こう書かれているものとして扱われて
+しまっているわけです。
+
++----+ なんてなかなか使う記号ではないとはいえ、これはちょっと
+あんまりな仕様です。なお、これを回避するには、次のように
+ハイフンの数を増やします。
+
+%code-frame
+%title `raw/avoid-hyphens.adoc`raw/avoid-hyphens.adoc`
+%content
+%read static/avoid-hyphens.adoc
+
+
+=== そのに
+
+たとえば +mydir/mydoc.adoc+ というファイルをコンパイルしたいとします。
+
+%pre"""
+asciidoctor mydir/mydoc.adoc
+"""
+
+とコマンドを入力してコンパイルするでしょう。そのとき、
+もし +mydoc.adoc+ に +docinfo1+ が設定されていたら、
++docinfo.html+ というファイルは、 +mydoc/docinfo.html+ という
+場所にあるものが使われます。ところが、たとえば
++stylesheet+ に +mycss.css+ と設定していた
+場合、 +mydoc/mycss.css+ ではなくて +./mycss.css+ を探そうと
+します。
+
+要するに、 +docinfo+ はファイルからの相対位置で探そうとするけど、
++stylesheet+ は作業ディレクトリからの相対位置で探そうとする
+というわけです。
+
+これだけでもちょっとわかりにくいのですが、
+Asciidoctor には
+`"http://asciidoctor.org/docs/user-manual/#running-asciidoctor-securely"`セキュリティレベル`
+`#11`[11]` という仕様があり、どれを選ぶかによって
+CSS を探す場所が変わってしまうというオドロキの仕様です。
+
+このへんでちょっとハマりそうです…
+
+=== そのさん
+
+エスケープの規則がわかりにくい。
+たとえば +"*\\**"+ と書いたらどのように表示されることを
+望むでしょう？　ふつう、 +\\+ という記号はエスケープのため
+のメタな文字であり、 +"\\*"+ は +"*"+ という文字そのもの
+を表している、というわけで、 *\** と表示されることを期待
+しませんか？　ところが、実際は *\\\** と表示されます。
+
+このあたりのエスケープの規則がよくわからない。
+
 == 参考文献
 
 %ul
@@ -220,5 +403,12 @@ MathJax が使えるようになりました。
 - %""<a id="4"></a>[4]"" `"http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/"`AsciiDoc Syntax Quick Reference`
 - %""<a id="5"></a>[5]"" `"http://asciidoctor.org/docs/user-manual/"`Asciidoctor User Manual`
 - %""<a id="6"></a>[6]"" `"http://asciidoctor.org/docs/user-manual/#syntax-highlighting"`4.1. Syntax Highlighting`
+- %""<a id="7"></a>[7]""
+    `"https://github.com/pasberth/pasberth.github.io/blob/old-asciidoctor/src/blog/use-asciidoctor/index.adoc"`途中まではAsciidoctorで書かれていた` んですが、
+    ブログを書いていて、 Asciidoctor の気に入らないところが徐々にわかってきたので、途中から `https://github.com/pasberth/paradocs`Paradocs` を使うようになりました。
+- %""<a id="8"></a>[8]"" `"http://asciidoctor.org/docs/user-manual/#docinfo-file"`7. Docinfo file`
+- %""<a id="9"></a>[9]"" `"http://asciidoctor.org/docs/user-manual/#attributes"`3. Attribute`
+- %""<a id="10"></a>[10]"" `"http://asciidoctor.org/docs/user-manual/#built-in-data-attributes"`"3.3. Built-in data attributes"`
+- %""<a id="11"></a>[11]"" `"http://asciidoctor.org/docs/user-manual/#running-asciidoctor-securely"`Running Asciidoctor Securely`
 
 %include ../../../pdoc/footer.pdoc

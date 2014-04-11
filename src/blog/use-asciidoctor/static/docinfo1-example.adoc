@@ -1,0 +1,2 @@
+= docinfo-example
+:docinfo1:
