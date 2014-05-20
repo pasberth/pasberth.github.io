@@ -1,8 +1,0 @@
-= attributes
-:name: pasberth
-
-My name is {name}.
-
-:!name:
-
-{name} was unset.

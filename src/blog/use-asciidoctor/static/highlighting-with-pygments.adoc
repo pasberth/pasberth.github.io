@@ -1,7 +1,0 @@
-= highlighting-with-pygments
-:source-highlighter: pygments
-
-[source,ocaml]
-----
-let () = print_string "hello world"
-----

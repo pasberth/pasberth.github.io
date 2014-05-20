@@ -1,1 +1,0 @@
-asciidoctor git-revision-attribute.adoc -a git-revision=`git rev-parse HEAD`

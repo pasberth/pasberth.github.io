@@ -1,8 +1,0 @@
-%rule sections sect1 footer
-  %extend inline
-  %before %""<div class="footer">""
-  %after %"</div>"
-
-%footer
-%"&#169;" Copyright 2014, `https://twitter.com/pasberth`Pasberth`.
-Created using `https://github.com/pasberth/paradocs`Paradocs`.

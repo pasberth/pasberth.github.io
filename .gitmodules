@@ -1,6 +1,0 @@
-[submodule "pasberth.github.io"]
-	path = pasberth.github.io
-	url = git@github.com:pasberth/pasberth.github.io.git
-[submodule "paradocs"]
-	path = paradocs
-	url = git@github.com:pasberth/paradocs.git

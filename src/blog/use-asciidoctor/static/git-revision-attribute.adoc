@@ -1,3 +1,0 @@
-= git-rivision-attribute
-
-Now HEAD is {git-revision}.

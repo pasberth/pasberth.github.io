@@ -1,7 +1,0 @@
-= highlighting-with-coderay
-:source-highlighter: coderay
-
-[source,clojure]
-----
-(println "hello world")
-----
