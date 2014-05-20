@@ -1,4 +1,4 @@
-%include ../../paradocs/lib/stdhtml.pdoc
+%include ../paradocs/lib/stdhtml.pdoc
 
 %html
 %head
