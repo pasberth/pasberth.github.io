@@ -1,8 +1,0 @@
-ul.list li {
-  transition: opacity 0.5s ease-in-out;
-  opacity: 1;
-}
-
-ul.list:hover li:not(:hover) {
-  opacity: 0.2;
-}
